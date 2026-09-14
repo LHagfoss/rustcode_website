@@ -5,8 +5,14 @@ import { useEffect, useState } from "react";
 
 const installers = [
   {
-    id: "unix",
-    name: "macOS / Linux",
+    id: "macos",
+    name: "macOS",
+    note: "Bash",
+    command: "curl -fsSL https://rustcode.lhagfoss.com/install.sh | bash",
+  },
+  {
+    id: "linux",
+    name: "Linux",
     note: "Bash",
     command: "curl -fsSL https://rustcode.lhagfoss.com/install.sh | bash",
   },
@@ -20,7 +26,12 @@ const installers = [
 
 export default function Home() {
   const [copied, setCopied] = useState<string | null>(null);
+  const [activeInstaller, setActiveInstaller] =
+    useState<(typeof installers)[number]["id"]>("macos");
   const [stars, setStars] = useState<number | null>(null);
+  const selectedInstaller =
+    installers.find((installer) => installer.id === activeInstaller) ??
+    installers[0];
 
   useEffect(() => {
     fetch("https://api.github.com/repos/LHagfoss/rustcode")
@@ -61,17 +72,23 @@ export default function Home() {
             </span>
           </a>
           <a
-            className="flex items-center gap-2 text-sm text-[#7f8d9c] transition hover:text-[#d8e0e8]"
+            className="flex items-center gap-3 rounded-xl border border-[#526b83] bg-[#233143] px-4 py-2.5 text-sm font-medium text-[#d8e0e8] transition hover:border-[#6d9bc4] hover:bg-[#2a394b]"
             href="https://github.com/LHagfoss/rustcode"
             target="_blank"
             rel="noreferrer"
           >
-            <span>GitHub ↗</span>
+            <span>GitHub</span>
             {stars !== null && (
-              <span className="rounded-full border border-[#34465b] px-2 py-0.5 font-mono text-xs text-[#c8ad72]">
+              <span className="font-mono text-xs text-[#c8ad72]">
                 ★ {new Intl.NumberFormat().format(stars)}
               </span>
             )}
+            <span
+              className="text-xl leading-none text-[#6d9bc4]"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
           </a>
         </header>
 
@@ -89,34 +106,56 @@ export default function Home() {
               directly in the projects you already know.
             </p>
 
-            <div className="mt-10 space-y-3">
-              {installers.map((installer) => (
-                <div
-                  className="group rounded-2xl border border-[#34465b] bg-[#233143] p-4 transition hover:border-[#6d9bc4]/70"
-                  key={installer.id}
-                >
-                  <div className="mb-3 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="font-medium">{installer.name}</p>
-                      <p className="mt-0.5 text-xs text-[#7f8d9c]">
-                        {installer.note}
-                      </p>
-                    </div>
-                    <button
-                      className="rounded-lg border border-[#526b83] px-3 py-1.5 text-xs font-medium text-[#6d9bc4] transition hover:border-[#6d9bc4] focus:outline-none focus:ring-2 focus:ring-[#6d9bc4]"
-                      type="button"
-                      onClick={() =>
-                        copyCommand(installer.id, installer.command)
-                      }
-                    >
-                      {copied === installer.id ? "Copied" : "Copy"}
-                    </button>
-                  </div>
-                  <code className="block overflow-x-auto whitespace-nowrap rounded-xl bg-[#192330] px-3 py-2.5 font-mono text-xs text-[#d8e0e8]">
-                    {installer.command}
-                  </code>
+            <div className="mt-10 rounded-2xl border border-[#34465b] bg-[#233143] p-4">
+              <div
+                className="flex rounded-xl bg-[#192330] p-1"
+                role="tablist"
+                aria-label="Choose your platform"
+              >
+                {installers.map((installer) => (
+                  <button
+                    className={
+                      "flex-1 rounded-lg px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-[#6d9bc4] " +
+                      (activeInstaller === installer.id
+                        ? "bg-[#6d9bc4] text-[#192330]"
+                        : "text-[#7f8d9c] hover:bg-[#2a394b] hover:text-[#d8e0e8]")
+                    }
+                    key={installer.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeInstaller === installer.id}
+                    onClick={() => setActiveInstaller(installer.id)}
+                  >
+                    {installer.name}
+                  </button>
+                ))}
+              </div>
+              <div
+                className="mt-4"
+                role="tabpanel"
+                aria-label={`${selectedInstaller.name} installer`}
+              >
+                <div className="mb-3 flex items-center justify-between gap-4">
+                  <p className="text-xs text-[#7f8d9c]">
+                    {selectedInstaller.note}
+                  </p>
+                  <button
+                    className="rounded-lg border border-[#526b83] px-3 py-1.5 text-xs font-medium text-[#6d9bc4] transition hover:border-[#6d9bc4] focus:outline-none focus:ring-2 focus:ring-[#6d9bc4]"
+                    type="button"
+                    onClick={() =>
+                      copyCommand(
+                        selectedInstaller.id,
+                        selectedInstaller.command,
+                      )
+                    }
+                  >
+                    {copied === selectedInstaller.id ? "Copied" : "Copy"}
+                  </button>
                 </div>
-              ))}
+                <code className="block overflow-x-auto whitespace-nowrap rounded-xl bg-[#192330] px-3 py-2.5 font-mono text-xs text-[#d8e0e8]">
+                  {selectedInstaller.command}
+                </code>
+              </div>
             </div>
             <p className="mt-4 text-xs text-[#7f8d9c]">
               The installer fetches the latest verified native release.
@@ -134,12 +173,13 @@ export default function Home() {
                   rustcode — ~/project
                 </span>
               </div>
-              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-b-[1rem] bg-[#192330]">
+              <div className="flex items-center justify-center overflow-hidden rounded-b-[1rem] bg-[#192330]">
                 <Image
-                  className="object-cover"
+                  className="h-auto w-full"
                   src="/images/header.png"
                   alt="RustCode running in a terminal"
-                  fill
+                  width={1078}
+                  height={712}
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   priority
                 />
