@@ -1,12 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const installers = [
   {
-    id: "unix",
-    name: "macOS / Linux",
+    id: "macos",
+    name: "macOS",
+    note: "Bash",
+    command: "curl -fsSL https://rustcode.lhagfoss.com/install.sh | bash",
+  },
+  {
+    id: "linux",
+    name: "Linux",
     note: "Bash",
     command: "curl -fsSL https://rustcode.lhagfoss.com/install.sh | bash",
   },
@@ -20,7 +26,24 @@ const installers = [
 
 export default function Home() {
   const [copied, setCopied] = useState<string | null>(null);
-  const [screenshotAvailable, setScreenshotAvailable] = useState(true);
+  const [activeInstaller, setActiveInstaller] =
+    useState<(typeof installers)[number]["id"]>("macos");
+  const [stars, setStars] = useState<number | null>(null);
+  const selectedInstaller =
+    installers.find((installer) => installer.id === activeInstaller) ??
+    installers[0];
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/LHagfoss/rustcode")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("GitHub request failed");
+        }
+        return response.json() as Promise<{ stargazers_count: number }>;
+      })
+      .then((repository) => setStars(repository.stargazers_count))
+      .catch(() => setStars(null));
+  }, []);
 
   async function copyCommand(id: string, command: string) {
     try {
@@ -33,7 +56,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#10100f] text-[#f4f0e8]">
+    <main className="min-h-screen overflow-hidden bg-[#192330] text-[#d8e0e8]">
       <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-6 sm:px-10 sm:py-8">
         <header className="flex items-center justify-between">
           <a
@@ -41,7 +64,7 @@ export default function Home() {
             href="/"
             aria-label="RustCode home"
           >
-            <span className="grid size-9 place-items-center rounded-xl bg-[#e8ff59] font-mono text-lg font-bold text-[#10100f]">
+            <span className="grid size-9 place-items-center rounded-xl bg-[#6d9bc4] font-mono text-lg font-bold text-[#192330]">
               &gt;_
             </span>
             <span className="font-mono text-lg font-semibold tracking-tight">
@@ -49,106 +72,126 @@ export default function Home() {
             </span>
           </a>
           <a
-            className="text-sm text-[#a9a59c] transition hover:text-[#f4f0e8]"
+            className="flex items-center gap-3 rounded-xl border border-[#526b83] bg-[#233143] px-4 py-2.5 text-sm font-medium text-[#d8e0e8] transition hover:border-[#6d9bc4] hover:bg-[#2a394b]"
             href="https://github.com/LHagfoss/rustcode"
             target="_blank"
             rel="noreferrer"
           >
-            GitHub ↗
+            <span>GitHub</span>
+            {stars !== null && (
+              <span className="font-mono text-xs text-[#c8ad72]">
+                ★ {new Intl.NumberFormat().format(stars)}
+              </span>
+            )}
+            <span
+              className="text-xl leading-none text-[#6d9bc4]"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
           </a>
         </header>
 
         <section className="grid flex-1 items-center gap-14 py-16 lg:grid-cols-[1fr_1.1fr] lg:gap-20 lg:py-24">
           <div>
-            <p className="mb-6 font-mono text-sm uppercase tracking-[0.22em] text-[#e8ff59]">
+            <p className="mb-6 font-mono text-sm uppercase tracking-[0.22em] text-[#6d9bc4]">
               Terminal pair programming
             </p>
             <h1 className="max-w-xl text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-7xl">
               Your codebase. Your terminal.
-              <span className="text-[#e8ff59]"> Your agent.</span>
+              <span className="text-[#6d9bc4]"> Your agent.</span>
             </h1>
-            <p className="mt-7 max-w-lg text-lg leading-8 text-[#a9a59c]">
+            <p className="mt-7 max-w-lg text-lg leading-8 text-[#7f8d9c]">
               RustCode is a fast, native terminal agent for pair programming
               directly in the projects you already know.
             </p>
 
-            <div className="mt-10 space-y-3">
-              {installers.map((installer) => (
-                <div
-                  className="group rounded-2xl border border-white/10 bg-white/[0.045] p-4 transition hover:border-[#e8ff59]/50"
-                  key={installer.id}
-                >
-                  <div className="mb-3 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="font-medium">{installer.name}</p>
-                      <p className="mt-0.5 text-xs text-[#8b877f]">
-                        {installer.note}
-                      </p>
-                    </div>
-                    <button
-                      className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-[#e8ff59] transition hover:border-[#e8ff59] focus:outline-none focus:ring-2 focus:ring-[#e8ff59]"
-                      type="button"
-                      onClick={() =>
-                        copyCommand(installer.id, installer.command)
-                      }
-                    >
-                      {copied === installer.id ? "Copied" : "Copy"}
-                    </button>
-                  </div>
-                  <code className="block overflow-x-auto whitespace-nowrap rounded-xl bg-black/30 px-3 py-2.5 font-mono text-xs text-[#d6d1c6]">
-                    {installer.command}
-                  </code>
+            <div className="mt-10 rounded-2xl border border-[#34465b] bg-[#233143] p-4">
+              <div
+                className="flex rounded-xl bg-[#192330] p-1"
+                role="tablist"
+                aria-label="Choose your platform"
+              >
+                {installers.map((installer) => (
+                  <button
+                    className={
+                      "flex-1 rounded-lg px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-[#6d9bc4] " +
+                      (activeInstaller === installer.id
+                        ? "bg-[#6d9bc4] text-[#192330]"
+                        : "text-[#7f8d9c] hover:bg-[#2a394b] hover:text-[#d8e0e8]")
+                    }
+                    key={installer.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeInstaller === installer.id}
+                    onClick={() => setActiveInstaller(installer.id)}
+                  >
+                    {installer.name}
+                  </button>
+                ))}
+              </div>
+              <div
+                className="mt-4"
+                role="tabpanel"
+                aria-label={`${selectedInstaller.name} installer`}
+              >
+                <div className="mb-3 flex items-center justify-between gap-4">
+                  <p className="text-xs text-[#7f8d9c]">
+                    {selectedInstaller.note}
+                  </p>
+                  <button
+                    className="rounded-lg border border-[#526b83] px-3 py-1.5 text-xs font-medium text-[#6d9bc4] transition hover:border-[#6d9bc4] focus:outline-none focus:ring-2 focus:ring-[#6d9bc4]"
+                    type="button"
+                    onClick={() =>
+                      copyCommand(
+                        selectedInstaller.id,
+                        selectedInstaller.command,
+                      )
+                    }
+                  >
+                    {copied === selectedInstaller.id ? "Copied" : "Copy"}
+                  </button>
                 </div>
-              ))}
+                <code className="block overflow-x-auto whitespace-nowrap rounded-xl bg-[#192330] px-3 py-2.5 font-mono text-xs text-[#d8e0e8]">
+                  {selectedInstaller.command}
+                </code>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-[#77736c]">
+            <p className="mt-4 text-xs text-[#7f8d9c]">
               The installer fetches the latest verified native release.
             </p>
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-8 rounded-full bg-[#e8ff59]/10 blur-3xl" />
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/15 bg-[#1a1a18] p-2 shadow-2xl shadow-black/40">
-              <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-3">
-                <span className="size-2.5 rounded-full bg-[#ff6b5f]" />
-                <span className="size-2.5 rounded-full bg-[#f4c95d]" />
-                <span className="size-2.5 rounded-full bg-[#62c554]" />
-                <span className="ml-3 font-mono text-[11px] text-[#77736c]">
+            <div className="absolute -inset-8 rounded-full bg-[#6d9bc4]/10 blur-3xl" />
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-[#34465b] bg-[#233143] p-2 shadow-2xl shadow-black/30">
+              <div className="flex items-center gap-1.5 border-b border-[#34465b] px-3 py-3">
+                <span className="size-2.5 rounded-full bg-[#ec6e5d]" />
+                <span className="size-2.5 rounded-full bg-[#c8ad72]" />
+                <span className="size-2.5 rounded-full bg-[#8fa878]" />
+                <span className="ml-3 font-mono text-[11px] text-[#7f8d9c]">
                   rustcode — ~/project
                 </span>
               </div>
-              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-b-[1rem] bg-[#0c0c0b]">
-                {screenshotAvailable ? (
-                  <Image
-                    className="object-cover"
-                    src="/rustcode-screenshot.png"
-                    alt="RustCode running in a terminal"
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    onError={() => setScreenshotAvailable(false)}
-                  />
-                ) : (
-                  <div className="flex flex-col items-center gap-3 px-8 text-center text-[#77736c]">
-                    <span className="font-mono text-4xl text-[#e8ff59]">
-                      &gt;_
-                    </span>
-                    <p className="text-sm">
-                      Your RustCode screenshot goes here.
-                    </p>
-                    <p className="font-mono text-xs text-[#55524d]">
-                      public/rustcode-screenshot.png
-                    </p>
-                  </div>
-                )}
+              <div className="flex items-center justify-center overflow-hidden rounded-b-[1rem] bg-[#192330]">
+                <Image
+                  className="h-auto w-full"
+                  src="/images/header.png"
+                  alt="RustCode running in a terminal"
+                  width={1078}
+                  height={712}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  priority
+                />
               </div>
             </div>
-            <p className="mt-4 text-center text-xs text-[#77736c]">
+            <p className="mt-4 text-center text-xs text-[#7f8d9c]">
               A calm interface for serious work.
             </p>
           </div>
         </section>
 
-        <footer className="flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-[#77736c] sm:flex-row sm:items-center sm:justify-between">
+        <footer className="flex flex-col gap-2 border-t border-[#34465b] pt-5 text-xs text-[#7f8d9c] sm:flex-row sm:items-center sm:justify-between">
           <span>Built for the command line.</span>
           <span className="font-mono">macOS · Linux · Windows</span>
         </footer>
