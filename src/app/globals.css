@@ -123,37 +123,21 @@ a {
   color: #3b7898;
 }
 
-.github-actions {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.github-button,
 .star-button {
+  --drawably-paper: #fffdf8;
+  --drawably-stroke: #77736d;
+  background: #fffdf8;
   min-height: 34px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   font-size: 13px;
   font-weight: 600;
-}
-
-.github-button {
-  gap: 8px;
-}
-
-.star-button {
   gap: 7px;
-}
-
-.github-icon {
-  width: 16px;
-  height: 16px;
 }
 
 .star-count {
-  padding: 4px 7px;
+  padding: 3px 7px;
   border-radius: 4px;
-  background: #e8e3da;
+  background: #ebe9e4;
   color: #6e675f;
   font:
     500 11px / 1 var(--font-geist-mono),
@@ -287,7 +271,6 @@ h1 {
 }
 
 .platform-tabs > button:focus-visible,
-.github-button:focus-visible,
 .star-button:focus-visible,
 .copy-button:focus-visible {
   outline: 2px solid #8cb0c5;
@@ -494,14 +477,6 @@ h1 {
 @media (max-width: 600px) {
   .site-header {
     align-items: flex-start;
-  }
-
-  .github-button {
-    padding-inline: 9px;
-  }
-
-  .github-button .github-label {
-    display: none;
   }
 
   .hero-grid {

@@ -124,44 +124,24 @@ export default function Home() {
             </span>
           </a>
 
-          <div className="github-actions">
-            <DrawablyButton
-              className="github-button"
-              variant="outline"
-              tone="neutral"
-              seed={12}
-              onClick={openGithub}
-            >
-              <svg
-                className="github-icon"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.94 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.76.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z" />
-              </svg>
-              <span className="github-label">GitHub</span>
-            </DrawablyButton>
-
-            <DrawablyButton
-              className="star-button"
-              variant="outline"
-              tone="neutral"
-              seed={13}
-              onClick={openGithub}
-              aria-label="Star RustCode on GitHub"
-            >
-              <span className="star-icon" aria-hidden="true">
-                ☆
+          <DrawablyButton
+            className="star-button"
+            variant="outline"
+            tone="neutral"
+            seed={12}
+            onClick={openGithub}
+            aria-label="Star RustCode on GitHub"
+          >
+            <span className="star-icon" aria-hidden="true">
+              ☆
+            </span>
+            <span>Star</span>
+            {stars !== null && (
+              <span className="star-count">
+                {new Intl.NumberFormat().format(stars)}
               </span>
-              <span>Star</span>
-              {stars !== null && (
-                <span className="star-count">
-                  {new Intl.NumberFormat().format(stars)}
-                </span>
-              )}
-            </DrawablyButton>
-          </div>
+            )}
+          </DrawablyButton>
         </header>
 
         <section className="hero-grid">
