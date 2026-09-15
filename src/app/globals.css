@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import "drawably/style.css";
 
 :root {
-  --background: #192330;
-  --foreground: #d8e0e8;
+  --background: #f4f0e7;
+  --foreground: #243340;
 }
 
 @theme inline {
@@ -12,13 +13,549 @@
   --font-mono: var(--font-geist-mono);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
 body {
+  min-width: 320px;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::selection {
-  background: #6d9bc4;
-  color: #192330;
+  background: #b8d4e6;
+  color: #20303d;
+}
+
+.drawably-page {
+  --drawably-stroke: #315c78;
+  --drawably-fill: #315c78;
+  --drawably-ink: #315c78;
+  --drawably-paper: #f4f0e7;
+  --drawably-width: 1.8;
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 78% 20%,
+      rgba(190, 211, 222, 0.38),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 13% 76%,
+      rgba(232, 207, 168, 0.28),
+      transparent 24rem
+    ),
+    var(--background);
+}
+
+.page-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.site-header,
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-view-count {
+  color: #9a6d29;
+  font:
+    500 10px / 1.2 var(--font-geist-mono),
+    monospace;
+  white-space: nowrap;
+}
+
+.site-header {
+  min-height: 42px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.brand-mark {
+  padding: 4px 8px;
+  color: #f4f0e7;
+  font:
+    700 16px / 1 var(--font-geist-mono),
+    monospace;
+  letter-spacing: -0.12em;
+}
+
+.brand-name {
+  font:
+    600 18px / 1 var(--font-geist-mono),
+    monospace;
+  letter-spacing: -0.045em;
+}
+
+.accent {
+  color: #3b7898;
+}
+
+.github-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.github-button,
+.star-button {
+  min-height: 34px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.github-button {
+  gap: 8px;
+}
+
+.star-button {
+  gap: 7px;
+}
+
+.github-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.star-count {
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: #e8e3da;
+  color: #6e675f;
+  font:
+    500 11px / 1 var(--font-geist-mono),
+    monospace;
+}
+
+.star-icon {
+  display: inline-block;
+  color: #6e675f;
+  font-size: 1.4em;
+  line-height: 0;
+  transform: translateY(1px);
+}
+
+.star-number {
+  color: #315c78;
+  font-weight: 700;
+}
+
+.hero-grid {
+  display: grid;
+  flex: 1;
+  align-items: center;
+  gap: 72px;
+  padding: 90px 0 88px;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.eyebrow,
+.release-badge {
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.eyebrow {
+  padding: 3px 9px;
+  color: #315c78;
+  font-size: 11px;
+}
+
+h1 {
+  max-width: 700px;
+  margin: 22px 0 0;
+  color: #21313d;
+  font-size: clamp(3.4rem, 6.4vw, 6.25rem);
+  font-weight: 650;
+  letter-spacing: -0.075em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+.hero-description {
+  max-width: 520px;
+  margin: 28px 0 0;
+  color: #687985;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-description .drawably-highlight {
+  color: #21313d;
+  font-weight: 650;
+}
+
+.install-card {
+  max-width: 650px;
+  margin-top: 40px;
+  padding: 22px 24px 20px;
+  background: transparent;
+  box-shadow: 0 22px 48px rgba(54, 65, 71, 0.06);
+}
+
+.install-card-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-kicker {
+  margin: 0 0 4px;
+  color: #8a7155;
+  font:
+    500 10px / 1.2 var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.install-card h2 {
+  margin: 0;
+  color: #243340;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.release-badge {
+  padding: 3px 8px;
+  color: #6e675f;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.platform-tabs {
+  display: flex;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.platform-tabs > button {
+  position: relative;
+  padding: 3px 0 8px;
+  border: 0;
+  background: transparent;
+  color: #8a969c;
+  cursor: pointer;
+  font:
+    600 12px / 1 var(--font-geist-mono),
+    monospace;
+  transition: color 160ms ease;
+}
+
+.platform-tabs > button:hover,
+.platform-tabs > button[aria-selected="true"] {
+  color: #315c78;
+}
+
+.platform-tabs > button:focus-visible,
+.github-button:focus-visible,
+.star-button:focus-visible,
+.copy-button:focus-visible {
+  outline: 2px solid #8cb0c5;
+  outline-offset: 4px;
+}
+
+.platform-panel {
+  margin-top: 17px;
+  animation: platform-panel-in 240ms ease-out both;
+}
+
+.command-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #8a969c;
+  font:
+    500 11px / 1.2 var(--font-geist-mono),
+    monospace;
+}
+
+.copy-button {
+  min-height: 31px;
+  padding: 5px 10px;
+  font:
+    600 11px / 1 var(--font-geist-mono),
+    monospace;
+}
+
+.command-line {
+  display: block;
+  overflow-x: auto;
+  padding: 14px 15px;
+  background: #263b48;
+  color: #eef3f1;
+  font:
+    500 12px / 1.35 var(--font-geist-mono),
+    monospace;
+  white-space: nowrap;
+}
+
+.command-prompt {
+  margin-right: 10px;
+  color: #e7bd75;
+}
+
+.install-note {
+  margin: 13px 0 0;
+  color: #8a969c;
+  font-size: 11px;
+}
+
+.feature-list {
+  display: grid;
+  gap: 9px;
+  max-width: 620px;
+  margin: 25px 0 0;
+  color: #687985;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.terminal-column {
+  position: relative;
+  min-width: 0;
+}
+
+.terminal-halo {
+  position: absolute;
+  inset: 7% -8% 18%;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgba(128, 172, 193, 0.22);
+  filter: blur(58px);
+}
+
+.terminal-card {
+  padding: 9px;
+  background: transparent;
+  box-shadow: 0 26px 60px rgba(41, 57, 65, 0.15);
+  transform: rotate(1deg) scale(1.06);
+}
+
+.terminal-window {
+  overflow: hidden;
+  background: #172a35;
+  color: #dfe9e8;
+}
+
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 43px;
+  padding: 0 14px;
+}
+
+.window-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.window-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e18f73;
+}
+
+.window-dots span:nth-child(2) {
+  background: #e2bd78;
+}
+
+.window-dots span:nth-child(3) {
+  background: #8bb49b;
+}
+
+.window-title {
+  color: #8fa4aa;
+  font:
+    500 11px / 1 var(--font-geist-mono),
+    monospace;
+  letter-spacing: -0.02em;
+}
+
+.window-divider {
+  height: 8px;
+  margin: 0 12px;
+  --drawably-stroke: #47616c;
+  --drawably-width: 1;
+}
+
+.terminal-image-wrap {
+  overflow: hidden;
+  margin: 0 7px 7px;
+  background: #101e27;
+}
+
+.terminal-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.96;
+}
+
+.terminal-caption {
+  margin: 22px 0 0;
+  color: #71828a;
+  font-size: 12px;
+  text-align: center;
+}
+
+.terminal-caption .drawably-circle {
+  color: #315c78;
+  font-weight: 600;
+}
+
+.footer-divider {
+  height: 10px;
+  --drawably-stroke: #c5b9a6;
+  --drawably-width: 1.1;
+}
+
+.site-footer {
+  padding: 12px 0 5px;
+  color: #879298;
+  font-size: 11px;
+}
+
+.platform-note {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+@keyframes platform-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.94fr);
+  }
+}
+
+@media (max-width: 959px) {
+  .hero-grid {
+    gap: 64px;
+  }
+
+  .terminal-column {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .github-button {
+    padding-inline: 9px;
+  }
+
+  .github-button .github-label {
+    display: none;
+  }
+
+  .hero-grid {
+    gap: 52px;
+    padding: 72px 0 64px;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .install-card {
+    padding: 19px 17px 18px;
+  }
+
+  .install-card-header {
+    display: block;
+  }
+
+  .release-badge {
+    display: inline-block;
+    margin-top: 11px;
+  }
+
+  .platform-tabs {
+    gap: 17px;
+  }
+
+  .command-meta {
+    align-items: flex-start;
+  }
+
+  .terminal-card {
+    transform: rotate(0.5deg) scale(1.02);
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .site-footer-meta {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    gap: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-panel {
+    animation: none;
+  }
 }
