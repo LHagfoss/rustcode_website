@@ -2,6 +2,13 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  githubUrl,
+  siteDescription,
+  siteImage,
+  siteName,
+  siteUrl,
+} from "./site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,33 +21,55 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RustCode — Terminal pair programming",
-  description: "A fast, native terminal agent for pair programming.",
-  metadataBase: new URL("https://rustcode.lhagfoss.com"),
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "RustCode — Native terminal AI coding agent",
+    template: "%s | RustCode",
+  },
+  description: siteDescription,
+  applicationName: siteName,
+  authors: [{ name: siteName, url: githubUrl }],
+  creator: siteName,
+  publisher: siteName,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: "/images/rustcode-logo.png",
     apple: "/images/rustcode-logo.png",
   },
   openGraph: {
-    title: "RustCode — Terminal pair programming",
-    description: "A fast, native terminal agent for pair programming.",
-    url: "https://rustcode.lhagfoss.com",
-    siteName: "RustCode",
+    title: "RustCode — Native terminal AI coding agent",
+    description: siteDescription,
+    url: siteUrl,
+    siteName,
+    locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/images/header.png",
+        url: siteImage,
         width: 1078,
         height: 712,
-        alt: "RustCode running in a terminal",
+        alt: "RustCode terminal interface running in a project",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RustCode — Terminal pair programming",
-    description: "A fast, native terminal agent for pair programming.",
-    images: ["/images/header.png"],
+    title: "RustCode — Native terminal AI coding agent",
+    description: siteDescription,
+    images: [siteImage],
   },
 };
 
