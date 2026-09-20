@@ -13,6 +13,13 @@ import {
 } from "drawably/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import {
+  githubUrl,
+  siteDescription,
+  siteImage,
+  siteName,
+  siteUrl,
+} from "./site";
 
 const installers = [
   {
@@ -34,6 +41,37 @@ const installers = [
     command: "irm https://rustcode.lhagfoss.com/install.ps1 | iex",
   },
 ] as const;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteName,
+      description: siteDescription,
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${siteUrl}/#software`,
+      name: siteName,
+      description: siteDescription,
+      url: siteUrl,
+      image: `${siteUrl}${siteImage}`,
+      applicationCategory: "DeveloperApplication",
+      applicationSubCategory: "Terminal user interface agent harness",
+      operatingSystem: "macOS, Linux, Windows",
+      featureList: [
+        "Terminal pair programming",
+        "Native performance",
+        "OpenAI-compatible APIs",
+        "Ollama support",
+      ],
+      sameAs: [githubUrl],
+    },
+  ],
+};
 
 export default function Home() {
   const [copied, setCopied] = useState<string | null>(null);
@@ -97,15 +135,14 @@ export default function Home() {
   }
 
   function openGithub() {
-    window.open(
-      "https://github.com/LHagfoss/rustcode",
-      "_blank",
-      "noopener,noreferrer",
-    );
+    window.open(githubUrl, "_blank", "noopener,noreferrer");
   }
 
   return (
     <main className="drawably-page min-h-screen overflow-hidden">
+      <script type="application/ld+json">
+        {JSON.stringify(structuredData)}
+      </script>
       <div className="page-grain" aria-hidden="true" />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-6 sm:px-10 sm:py-8">
         <header className="site-header">
@@ -154,12 +191,12 @@ export default function Home() {
               <br />
               Your <DrawablyUnderline seed={22}>terminal</DrawablyUnderline>.
               <br />
-              <span className="accent">Your agent.</span>
+              <span className="accent">Your AI coding agent.</span>
             </h1>
             <p className="hero-description">
               <DrawablyHighlight seed={23}>RustCode</DrawablyHighlight> is a
-              fast, native terminal agent for pair programming directly in the
-              projects you already know.
+              lightweight, native terminal AI coding agent for pair programming
+              directly in the projects you already know.
             </p>
 
             <DrawablyCard
@@ -237,7 +274,10 @@ export default function Home() {
               <li>
                 Works in the terminal and inside the projects you already use.
               </li>
-              <li>Open source, local-first, and built for calm focus.</li>
+              <li>
+                Open source, local-first, and compatible with Ollama and
+                OpenAI-compatible APIs.
+              </li>
             </DrawablyList>
           </div>
 
@@ -275,6 +315,32 @@ export default function Home() {
               <DrawablyCircle seed={52}>No dashboard required.</DrawablyCircle>
             </p>
           </div>
+        </section>
+
+        <section
+          className="product-summary"
+          aria-labelledby="product-summary-title"
+        >
+          <div>
+            <p className="section-kicker">Built for developers</p>
+            <h2 id="product-summary-title">
+              A native AI coding agent for your terminal
+            </h2>
+            <p>
+              RustCode is a lightweight terminal user interface (TUI) agent
+              harness for pair programming, codebase exploration, and everyday
+              development. Run it on macOS, Linux, or Windows and connect it to
+              Ollama or an OpenAI-compatible API.
+            </p>
+          </div>
+          <a
+            className="github-link"
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Explore the open-source project <span aria-hidden="true">↗</span>
+          </a>
         </section>
 
         <DrawablyDivider className="footer-divider" seed={60} />
