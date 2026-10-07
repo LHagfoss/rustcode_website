@@ -42,6 +42,27 @@ const installers = [
   },
 ] as const;
 
+type Release = {
+  tag: string;
+  name: string;
+  url: string;
+  publishedAt: string | null;
+  notes: string[];
+};
+
+const releaseDateFormatter = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+function formatReleaseDate(value: string) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? null
+    : releaseDateFormatter.format(date);
+}
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -79,6 +100,8 @@ export default function Home() {
     useState<(typeof installers)[number]["id"]>("macos");
   const [stars, setStars] = useState<number | null>(null);
   const [pageViews, setPageViews] = useState<number | null>(null);
+  const [version, setVersion] = useState<string | null>(null);
+  const [releases, setReleases] = useState<Release[]>([]);
   const selectedInstaller =
     installers.find((installer) => installer.id === activeInstaller) ??
     installers[0];
@@ -116,6 +139,38 @@ export default function Home() {
       .catch(() => {
         if (!cancelled) {
           setPageViews(null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/releases")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Releases request failed");
+        }
+        return response.json() as Promise<{
+          version?: unknown;
+          releases?: unknown;
+        }>;
+      })
+      .then(({ version: latest, releases: entries }) => {
+        if (cancelled) {
+          return;
+        }
+        setVersion(typeof latest === "string" ? latest : null);
+        setReleases(Array.isArray(entries) ? (entries as Release[]) : []);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setVersion(null);
+          setReleases([]);
         }
       });
 
@@ -210,7 +265,7 @@ export default function Home() {
                   <h2>Install RustCode</h2>
                 </div>
                 <DrawablyBadge className="release-badge" seed={31}>
-                  latest release
+                  {version ?? "latest release"}
                 </DrawablyBadge>
               </div>
 
@@ -342,6 +397,62 @@ export default function Home() {
             Explore the open-source project <span aria-hidden="true">↗</span>
           </a>
         </section>
+
+        {releases.length > 0 && (
+          <section className="changelog" aria-labelledby="changelog-title">
+            <div className="changelog-heading">
+              <div>
+                <p className="section-kicker">Changelog</p>
+                <h2 id="changelog-title">What&apos;s new in RustCode</h2>
+              </div>
+              <a
+                className="github-link"
+                href={`${githubUrl}/releases`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                All releases <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <ol className="release-list">
+              {releases.map((release) => {
+                const date = release.publishedAt
+                  ? formatReleaseDate(release.publishedAt)
+                  : null;
+
+                return (
+                  <li className="release-item" key={release.tag}>
+                    <div className="release-meta">
+                      <a
+                        className="release-tag"
+                        href={release.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {release.tag}
+                      </a>
+                      {release.publishedAt && date && (
+                        <time
+                          className="release-date"
+                          dateTime={release.publishedAt}
+                        >
+                          {date}
+                        </time>
+                      )}
+                    </div>
+                    {release.notes.length > 0 && (
+                      <ul className="release-notes">
+                        {release.notes.map((note) => (
+                          <li key={`${release.tag}-${note}`}>{note}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        )}
 
         <DrawablyDivider className="footer-divider" seed={60} />
         <footer className="site-footer">
