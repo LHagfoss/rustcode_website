@@ -150,11 +150,12 @@ if [ "$TARGET_OS" = "macos" ]; then
         error "Intel macOS is not distributed via prebuilt binaries. Build from source instead: cargo install --path rustcode/tui"
     fi
 elif [ "$TARGET_OS" = "linux" ]; then
-    if [ "$TARGET_ARCH" = "x86_64" ]; then
-        ASSET_NAME="rustcode-linux-x86_64.tar.gz"
-    else
-        error "Linux $ARCH is not yet distributed via prebuilt binaries. Build from source instead: cargo install --path rustcode/tui"
+    # Release binaries link against glibc; musl systems (Alpine, Void musl)
+    # cannot run them.
+    if ldd --version 2>&1 | grep -qi musl; then
+        error "Prebuilt Linux binaries need glibc; this system uses musl. Build from source instead: cargo install --path rustcode/tui"
     fi
+    ASSET_NAME="rustcode-linux-${TARGET_ARCH}.tar.gz"
 fi
 
 info "Detecting latest release for ${TARGET_OS}-${TARGET_ARCH}..."
@@ -187,6 +188,9 @@ trap cleanup EXIT
 
 ARCHIVE_PATH="${TMP_DIR}/${ASSET_NAME}"
 if ! run_with_spinner "Downloading RustCode ${LATEST_TAG} (${ASSET_NAME})..." download "$DOWNLOAD_URL" "$ARCHIVE_PATH"; then
+    if [ "$ASSET_NAME" = "rustcode-linux-aarch64.tar.gz" ]; then
+        error "RustCode ${LATEST_TAG} has no Linux ARM64 binary (published from v0.79.0). Build from source instead: cargo install --path rustcode/tui"
+    fi
     error "Could not download ${ASSET_NAME}."
 fi
 
@@ -214,7 +218,8 @@ else
             }
         }
         END {
-            if (malformed || count != 1 || checksum !~ /^[0-9a-f]{64}$/) {
+            # mawk (Debian/Ubuntu default) has no {n} intervals.
+            if (malformed || count != 1 || length(checksum) != 64 || checksum ~ /[^0-9a-f]/) {
                 exit 1
             }
             print checksum
@@ -258,6 +263,15 @@ if ! run_with_spinner "Installing to ${TARGET_EXE}..." cp "$EXTRACTED_BIN" "$TAR
     error "Could not install RustCode to ${TARGET_EXE}."
 fi
 chmod +x "$TARGET_EXE"
+
+# Keep one code-signing identity across updates when the user has set up the
+# local certificate (scripts/macos-stable-signature.sh); otherwise macOS
+# Keychain asks for the login password again after every update.
+if [ "$(uname -s)" = "Darwin" ] && command -v codesign >/dev/null 2>&1; then
+    if codesign --force --sign "RustCode Local Signing" --identifier org.rustcode.cli "$TARGET_EXE" >/dev/null 2>&1; then
+        success "Signed with the local \"RustCode Local Signing\" certificate."
+    fi
+fi
 
 success "RustCode ${LATEST_TAG} installed successfully to ${TARGET_EXE}!"
 
