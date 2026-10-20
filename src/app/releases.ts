@@ -94,7 +94,7 @@ function readRelease(entry: GithubRelease): Release | null {
   };
 }
 
-export async function getReleases() {
+export async function getReleases(page = 1) {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "User-Agent": "rustcode-website",
@@ -105,10 +105,13 @@ export async function getReleases() {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${releasesUrl}?per_page=${maxReleases}`, {
-    headers,
-    next: { revalidate: 900 },
-  });
+  const response = await fetch(
+    `${releasesUrl}?per_page=${maxReleases}&page=${page}`,
+    {
+      headers,
+      next: { revalidate: 900 },
+    },
+  );
 
   if (!response.ok) {
     throw new Error(`GitHub releases request failed: ${response.status}`);
@@ -123,5 +126,10 @@ export async function getReleases() {
     .map((entry) => readRelease(entry as GithubRelease))
     .filter((release): release is Release => release !== null);
 
-  return { version: releases[0]?.tag ?? null, releases, source: githubUrl };
+  return {
+    version: page === 1 ? (releases[0]?.tag ?? null) : null,
+    releases,
+    source: githubUrl,
+    hasMore: payload.length === maxReleases,
+  };
 }

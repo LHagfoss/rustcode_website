@@ -435,6 +435,41 @@ h1 {
   list-style: none;
 }
 
+.release-load-more {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  min-height: 64px;
+  margin: 28px 0 0 22px;
+}
+
+.release-load-more-button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #a8c3d2;
+  border-radius: 4px;
+  background: #fffdf8;
+  color: #315c78;
+  font:
+    600 12px / 1.4 var(--font-geist-mono),
+    monospace;
+  cursor: pointer;
+}
+
+.release-load-more-button:hover:not(:disabled) {
+  background: #eaf1f3;
+}
+
+.release-load-more-button:disabled {
+  cursor: progress;
+  opacity: 0.65;
+}
+
+.release-load-more-button:focus-visible {
+  outline: 2px solid #315c78;
+  outline-offset: 3px;
+}
+
 .release-item {
   border-left: 2px solid #d8e3ea;
   padding-left: 20px;

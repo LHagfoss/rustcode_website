@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getReleases } from "../releases";
 import { githubUrl, siteUrl } from "../site";
-import { ReleaseList } from "./release-list";
+import { InfiniteReleaseList } from "./infinite-release-list";
 
 export const revalidate = 900;
 
@@ -23,10 +23,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ChangelogPage() {
-  const { releases } = await getReleases().catch(() => ({
+  const { releases, hasMore } = await getReleases().catch(() => ({
     version: null,
     releases: [],
     source: "",
+    hasMore: false,
   }));
 
   return (
@@ -71,7 +72,10 @@ export default async function ChangelogPage() {
             </a>
           </div>
           {releases.length > 0 ? (
-            <ReleaseList releases={releases} />
+            <InfiniteReleaseList
+              initialReleases={releases}
+              initialHasMore={hasMore}
+            />
           ) : (
             <p className="changelog-empty">
               Release notes are temporarily unavailable. Visit GitHub for the
