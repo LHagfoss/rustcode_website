@@ -289,9 +289,26 @@ export default function HomeClient({
             </DrawablyList>
           </div>
 
-          <div className="terminal-column">
-            <div className="terminal-halo" aria-hidden="true" />
-            <DrawablyCard className="terminal-card" seed={50}>
+          <div className="product-showcase">
+            <div className="showcase-halo" aria-hidden="true" />
+            <DrawablyCard className="macos-card" seed={50}>
+              <figure className="macos-figure">
+                <Image
+                  className="macos-image"
+                  src="/images/readme-macos.png"
+                  alt="RustCode running in its native macOS app"
+                  width={1163}
+                  height={827}
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  priority
+                />
+                <figcaption className="macos-caption">
+                  <span>Native macOS app</span>
+                  <span className="macos-caption-platform">macOS</span>
+                </figcaption>
+              </figure>
+            </DrawablyCard>
+            <DrawablyCard className="terminal-card" seed={53}>
               <div className="terminal-window">
                 <div className="window-bar">
                   <div className="window-dots" aria-hidden="true">
@@ -312,8 +329,7 @@ export default function HomeClient({
                     alt="RustCode running in a terminal"
                     width={1078}
                     height={712}
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    priority
+                    sizes="(min-width: 1024px) 20vw, 40vw"
                   />
                 </div>
               </div>
