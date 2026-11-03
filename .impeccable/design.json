@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T13:42:03Z",
+  "title": "Design System: RustCode",
+  "extensions": {
+    "colorMeta": {
+      "midnight-paper": {
+        "role": "neutral",
+        "displayName": "Midnight Paper",
+        "tonalRamp": [
+          "oklch(15% 0.020 252)",
+          "oklch(25% 0.020 252)",
+          "oklch(35% 0.020 252)",
+          "oklch(45% 0.020 252)",
+          "oklch(55% 0.020 252)",
+          "oklch(65% 0.020 252)",
+          "oklch(80% 0.020 252)",
+          "oklch(95% 0.020 252)"
+        ]
+      },
+      "chalk-text": {
+        "role": "neutral",
+        "displayName": "Chalk Text",
+        "tonalRamp": [
+          "oklch(15% 0.009 243)",
+          "oklch(25% 0.009 243)",
+          "oklch(35% 0.009 243)",
+          "oklch(45% 0.009 243)",
+          "oklch(55% 0.009 243)",
+          "oklch(65% 0.009 243)",
+          "oklch(80% 0.009 243)",
+          "oklch(95% 0.009 243)"
+        ]
+      },
+      "heading-chalk": {
+        "role": "neutral",
+        "displayName": "Heading Chalk",
+        "tonalRamp": [
+          "oklch(15% 0.007 234)",
+          "oklch(25% 0.007 234)",
+          "oklch(35% 0.007 234)",
+          "oklch(45% 0.007 234)",
+          "oklch(55% 0.007 234)",
+          "oklch(65% 0.007 234)",
+          "oklch(80% 0.007 234)",
+          "oklch(95% 0.007 234)"
+        ]
+      },
+      "soft-copy": {
+        "role": "neutral",
+        "displayName": "Soft Copy",
+        "tonalRamp": [
+          "oklch(15% 0.026 241)",
+          "oklch(25% 0.026 241)",
+          "oklch(35% 0.026 241)",
+          "oklch(45% 0.026 241)",
+          "oklch(55% 0.026 241)",
+          "oklch(65% 0.026 241)",
+          "oklch(80% 0.026 241)",
+          "oklch(95% 0.026 241)"
+        ]
+      },
+      "muted-copy": {
+        "role": "neutral",
+        "displayName": "Muted Copy",
+        "tonalRamp": [
+          "oklch(15% 0.031 242)",
+          "oklch(25% 0.031 242)",
+          "oklch(35% 0.031 242)",
+          "oklch(45% 0.031 242)",
+          "oklch(55% 0.031 242)",
+          "oklch(65% 0.031 242)",
+          "oklch(80% 0.031 242)",
+          "oklch(95% 0.031 242)"
+        ]
+      },
+      "chalk-blue": {
+        "role": "primary",
+        "displayName": "Chalk Blue",
+        "tonalRamp": [
+          "oklch(15% 0.086 235)",
+          "oklch(25% 0.086 235)",
+          "oklch(35% 0.086 235)",
+          "oklch(45% 0.086 235)",
+          "oklch(55% 0.086 235)",
+          "oklch(65% 0.086 235)",
+          "oklch(80% 0.086 235)",
+          "oklch(95% 0.086 235)"
+        ]
+      },
+      "bright-chalk-blue": {
+        "role": "primary",
+        "displayName": "Bright Chalk Blue",
+        "tonalRamp": [
+          "oklch(15% 0.064 232)",
+          "oklch(25% 0.064 232)",
+          "oklch(35% 0.064 232)",
+          "oklch(45% 0.064 232)",
+          "oklch(55% 0.064 232)",
+          "oklch(65% 0.064 232)",
+          "oklch(80% 0.064 232)",
+          "oklch(95% 0.064 232)"
+        ]
+      },
+      "sketch-ink": {
+        "role": "primary",
+        "displayName": "Sketch Ink",
+        "tonalRamp": [
+          "oklch(15% 0.061 238)",
+          "oklch(25% 0.061 238)",
+          "oklch(35% 0.061 238)",
+          "oklch(45% 0.061 238)",
+          "oklch(55% 0.061 238)",
+          "oklch(65% 0.061 238)",
+          "oklch(80% 0.061 238)",
+          "oklch(95% 0.061 238)"
+        ]
+      },
+      "prompt-amber": {
+        "role": "secondary",
+        "displayName": "Prompt Amber",
+        "tonalRamp": [
+          "oklch(15% 0.102 80)",
+          "oklch(25% 0.102 80)",
+          "oklch(35% 0.102 80)",
+          "oklch(45% 0.102 80)",
+          "oklch(55% 0.102 80)",
+          "oklch(65% 0.102 80)",
+          "oklch(80% 0.102 80)",
+          "oklch(95% 0.102 80)"
+        ]
+      },
+      "control-surface": {
+        "role": "neutral",
+        "displayName": "Control Surface",
+        "tonalRamp": [
+          "oklch(15% 0.028 251)",
+          "oklch(25% 0.028 251)",
+          "oklch(35% 0.028 251)",
+          "oklch(45% 0.028 251)",
+          "oklch(55% 0.028 251)",
+          "oklch(65% 0.028 251)",
+          "oklch(80% 0.028 251)",
+          "oklch(95% 0.028 251)"
+        ]
+      },
+      "command-well": {
+        "role": "neutral",
+        "displayName": "Command Well",
+        "tonalRamp": [
+          "oklch(15% 0.017 253)",
+          "oklch(25% 0.017 253)",
+          "oklch(35% 0.017 253)",
+          "oklch(45% 0.017 253)",
+          "oklch(55% 0.017 253)",
+          "oklch(65% 0.017 253)",
+          "oklch(80% 0.017 253)",
+          "oklch(95% 0.017 253)"
+        ]
+      },
+      "command-text": {
+        "role": "neutral",
+        "displayName": "Command Text",
+        "tonalRamp": [
+          "oklch(15% 0.016 245)",
+          "oklch(25% 0.016 245)",
+          "oklch(35% 0.016 245)",
+          "oklch(45% 0.016 245)",
+          "oklch(55% 0.016 245)",
+          "oklch(65% 0.016 245)",
+          "oklch(80% 0.016 245)",
+          "oklch(95% 0.016 245)"
+        ]
+      },
+      "drawably-paper": {
+        "role": "neutral",
+        "displayName": "Drawably Paper",
+        "tonalRamp": [
+          "oklch(15% 0.024 252)",
+          "oklch(25% 0.024 252)",
+          "oklch(35% 0.024 252)",
+          "oklch(45% 0.024 252)",
+          "oklch(55% 0.024 252)",
+          "oklch(65% 0.024 252)",
+          "oklch(80% 0.024 252)",
+          "oklch(95% 0.024 252)"
+        ]
+      },
+      "panel-glaze": {
+        "role": "neutral",
+        "displayName": "Panel Glaze",
+        "canonical": "rgba(255, 255, 255, 0.03)",
+        "tonalRamp": [
+          "oklch(15% 0.019 252)",
+          "oklch(25% 0.019 252)",
+          "oklch(35% 0.019 252)",
+          "oklch(45% 0.019 252)",
+          "oklch(55% 0.019 252)",
+          "oklch(65% 0.019 252)",
+          "oklch(80% 0.019 252)",
+          "oklch(95% 0.019 252)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The landing-page hero headline."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section and product-summary headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanatory copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Platform names, commands, and compact metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "install-panel",
+        "value": "0 24px 56px rgba(0, 0, 0, 0.34)",
+        "purpose": "Broad, soft lift beneath the install panel."
+      },
+      {
+        "name": "desktop-capture",
+        "value": "0 30px 70px rgba(0, 0, 0, 0.5)",
+        "purpose": "Primary lift beneath the real desktop product screenshot."
+      },
+      {
+        "name": "terminal-capture",
+        "value": "0 22px 48px rgba(0, 0, 0, 0.55)",
+        "purpose": "Separate the smaller terminal screenshot from the desktop frame."
+      }
+    ],
+    "motion": [
+      {
+        "name": "drawably-boil",
+        "value": "1200ms step-end infinite; three sketch frames",
+        "purpose": "Gentle pen-line variation; reduced motion freezes the SVG."
+      },
+      {
+        "name": "button-state",
+        "value": "120ms ease",
+        "purpose": "Hover lift and press response for Drawably buttons."
+      },
+      {
+        "name": "tab-state",
+        "value": "160ms ease",
+        "purpose": "Color and background transitions for installer platform tabs."
+      },
+      {
+        "name": "installer-panel",
+        "value": "240ms cubic-bezier(0.16, 1, 0.3, 1); translateY(0.35rem) to 0",
+        "purpose": "Short entrance shift when the selected install command changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "content-gutter",
+        "value": "640px"
+      },
+      {
+        "name": "compact-layout",
+        "value": "600px"
+      },
+      {
+        "name": "ways-columns",
+        "value": "780px"
+      },
+      {
+        "name": "hero-columns",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Outline Action Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Compact copy action drawn with an SVG pen outline.",
+      "html": "<button class=\"ds-button ds-button-outline\" type=\"button\"><svg class=\"ds-sketch\" viewBox=\"0 0 180 42\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M7 8 C42 4 107 6 171 8 C175 10 173 31 169 34 C121 37 54 34 9 33 C5 29 6 14 7 8 Z\"/></svg><span class=\"ds-button-label\">Copy command</span></button>",
+      "css": ".ds-button{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 12px;border:0;border-radius:10px;background:transparent;color:var(--drawably-ink,var(--drawably-stroke,#8ab4d0));font:600 11px/1 var(--font-geist-mono),ui-monospace,monospace;cursor:pointer;transition:transform 120ms ease}.ds-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-sketch path{fill:none;stroke:var(--drawably-ink,var(--drawably-stroke,#8ab4d0));stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round;transition:fill 120ms ease,stroke-width 120ms ease}.ds-button-label{position:relative;z-index:1}.ds-button:hover{transform:translateY(-1px)}.ds-button:hover .ds-sketch path{fill:color-mix(in srgb,var(--drawably-ink,var(--drawably-stroke,#8ab4d0)) 10%,transparent)}.ds-button:active{transform:translateY(1px) scale(.98)}.ds-button:focus-visible{outline:2px solid var(--accent,#7fc0e6);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-button,.ds-sketch path{transition:none}}"
+    },
+    {
+      "name": "Filled Success Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "The copy action's success state, filled in sketch ink.",
+      "html": "<button class=\"ds-button ds-button-solid\" type=\"button\"><svg class=\"ds-sketch\" viewBox=\"0 0 120 42\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path class=\"ds-fill\" d=\"M7 8 C35 4 76 6 111 8 C115 10 113 31 109 34 C77 37 36 34 9 33 C5 29 6 14 7 8 Z\"/></svg><span class=\"ds-button-label\">Copied</span></button>",
+      "css": ".ds-button{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 12px;border:0;border-radius:10px;background:transparent;color:var(--drawably-ink,var(--drawably-stroke,#8ab4d0));font:600 11px/1 var(--font-geist-mono),ui-monospace,monospace;cursor:pointer;transition:transform 120ms ease}.ds-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-sketch path{fill:none;stroke:var(--drawably-ink,var(--drawably-stroke,#8ab4d0));stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round}.ds-button-solid{color:var(--drawably-paper,#111a24)}.ds-button-solid .ds-sketch .ds-fill{fill:var(--drawably-ink,var(--drawably-stroke,#8ab4d0));stroke:var(--drawably-ink,var(--drawably-stroke,#8ab4d0))}.ds-button-label{position:relative;z-index:1}.ds-button:hover{transform:translateY(-1px)}.ds-button:active{transform:translateY(1px) scale(.98)}.ds-button:focus-visible{outline:2px solid var(--accent,#7fc0e6);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}"
+    },
+    {
+      "name": "Platform Tabs",
+      "kind": "nav",
+      "refersTo": "platform-tabs",
+      "description": "Pill track for switching the exact installer command by platform.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"Choose your platform\"><button type=\"button\" role=\"tab\" aria-selected=\"true\"><svg class=\"ds-tab-sketch\" viewBox=\"0 0 90 40\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M8 33 C31 31 59 34 82 32\"/></svg><span>macOS</span></button><button type=\"button\" role=\"tab\" aria-selected=\"false\"><span>Linux</span></button><button type=\"button\" role=\"tab\" aria-selected=\"false\"><span>Windows</span></button></div>",
+      "css": ".ds-tabs{display:flex;gap:4px;margin-top:22px;padding:5px;border-radius:999px;background:rgba(255,255,255,.04)}.ds-tabs>button{position:relative;flex:1;min-width:0;padding:8px 14px;border:0;border-radius:999px;background:transparent;color:#8fa3b2;cursor:pointer;font:600 12px/1 var(--font-geist-mono),ui-monospace,monospace;transition:color 160ms ease,background-color 160ms ease}.ds-tabs>button:hover{color:var(--accent-strong,#a5d7f2)}.ds-tabs>button[aria-selected=true]{background:rgba(127,192,230,.14);color:var(--accent-strong,#a5d7f2)}.ds-tabs>button:focus-visible{outline:2px solid var(--accent,#7fc0e6);outline-offset:3px}.ds-tab-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-tab-sketch path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:var(--drawably-width,1.8);stroke-linecap:round}.ds-tabs span{position:relative;z-index:1}@media(prefers-reduced-motion:reduce){.ds-tabs>button{transition:none}}"
+    },
+    {
+      "name": "Install Panel",
+      "kind": "card",
+      "refersTo": "install-panel",
+      "description": "Drawably-framed install surface containing the release and platform command controls.",
+      "html": "<section class=\"ds-install-card\" aria-label=\"Install RustCode\"><svg class=\"ds-card-sketch\" viewBox=\"0 0 360 108\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M10 8 C98 4 257 6 350 9 C356 14 354 93 349 99 C252 103 97 100 10 98 C5 93 6 20 10 8 Z\"/></svg><div class=\"ds-install-content\"><div class=\"ds-install-heading\"><h2>Install RustCode</h2><span class=\"ds-release-badge\">latest release</span></div><p class=\"ds-install-note\">The installer includes the desktop app and the rustcode command together.</p></div></section>",
+      "css": ".ds-install-card{position:relative;width:100%;max-width:650px;padding:16px;border-radius:20px;background:var(--panel,rgba(255,255,255,.03));box-shadow:0 24px 56px rgba(0,0,0,.34)}.ds-card-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-card-sketch path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round}.ds-install-content{position:relative;z-index:1}.ds-install-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.ds-install-heading h2{margin:0;color:#f2f7fa;font:650 19px/1.2 var(--font-geist-sans),Arial,Helvetica,sans-serif;letter-spacing:-.02em}.ds-release-badge{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);color:#9db2c0;font:500 10px/1.4 var(--font-geist-sans),Arial,Helvetica,sans-serif;white-space:nowrap}.ds-install-note{margin:13px 0 0;color:var(--muted,#93a6b5);font:400 12px/1.5 var(--font-geist-sans),Arial,Helvetica,sans-serif}"
+    },
+    {
+      "name": "Release Badge",
+      "kind": "chip",
+      "refersTo": "release-badge",
+      "description": "Quiet pill showing the current release or its latest-release fallback.",
+      "html": "<span class=\"ds-badge-wrap\"><svg class=\"ds-badge-sketch\" viewBox=\"0 0 150 30\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M7 6 C40 4 111 5 143 7 C146 10 145 23 142 25 C107 27 41 25 8 24 C5 21 5 11 7 6 Z\"/></svg><span class=\"ds-badge-label\">latest release</span></span>",
+      "css": ".ds-badge-wrap{position:relative;display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.05);color:#9db2c0;font:500 10px/1.4 var(--font-geist-sans),Arial,Helvetica,sans-serif;white-space:nowrap}.ds-badge-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-badge-sketch path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round}.ds-badge-label{position:relative;z-index:1}"
+    },
+    {
+      "name": "Installer Command",
+      "kind": "custom",
+      "refersTo": "command-line",
+      "description": "Selectable, horizontally scrollable install command with a single amber prompt cue.",
+      "html": "<code class=\"ds-command\"><span class=\"ds-prompt\">$</span>curl -fsSL https://rustcode.lhagfoss.com/install.sh | bash</code>",
+      "css": ".ds-command{display:block;overflow-x:auto;min-width:0;max-width:100%;padding:15px 16px;border-radius:14px;background:var(--command-well,#0a1017);color:var(--command-text,#dfe9f2);font:500 12px/1.35 var(--font-geist-mono),ui-monospace,monospace;white-space:nowrap}.ds-prompt{margin-right:10px;color:var(--prompt-amber,#e7bd75)}"
+    },
+    {
+      "name": "Feature Check List",
+      "kind": "custom",
+      "refersTo": "feature-list",
+      "description": "Compact explanatory list with one hand-drawn check per item.",
+      "html": "<ul class=\"ds-feature-list\"><li><svg viewBox=\"0 0 18 18\" aria-hidden=\"true\"><path d=\"M3 9 C5 11 6 13 7 13 C9 10 11 7 15 4\"/></svg><span>Threads run in their own git worktrees, so parallel work never collides.</span></li><li><svg viewBox=\"0 0 18 18\" aria-hidden=\"true\"><path d=\"M3 9 C5 11 6 13 7 13 C9 10 11 7 15 4\"/></svg><span>Fan out, compare and merge — with approvals and per-turn checkpoints before anything lands.</span></li></ul>",
+      "css": ".ds-feature-list{display:grid;gap:10px;max-width:620px;margin:26px 0 0;padding:0;color:var(--soft,#a8b9c6);font:400 14px/1.55 var(--font-geist-sans),Arial,Helvetica,sans-serif;list-style:none}.ds-feature-list li{display:grid;grid-template-columns:14px minmax(0,1fr);align-items:start;gap:10px}.ds-feature-list svg{width:14px;height:14px;margin-top:2px;overflow:visible}.ds-feature-list path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}"
+    },
+    {
+      "name": "Desktop Product Frame",
+      "kind": "card",
+      "refersTo": "product-frame",
+      "description": "Rounded, sketched frame for the real desktop orchestration screenshot.",
+      "html": "<figure class=\"ds-desktop-card\"><svg class=\"ds-media-sketch\" viewBox=\"0 0 640 430\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M10 10 C153 5 487 7 630 11 C635 79 631 342 628 420 C440 425 197 423 11 419 C7 304 7 102 10 10 Z\"/></svg><div class=\"ds-media-content\"><img class=\"ds-desktop-image\" src=\"/images/readme-desktop.png\" alt=\"The RustCode desktop app with a thread open\"><figcaption class=\"ds-desktop-caption\"><span>The orchestrator — every thread, side by side</span><span class=\"ds-caption-platform\">Tauri desktop</span></figcaption></div></figure>",
+      "css": ".ds-desktop-card{position:relative;margin:0;padding:10px;border-radius:20px;background:var(--panel,rgba(255,255,255,.03));box-shadow:0 30px 70px rgba(0,0,0,.5);transform:rotate(-.6deg)}.ds-media-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-media-sketch path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round}.ds-media-content{position:relative;z-index:1}.ds-desktop-image{display:block;width:100%;height:auto;border-radius:14px}.ds-desktop-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 6px 2px;color:var(--soft,#a8b9c6);font:600 12.5px/1.4 var(--font-geist-sans),Arial,Helvetica,sans-serif}.ds-caption-platform{color:#8296a5;font:500 10px/1.2 var(--font-geist-mono),ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}"
+    },
+    {
+      "name": "Terminal Harness Frame",
+      "kind": "card",
+      "refersTo": "terminal-frame",
+      "description": "Smaller, angled frame for the installed optional terminal harness.",
+      "html": "<figure class=\"ds-terminal-card\"><svg class=\"ds-terminal-sketch\" viewBox=\"0 0 360 270\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M9 8 C90 5 270 6 351 10 C354 66 352 208 348 262 C251 265 111 262 10 260 C6 201 7 76 9 8 Z\"/></svg><div class=\"ds-terminal-content\"><figcaption class=\"ds-terminal-label\"><code>rustcode</code><span>Terminal harness</span></figcaption><img class=\"ds-terminal-image\" src=\"/images/tui.png\" alt=\"RustCode's terminal harness showing an agent response\"></div></figure>",
+      "css": ".ds-terminal-card{position:relative;width:100%;max-width:360px;margin:0;padding:8px;border-radius:20px;background:var(--panel,rgba(255,255,255,.03));box-shadow:0 22px 48px rgba(0,0,0,.55);transform:rotate(2deg)}.ds-terminal-sketch{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}.ds-terminal-sketch path{fill:none;stroke:var(--drawably-stroke,#8ab4d0);stroke-width:var(--drawably-width,1.8);stroke-linecap:round;stroke-linejoin:round}.ds-terminal-content{position:relative;z-index:1}.ds-terminal-label{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:30px;padding:0 8px 8px;color:#9db2c0;font:500 10px/1.2 var(--font-geist-mono),ui-monospace,monospace}.ds-terminal-label code{color:var(--accent-strong,#a5d7f2);font:inherit}.ds-terminal-image{display:block;width:100%;height:auto;border-radius:10px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Sketchbook Flipped to Night",
+    "overview": "RustCode's site translates its hand-drawn control identity into a dark developer workspace. Midnight paper and chalk-blue SVG marks hold the page together; Geist Sans keeps the message clear, while Geist Mono gives commands and compact metadata an editor-like cadence. Sketches sit on real HTML controls and surfaces instead of replacing their behavior.\\n\\nDepth stays restrained. Translucent washes separate key panels from the page, and deeper shadows appear beneath product captures. Rounded geometry softens the interface while irregular SVG strokes retain the notebook character. Real product captures and plain, platform-accurate language are the site's visual material.",
+    "keyCharacteristics": [
+      "Midnight ground with cool chalk-blue ink.",
+      "Geist Sans for copy; Geist Mono for commands and compact labels.",
+      "Native HTML semantics under Drawably's hand-drawn SVG chrome.",
+      "Rounded frames and restrained, media-led shadows.",
+      "Amber stays on the shell prompt."
+    ],
+    "rules": [
+      {
+        "name": "The One Amber Mark Rule",
+        "body": "Keep amber on the shell prompt glyph; blue carries the rest of the interface emphasis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Terminal Spec Rule",
+        "body": "Reserve Geist Mono for commands, platform labels, and compact metadata; keep explanatory prose in Geist Sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Media Shadow Rule",
+        "body": "Keep the strongest elevation beneath product captures; explanatory and changelog surfaces stay tonal and quiet.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Native Sketch Rule",
+        "body": "Keep each control semantic and interactive in HTML, with its hand-drawn outline rendered as SVG chrome.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep the page on midnight paper and use chalk-blue roles for interactive emphasis and Drawably strokes.",
+      "Do attach Drawably chrome to real HTML controls and containers; theme it with the Drawably custom properties.",
+      "Do keep the amber accent on the shell prompt glyph.",
+      "Do use the real desktop and terminal screenshots when showing product surfaces, and state platform support literally.",
+      "Do preserve visible keyboard focus and respect prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't substitute CSS borders for Drawably's sketched SVG control chrome or restyle the library's SVG paths.",
+      "Don't apply Drawably Pen unless the user asks for that font.",
+      "Don't spread heavy shadows across explanatory cards, release rows, or list items.",
+      "Don't fabricate testimonials, customer logos, pricing, benchmarks, or usage claims."
+    ]
+  }
+}

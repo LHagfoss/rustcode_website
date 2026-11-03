@@ -13,6 +13,7 @@ import {
 } from "drawably/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { BrandMark } from "./brand-mark";
 import { ReleaseList } from "./changelog/release-list";
 import type { Release } from "./releases";
 import {
@@ -62,13 +63,13 @@ const structuredData = {
       url: siteUrl,
       image: `${siteUrl}${siteImage}`,
       applicationCategory: "DeveloperApplication",
-      applicationSubCategory: "Terminal user interface agent harness",
+      applicationSubCategory: "Coding agent orchestration app",
       operatingSystem: "macOS, Linux, Windows",
       featureList: [
-        "Terminal pair programming",
-        "Native performance",
-        "OpenAI-compatible APIs",
-        "Ollama support",
+        "Multi-agent orchestration in one desktop app",
+        "Optional worktree isolation for threads, fan-out and comparison",
+        "Terminal harness installed alongside, optional to use",
+        "Local-first with Ollama and OpenAI-compatible APIs",
       ],
       sameAs: [githubUrl],
     },
@@ -83,6 +84,7 @@ export default function HomeClient({
   releases: Release[];
 }) {
   const [copied, setCopied] = useState<string | null>(null);
+  const [copyError, setCopyError] = useState<string | null>(null);
   const [activeInstaller, setActiveInstaller] =
     useState<(typeof installers)[number]["id"]>("macos");
   const [stars, setStars] = useState<number | null>(null);
@@ -133,12 +135,14 @@ export default function HomeClient({
   }, []);
 
   async function copyCommand(id: string, command: string) {
+    setCopied(null);
+    setCopyError(null);
     try {
       await navigator.clipboard.writeText(command);
       setCopied(id);
       window.setTimeout(() => setCopied(null), 1800);
     } catch {
-      setCopied(null);
+      setCopyError(id);
     }
   }
 
@@ -151,18 +155,10 @@ export default function HomeClient({
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
-      <div className="page-grain" aria-hidden="true" />
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-6 sm:px-10 sm:py-8">
         <header className="site-header">
           <a className="brand" href="/" aria-label="RustCode home">
-            <DrawablyBadge
-              className="brand-mark"
-              variant="scribble"
-              seed={11}
-              aria-hidden="true"
-            >
-              &gt;_
-            </DrawablyBadge>
+            <BrandMark />
             <span className="brand-name">
               <span>Rust</span>
               <span className="accent">Code</span>
@@ -177,9 +173,18 @@ export default function HomeClient({
             onClick={openGithub}
             aria-label="Star RustCode on GitHub"
           >
-            <span className="star-icon" aria-hidden="true">
-              ☆
-            </span>
+            <svg
+              className="star-icon"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m12 3 2.7 5.45 6.02.87-4.36 4.25 1.03 6-5.39-2.84-5.39 2.84 1.03-6-4.36-4.25 6.02-.87L12 3Z" />
+            </svg>
             <span>Star</span>
             {stars !== null && (
               <span className="star-count">
@@ -191,20 +196,16 @@ export default function HomeClient({
 
         <section className="hero-grid">
           <div className="hero-copy">
-            <DrawablyBadge className="eyebrow" variant="scribble" seed={21}>
-              Terminal pair programming
-            </DrawablyBadge>
             <h1>
-              Your codebase.
+              <span className="accent">One app</span> for your
               <br />
-              Your <DrawablyUnderline seed={22}>terminal</DrawablyUnderline>.
-              <br />
-              <span className="accent">Your AI coding agent.</span>
+              <DrawablyUnderline seed={22}>coding agents</DrawablyUnderline>.
             </h1>
             <p className="hero-description">
-              <DrawablyHighlight seed={23}>RustCode</DrawablyHighlight> is a
-              lightweight, native terminal AI coding agent for pair programming
-              directly in the projects you already know.
+              <DrawablyHighlight seed={23}>RustCode</DrawablyHighlight> runs
+              Claude Code, Codex, Gemini CLI, OpenCode — or its own agent — side
+              by side in one desktop app. Each thread picks its harness, model
+              and effort.
             </p>
 
             <DrawablyCard
@@ -214,7 +215,6 @@ export default function HomeClient({
             >
               <div className="install-card-header">
                 <div>
-                  <p className="section-kicker">Get started</p>
                   <h2>Install RustCode</h2>
                 </div>
                 <DrawablyBadge className="release-badge" seed={31}>
@@ -271,74 +271,116 @@ export default function HomeClient({
                   <span className="command-prompt">$</span>
                   {selectedInstaller.command}
                 </code>
+                {copyError === selectedInstaller.id && (
+                  <output className="copy-error" aria-live="polite">
+                    Copy failed. Select and copy the command manually.
+                  </output>
+                )}
               </div>
               <p className="install-note">
-                The installer fetches the latest verified native release.
+                The installer installs the desktop app and the{" "}
+                <code className="way-inline-code">rustcode</code> command
+                together. The terminal UI is optional to use; Linux ARM64 gets
+                the command only.
               </p>
             </DrawablyCard>
 
             <DrawablyList className="feature-list" marker="check" seed={40}>
-              <li>Fast native performance, with no runtime to manage.</li>
               <li>
-                Works in the terminal and inside the projects you already use.
+                Use separate git worktrees to keep parallel threads isolated.
               </li>
               <li>
-                Open source, local-first, and compatible with Ollama and
-                OpenAI-compatible APIs.
+                Fan out, compare and merge — with approvals and per-turn
+                checkpoints before anything lands.
+              </li>
+              <li>
+                Open source and local-first, with Ollama and OpenAI-compatible
+                APIs.
               </li>
             </DrawablyList>
           </div>
 
           <div className="product-showcase">
-            <div className="showcase-halo" aria-hidden="true" />
-            <DrawablyCard className="macos-card" seed={50}>
-              <figure className="macos-figure">
+            <DrawablyCard className="desktop-card" seed={50}>
+              <figure className="desktop-figure">
                 <Image
-                  className="macos-image"
-                  src="/images/readme-macos.png"
-                  alt="RustCode running in its native macOS app"
-                  width={1163}
-                  height={827}
+                  className="desktop-image"
+                  src="/images/readme-desktop.png"
+                  alt="The RustCode desktop app with a thread open"
+                  width={1280}
+                  height={960}
                   sizes="(min-width: 1024px) 48vw, 100vw"
                   priority
                 />
-                <figcaption className="macos-caption">
-                  <span>Native macOS app</span>
-                  <span className="macos-caption-platform">macOS</span>
+                <figcaption className="desktop-caption">
+                  <span>The orchestrator — every thread, side by side</span>
+                  <span className="desktop-caption-platform">
+                    Tauri desktop
+                  </span>
                 </figcaption>
               </figure>
             </DrawablyCard>
             <DrawablyCard className="terminal-card" seed={53}>
-              <div className="terminal-window">
-                <div className="window-bar">
-                  <div className="window-dots" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <span className="window-title">
-                    <span>Rust</span>
-                    <span className="accent">Code</span> — ~/project
-                  </span>
-                </div>
-                <DrawablyDivider className="window-divider" seed={51} />
-                <div className="terminal-image-wrap">
-                  <Image
-                    className="terminal-image"
-                    src="/images/header.png"
-                    alt="RustCode running in a terminal"
-                    width={1078}
-                    height={712}
-                    sizes="(min-width: 1024px) 20vw, 40vw"
-                  />
-                </div>
-              </div>
+              <figure className="terminal-figure">
+                <figcaption className="terminal-label">
+                  <code>rustcode</code>
+                  <span>Terminal harness</span>
+                </figcaption>
+                <Image
+                  className="terminal-image"
+                  src="/images/tui.png"
+                  alt="RustCode's terminal harness showing an agent response"
+                  width={1078}
+                  height={838}
+                  sizes="(min-width: 1024px) 20vw, 78vw"
+                />
+              </figure>
             </DrawablyCard>
             <p className="terminal-caption">
-              A calm interface for serious work.{" "}
-              <DrawablyCircle seed={52}>No dashboard required.</DrawablyCircle>
+              The terminal command ships with the app.{" "}
+              <DrawablyCircle seed={52}>The TUI is optional.</DrawablyCircle>
             </p>
           </div>
+        </section>
+
+        <section className="ways" aria-labelledby="ways-title">
+          <DrawablyDivider className="ways-divider" seed={55} />
+          <div className="ways-heading">
+            <h2 id="ways-title">One install, two ways to work</h2>
+            <p>
+              The installer sets up both surfaces. Drive from the window, drop
+              into the terminal — or run both at once.
+            </p>
+          </div>
+          <DrawablyCard className="ways-panel" seed={58}>
+            <div className="way">
+              <h3>The orchestration app</h3>
+              <p>
+                A Tauri desktop app that hosts every thread. Pick the harness,
+                model and effort per thread, watch what runs and what waits for
+                you, and let agents start and message each other.
+              </p>
+              <DrawablyList className="feature-list" marker="check" seed={56}>
+                <li>Start threads in separate worktrees to isolate changes.</li>
+                <li>Fan out and compare results side by side.</li>
+                <li>Approvals and checkpoints before changes land.</li>
+              </DrawablyList>
+            </div>
+            <div className="way-divider" aria-hidden="true" />
+            <div className="way">
+              <h3>The terminal harness</h3>
+              <p>
+                <code>rustcode</code> is installed alongside the app and
+                entirely optional. The same agent, in your terminal — inline by
+                default, fullscreen when you want it.
+              </p>
+              <DrawablyList className="feature-list" marker="check" seed={57}>
+                <li>Any model, including local ones through Ollama.</li>
+                <li>Inline by default; fullscreen is opt-in.</li>
+                <li>No dashboard, no lock-in — it&apos;s your shell.</li>
+              </DrawablyList>
+            </div>
+          </DrawablyCard>
         </section>
 
         <section
@@ -346,15 +388,13 @@ export default function HomeClient({
           aria-labelledby="product-summary-title"
         >
           <div>
-            <p className="section-kicker">Built for developers</p>
             <h2 id="product-summary-title">
-              A native AI coding agent for your terminal
+              Open source, local-first, on your machine
             </h2>
             <p>
-              RustCode is a lightweight terminal user interface (TUI) agent
-              harness for pair programming, codebase exploration, and everyday
-              development. Run it on macOS, Linux, or Windows and connect it to
-              Ollama or an OpenAI-compatible API.
+              The desktop app runs on macOS Apple silicon, Linux x86_64 and
+              Windows x64. The terminal harness also supports Linux ARM64.
+              Approvals, per-turn checkpoints and review keep you in control.
             </p>
           </div>
           <a
@@ -363,7 +403,19 @@ export default function HomeClient({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Explore the open-source project <span aria-hidden="true">↗</span>
+            Explore the open-source project
+            <svg
+              className="external-icon"
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 2h5v5M14 2 7 9M12 9v4H3V4h4" />
+            </svg>
           </a>
         </section>
 
@@ -371,11 +423,22 @@ export default function HomeClient({
           <section className="changelog" aria-labelledby="changelog-title">
             <div className="changelog-heading">
               <div>
-                <p className="section-kicker">Changelog</p>
                 <h2 id="changelog-title">What&apos;s new in RustCode</h2>
               </div>
               <a className="github-link" href="/changelog">
-                View changelog <span aria-hidden="true">↗</span>
+                View changelog
+                <svg
+                  className="external-icon"
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 2h5v5M14 2 7 9M12 9v4H3V4h4" />
+                </svg>
               </a>
             </div>
             <ReleaseList releases={releases} />
@@ -384,7 +447,7 @@ export default function HomeClient({
 
         <DrawablyDivider className="footer-divider" seed={60} />
         <footer className="site-footer">
-          <span>Built for the command line.</span>
+          <span>Open source under Apache-2.0.</span>
           <div className="site-footer-meta">
             <span className="page-view-count" aria-live="polite">
               {pageViews === null

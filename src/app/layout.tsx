@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {
@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "RustCode — Native terminal AI coding agent",
+    default: "RustCode — One app for your coding agents",
     template: "%s | RustCode",
   },
   description: siteDescription,
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     apple: "/images/rustcode-logo.png",
   },
   openGraph: {
-    title: "RustCode — Native terminal AI coding agent",
+    title: "RustCode — One app for your coding agents",
     description: siteDescription,
     url: siteUrl,
     siteName,
@@ -59,18 +59,23 @@ export const metadata: Metadata = {
     images: [
       {
         url: siteImage,
-        width: 1078,
-        height: 712,
-        alt: "RustCode terminal interface running in a project",
+        width: 1280,
+        height: 960,
+        alt: "The RustCode desktop app with a thread open",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RustCode — Native terminal AI coding agent",
+    title: "RustCode — One app for your coding agents",
     description: siteDescription,
     images: [siteImage],
   },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#0d141c",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

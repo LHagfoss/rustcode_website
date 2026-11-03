@@ -1,5 +1,6 @@
 "use client";
 
+import { DrawablyButton } from "drawably/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Release } from "../releases";
 import { ReleaseList } from "./release-list";
@@ -98,14 +99,17 @@ export function InfiniteReleaseList({
               Couldn&apos;t load more releases. Please try again.
             </p>
           )}
-          <button
+          <DrawablyButton
             className="release-load-more-button"
+            variant="outline"
+            tone="neutral"
+            seed={61}
             type="button"
             onClick={() => void loadMore()}
             disabled={loading}
           >
             {loading ? "Loading releases…" : error ? "Try again" : "Load more"}
-          </button>
+          </DrawablyButton>
           <span className="sr-only" aria-live="polite">
             {loading
               ? "Loading more releases"
