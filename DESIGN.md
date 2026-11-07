@@ -1,88 +1,68 @@
 ---
 name: RustCode
-description: Dark, hand-drawn visual system for RustCode, the coding-agent orchestration app.
+description: Dark, restrained visual system for RustCode, the coding-agent orchestration app, and its terminal harness.
 colors:
-  midnight-paper: "#0d141c"
-  chalk-text: "#e9eff4"
-  heading-chalk: "#f2f7fa"
-  soft-copy: "#a8b9c6"
-  muted-copy: "#93a6b5"
-  chalk-blue: "#7fc0e6"
-  bright-chalk-blue: "#a5d7f2"
-  sketch-ink: "#8ab4d0"
-  prompt-amber: "#e7bd75"
-  control-surface: "#18232f"
-  command-well: "#0a1017"
-  command-text: "#dfe9f2"
-  drawably-paper: "#111a24"
-  panel-glaze: "rgba(255, 255, 255, 0.03)"
+  ground: "#0a0b0d"
+  raised: "#101216"
+  well: "#0d0f12"
+  text: "#f2f4f6"
+  soft-copy: "#a8aeb6"
+  muted-copy: "#838a93"
+  chalk-blue: "#a9c7dd"
+  rule: "rgba(255, 255, 255, 0.09)"
+  rule-strong: "rgba(255, 255, 255, 0.18)"
 typography:
   display:
-    fontFamily: "Geist, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(3.2rem, 6.2vw, 6rem)"
-    fontWeight: 650
-    lineHeight: 0.97
-    letterSpacing: "-0.04em"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 6vw, 4.4rem)"
+    fontWeight: 640
+    lineHeight: 1.02
+    letterSpacing: "-0.045em"
   headline:
-    fontFamily: "Geist, Arial, Helvetica, sans-serif"
-    fontSize: "clamp(1.6rem, 3vw, 2.35rem)"
-    fontWeight: 650
-    lineHeight: 1.08
-    letterSpacing: "-0.03em"
-  body:
-    fontFamily: "Geist, Arial, Helvetica, sans-serif"
-    fontSize: "14.5px"
-    lineHeight: 1.7
-  label:
-    fontFamily: "Geist Mono, ui-monospace, monospace"
-    fontSize: "12px"
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "18.5px"
     fontWeight: 600
-    lineHeight: 1.4
+    lineHeight: 1.25
+    letterSpacing: "-0.015em"
+  page-title:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.2rem, 5vw, 3.4rem)"
+    fontWeight: 640
+    lineHeight: 1.04
+    letterSpacing: "-0.04em"
+  body:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "14.5px"
+    lineHeight: 1.62
+  mono:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "12.5px"
+    fontWeight: 500
+    lineHeight: 1.5
 rounded:
-  small: "10px"
-  control: "12px"
-  media: "14px"
-  release: "16px"
-  card: "20px"
+  control: "10px"
+  frame: "16px"
   pill: "999px"
 components:
-  button-outline:
-    textColor: "{colors.sketch-ink}"
-    rounded: "{rounded.small}"
-    padding: "6px 12px"
-  button-solid:
-    backgroundColor: "{colors.sketch-ink}"
-    textColor: "{colors.drawably-paper}"
-    rounded: "{rounded.small}"
-  platform-tabs:
-    backgroundColor: "rgba(255, 255, 255, 0.04)"
-    textColor: "#8fa3b2"
-    rounded: "{rounded.pill}"
-    padding: "5px"
-  install-panel:
-    backgroundColor: "{colors.panel-glaze}"
-    rounded: "{rounded.card}"
-    padding: "16px"
-  release-badge:
-    backgroundColor: "rgba(255, 255, 255, 0.05)"
-    textColor: "#9db2c0"
+  install-box:
+    backgroundColor: "rgba(255, 255, 255, 0.028)"
+    rounded: "{rounded.frame}"
+    width: "660px max"
+  command-well:
+    backgroundColor: "{colors.well}"
+    rounded: "{rounded.control}"
+    padding: "8px 8px 8px 13px"
+  copy-button:
+    textColor: "{colors.soft-copy}"
+    rounded: "8px"
+    padding: "4px 10px"
+  stars-chip:
+    textColor: "{colors.muted-copy}"
     rounded: "{rounded.pill}"
     padding: "4px 10px"
-  command-line:
-    backgroundColor: "{colors.command-well}"
-    textColor: "{colors.command-text}"
-    rounded: "{rounded.media}"
-    padding: "15px 16px"
-  feature-list:
-    textColor: "{colors.soft-copy}"
-    padding: "0"
-  product-frame:
-    backgroundColor: "{colors.panel-glaze}"
-    rounded: "{rounded.card}"
-    padding: "10px"
-  terminal-frame:
-    backgroundColor: "{colors.panel-glaze}"
-    rounded: "{rounded.card}"
+  screenshot-frame:
+    backgroundColor: "rgba(255, 255, 255, 0.018)"
+    rounded: "{rounded.frame}"
     padding: "8px"
 ---
 
@@ -90,122 +70,159 @@ components:
 
 ## Overview
 
-**Creative North Star: "A Sketchbook Flipped to Night"**
+**Creative North Star: "A Quiet Workshop at Night"**
 
-RustCode's site translates its hand-drawn control identity into a dark developer workspace. Midnight paper and chalk-blue SVG marks hold the page together; Geist Sans keeps the message clear, while Geist Mono gives commands and compact metadata an editor-like cadence. Sketches sit on real HTML controls and surfaces instead of replacing their behavior.
+The site is a near-black document with one cool accent, plenty of space, and
+real product screenshots. It reads like a README from a project that respects
+the reader: a short headline, a command to copy, then plain sections in the
+product's own vocabulary. Drawably's hand-drawn chrome appears only where it
+belongs — on the install command's card, its platform tabs, its copy button,
+and one underline in the hero.
 
-Depth stays restrained. Translucent washes separate key panels from the page, and deeper shadows appear beneath product captures. Rounded geometry softens the interface while irregular SVG strokes retain the notebook character. Real product captures and plain, platform-accurate language are the site's visual material.
+The site covers two surfaces: the desktop orchestration app at `/` and the
+terminal harness at `/tui`. They share the header, the footer, the install box
+and the section grid; each page only changes its hero, screenshot and copy.
 
 **Key Characteristics:**
-- Midnight ground with cool chalk-blue ink.
-- Geist Sans for copy; Geist Mono for commands and compact labels.
-- Native HTML semantics under Drawably's hand-drawn SVG chrome.
-- Rounded frames and restrained, media-led shadows.
-- Amber stays on the shell prompt.
+- Near-black ground (`#0a0b0d`), white copy, one chalk-blue accent.
+- Geist for prose, Geist Mono for commands, platforms and metadata.
+- Drawably sketches on real controls, used sparingly.
+- Real screenshots, live GitHub data, literal platform lists.
+- Horizontal rules instead of cards; no gradients, glows, blobs or icon grids.
 
 ## Colors
 
-Cool chalk blues carry both interface emphasis and pen marks. Neutral text separates headings, body copy, and metadata; the only warm accent marks command entry.
-
 ### Primary
-- **Chalk Blue** (colors.chalk-blue): Links, selected platform labels, caret, and action emphasis.
-- **Sketch Ink** (colors.sketch-ink): Drawably outlines, fills, annotations, and dividers.
-- **Bright Chalk Blue** (colors.bright-chalk-blue): Hover and selected text where emphasis needs more contrast.
-
-### Secondary
-- **Prompt Amber** (colors.prompt-amber): The shell prompt glyph immediately before the install command.
+- **Chalk Blue** (`#a9c7dd`): links, the install prompt glyph, Drawably strokes,
+  the active platform tab. The only accent on the page.
 
 ### Neutral
-- **Midnight Paper** (colors.midnight-paper): Page and browser ground.
-- **Chalk Text** (colors.chalk-text) and **Heading Chalk** (colors.heading-chalk): Default copy and high-prominence headings.
-- **Soft Copy** (colors.soft-copy) and **Muted Copy** (colors.muted-copy): Explanatory copy, secondary notes, and metadata.
-- **Control Surface** (colors.control-surface): Filled neutral actions such as the GitHub star control.
-- **Command Well** (colors.command-well) with **Command Text** (colors.command-text): Recessed installer command display.
-- **Drawably Paper** (colors.drawably-paper): Dark foreground used with a filled sketch stroke.
-- **Panel Glaze** (colors.panel-glaze): Light translucent wash behind install and product panels.
+- **Ground** (`#0a0b0d`): page background.
+- **Raised** (`#101216`): Drawably paper for filled buttons.
+- **Well** (`#0d0f12`): the recessed command line inside the install box.
+- **Text** (`#f2f4f6`): headings and primary copy.
+- **Soft Copy** (`#a8aeb6`): paragraphs and list items.
+- **Muted Copy** (`#838a93`): captions, metadata, footer, version labels.
+- **Rule** / **Rule Strong**: one-pixel separators; no card borders.
 
-**The One Amber Mark Rule.** Keep amber on the shell prompt glyph; blue carries the rest of the interface emphasis.
+**The One Accent Rule.** Chalk blue or nothing. No second hue, no gradient, no
+glow. Amber, purple and status colors are gone from the marketing surfaces.
 
 ## Typography
 
-**Display Font:** Geist (Arial, Helvetica, sans-serif fallback)
+**Display / Body Font:** Geist (system sans fallback).
+**Mono Font:** Geist Mono (ui-monospace fallback).
 
-**Body Font:** Geist (Arial, Helvetica, sans-serif fallback)
-**Label/Mono Font:** Geist Mono (ui-monospace, monospace fallback)
-
-**Character:** Geist keeps product claims direct and readable. Geist Mono marks commands, platform labels, and version metadata without turning paragraph copy into terminal text. Drawably Pen is not loaded.
+Drawably Pen is not loaded and not applied.
 
 ### Hierarchy
-- **Display** (650, clamp(3.2rem, 6.2vw, 6rem), 0.97 line-height, -0.04em): The landing-page hero headline.
-- **Headline** (650, clamp(1.6rem, 3vw, 2.35rem), 1.08 line-height, -0.03em): Section and product-summary headings.
-- **Title** (650, 19–20px, -0.02em): Install-panel and two-surface card headings.
-- **Body** (14.5px, 1.7 line-height): General explanatory copy; hero copy rises to 17px on desktop and 16px on small screens. Paragraph measure is capped between 320px and 650px by context.
-- **Label** (500–600, 10–12px, normal or -0.01em tracking, sentence case): Geist Mono for platform names, commands, release metadata, and compact controls.
+- **Display** (640, `clamp(2.5rem, 6vw, 4.4rem)`, 1.02, -0.045em, max 15ch):
+  the home hero headline. It breaks to two lines on desktop.
+- **Page title** (640, `clamp(2.2rem, 5vw, 3.4rem)`, 1.04): `/tui` and
+  `/changelog` headings.
+- **Headline** (600, 18.5px, -0.015em): section and CTA headings.
+- **Body** (14.5px, 1.62): section copy. The hero lede is 17px (16px below
+  600px); paragraphs cap at 52–62ch.
+- **Mono** (500–600, 11.5–13px): commands, tabs, platform lists, version
+  labels, release tags, footer, all inline code.
 
-**The Terminal Spec Rule.** Reserve Geist Mono for commands, platform labels, and compact metadata; keep explanatory prose in Geist Sans.
+**The Terminal Spec Rule.** Mono is for commands and metadata. Prose never
+turns into terminal text.
 
 ## Layout
 
-The page uses a centered, full-width content column capped by Tailwind's 7xl container. Gutters are 24px by default and grow to 40px at the small breakpoint. The landing hero becomes two columns at 960px and wider, with a 72px desktop gap; below that, product proof and the installer stack in reading order. At 600px and below, vertical hero padding tightens, the install panel and two-surface panel reduce their internal padding, and footer metadata stacks.
+One centred column, `max-width: 1100px`, 24px gutters (20px below 600px).
+The page is a stack: header (64px tall, one rule), hero, install box, one
+full-width screenshot, a four-item section grid (single column, two columns at
+840px), a platform line, a cross-link row, a closing CTA and a one-line footer.
 
-The ways-to-work panel changes to two columns at 780px, with a quiet one-pixel divider. The content panel and changelog measure cap at 980px. Preserve 320px as the minimum page width. Keep image frames flexible and constrain their internal images to the available width; let the command line scroll horizontally instead of forcing the page wider.
+Hero: 84px top padding on desktop, 52px on mobile. Headline, 22px gap, lede,
+38px gap, install box, 20px gap, text links. Screenshot follows at 56px
+(40px on mobile).
+
+**The Horizontal Rule Rule.** Sections are separated by 1px rules, not cards,
+shadows or background panels. Only the install box is a surface.
 
 ## Elevation & Depth
 
-This is a tonal system with selective shadows. Most content surfaces stay flat or use a faint white wash; stronger lift belongs to the real product captures. The install panel uses a broad, soft shadow (0 24px 56px, rgba(0, 0, 0, 0.34)); the desktop capture uses 0 30px 70px at 50% black, and the terminal capture uses 0 22px 48px at 55% black. Ways and release panels have no box shadow.
-
-**The Media Shadow Rule.** Keep the strongest elevation beneath product captures; explanatory and changelog surfaces stay tonal and quiet.
+Flat by design. There are no box shadows anywhere on the marketing pages; the
+screenshots carry their own captured depth. Separators are `rgba(255,255,255,
+0.09)` and nothing else.
 
 ## Shapes
 
-The shape language pairs rounded geometry with irregular SVG pen outlines. Card frames use the card radius token; controls use the smaller control radius, screenshots use the media radius, and badges and tabs use pill silhouettes. The changelog release item has its own intermediate radius. Drawably's rough button and card contours use their own smaller renderer radii inside those host shapes. There are no CSS-border substitutes for the sketched control frame: Drawably draws real SVG chrome around native elements.
+Drawably draws its own contours around a small set of host shapes: the install
+box (16px), the copy button (8px), the platform tabs (underlined text), and the
+hero underline. Everything else is rectangular with the document's rules. The
+star chip and the release version are plain monospace text; the star chip uses
+a 999px border, which is a link chip, not a control.
 
-**The Native Sketch Rule.** Keep each control semantic and interactive in HTML, with its hand-drawn outline rendered as SVG chrome.
+**The Native Sketch Rule.** Drawably chrome sits on real HTML controls. No CSS
+border may imitate it.
 
 ## Components
 
-### Buttons
-- **Character:** Compact, confident actions with a visible pen outline.
-- **Typography:** Copy and platform buttons use Geist Mono; the header star control retains Drawably's Inter/system UI stack.
-- **Shape:** Copy actions use the small radius token; the header star action uses the control radius token. The rough button contour is drawn with an 8px renderer radius.
-- **Primary:** The install action is an outline Drawably button with monospaced copy, a 32px minimum height, and 6px 12px padding.
-- **Hover / Focus:** Drawably lifts buttons by 1px on hover and sinks them by 1px with a slight scale-down on press. The outline washes with the stroke color at 10% on hover. Keyboard focus stays visible with a 2px accent outline and 3px offset.
-- **Success / Disabled:** Copy success switches to the filled sketch variant. Disabled Drawably buttons dim to 45% opacity; loading uses progress cursor and faster boil.
+### Header
+- Brand: a small sketched `>_` badge plus the "RustCode" wordmark in mono.
+- Navigation: App, TUI, Changelog — 13.5px sans links, the current page in
+  full white. A GitHub stars chip (live count, falls back to "GitHub") closes
+  the row.
+- Below 600px the nav wraps under the brand on its own line; it never
+  overflows.
 
-### Chips / Badges
-- **Style:** The release badge is a pill with a faint light wash, muted blue-gray text, and no CSS border.
-- **State:** It carries the current release version, falling back to “latest release.”
+### Install box
+- Drawably card, `rgba(255,255,255,0.028)`, max 660px.
+- Platform tabs are text buttons with a sketched underline on the active one.
+  The current release tag sits opposite them in muted mono.
+- The command is a recessed well with a chalk-blue `$` and a Drawably outline
+  "Copy" button; copying switches it to the solid variant and says "Copied"
+  for 1.8s. A failed clipboard shows an inline manual-copy message.
+- Below 600px the command wraps onto its own lines and the copy button drops
+  underneath, right-aligned.
+- The note under the command explains what gets installed — including
+  `--no-app` on `/tui`.
 
-### Cards / Containers
-- **Corner Style:** The install panel and screenshot frames use the card radius token.
-- **Background:** Install and screenshot frames use the panel glaze; the ways panel and changelog cards use a slightly quieter wash.
-- **Shadow Strategy:** Follow the Media Shadow Rule. The install panel has a broad lift; media frames carry the deepest lift.
-- **Border:** Drawably Card renders the rough SVG edge with a 10px renderer radius; the ways and changelog surfaces remain borderless tonal layers.
-- **Internal Padding:** The install card uses Drawably's 16px base padding, with a tighter 19px 17px 18px on small screens. Product image frames use 10px and 8px padding.
+### Screenshots
+- One frame per page: 8px padding, 1px rule, 16px radius, image at 9px radius.
+- Caption in muted mono/sans below, one line.
+- `/` uses `readme-desktop.png`; `/tui` uses `tui.png`.
 
-### Inputs / Fields
-- There is no editable text field on this site. The installer command is a code display, not an input; keep it selectable and horizontally scrollable.
+### Sections
+- Heading, one paragraph, up to two dashed-marker bullets.
+- 32px vertical padding, 1px rule between rows; two columns from 840px with a
+  64px gutter and no vertical rule. Section 3 and 4 take a top rule.
 
-### Navigation
-- The header pairs a small sketched “>_” brand mark and monospaced wordmark with a Drawably star button.
-- Text links use chalk-blue monospaced type with an underline offset from the text. Hover shifts to the brighter blue.
-- Platform choice is a tablist inside the install panel, not a separate site navigation bar; it uses a pill track with an SVG underline on the active tab.
+### Links
+- Text links are chalk blue, mono, underlined with a 5px offset. The cross-link
+  row pairs a sentence with one right-aligned link.
 
-### Signature Components
-- **Installer panel:** Platform tabs replace the displayed command; copy success changes the button to the filled sketch state. If clipboard access fails, keep the command visible and show manual-copy recovery text.
-- **Product frames:** The real desktop screenshot leads the pair; the terminal harness screenshot remains a smaller, separately readable card. Keep the image and figure caption attached as one unit.
+### Changelog
+- Release rows: mono tag, muted date, disc-marked notes, ruled rows.
+- "Load more" is a Drawably outline button; infinite scroll and the release
+  API are unchanged.
+
+### Footer
+- One row, mono 11.5px: "Apache-2.0 · N views" on the left, GitHub, TUI,
+  Changelog on the right. Wraps to two lines on mobile.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep the page on midnight paper and use chalk-blue roles for interactive emphasis and Drawably strokes.
-- **Do** attach Drawably chrome to real HTML controls and containers; theme it with the Drawably custom properties.
-- **Do** keep the amber accent on the shell prompt glyph.
-- **Do** use the real desktop and terminal screenshots when showing product surfaces, and state platform support literally.
-- **Do** preserve visible keyboard focus and respect prefers-reduced-motion.
+- **Do** keep the page on `#0a0b0d` with chalk blue as the only accent.
+- **Do** show the real screenshots and real GitHub numbers.
+- **Do** use the product's words: thread, harness, model, effort, worktree,
+  fan-out, checkpoint, approval.
+- **Do** keep Drawably on real controls and theme it with its custom
+  properties.
+- **Do** keep focus visible and respect `prefers-reduced-motion` (Drawably
+  handles its own freeze).
 
 ### Don't:
-- **Don't** substitute CSS borders for Drawably's sketched SVG control chrome or restyle the library's SVG paths.
-- **Don't** apply Drawably Pen unless the user asks for that font.
-- **Don't** spread heavy shadows across explanatory cards, release rows, or list items.
-- **Don't** fabricate testimonials, customer logos, pricing, benchmarks, or usage claims.
+- **Don't** add gradients, glows, decorative blobs, icon-grid feature cards,
+  eyebrow labels above every section, or emoji.
+- **Don't** invent testimonials, customer logos, pricing, benchmarks or usage
+  numbers.
+- **Don't** fake Drawably's control chrome with CSS borders.
+- **Don't** load or apply Drawably Pen.
+- **Don't** reintroduce Tailwind utility classes on marketing markup; the
+  styles live in `globals.css` as semantic classes.

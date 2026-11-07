@@ -46,24 +46,27 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 
 ## Capabilities and Constraints
 
-- Surfaces: landing page (`/`), changelog (`/changelog`), install command
-  copy, GitHub star count, release/version feed from GitHub.
+- Surfaces: the app's landing page (`/`), the terminal harness page (`/tui`),
+  changelog (`/changelog`), install command copy, GitHub star count,
+  release/version feed from GitHub. `/` is about the desktop app only; the TUI
+  has its own page.
 - Desktop app platforms: macOS Apple silicon, Linux x86_64, Windows x64.
   The terminal harness also supports Linux ARM64.
 - Terminology: thread, harness, effort, worktree, fan-out, orchestrator,
   checkpoint, approval — use the product's own words.
 - Constraint: the site must keep the drawably hand-drawn control language
   (repo AGENTS.md); controls are real HTML elements with SVG chrome.
-- Open decision: none blocking — visual direction for this round is pinned by
-  the user's brief (dark mode, rounder geometry, new images/layout).
+- Open decision: none blocking — visual direction is pinned by the brief:
+  near-black ground, one accent, generous whitespace, a 1100px column, real
+  screenshots, roughly 300–400 words of copy per marketing page.
 
 ## Brand Commitments
 
 - Name: RustCode. Voice: calm, concrete, developer-to-developer.
 - Binding: the drawably sketch identity (hand-drawn SVG chrome over real
   controls) must stay; no CSS-border fakery of controls.
-- Binding from the brief: dark-mode UI, rounder geometry, imagery showing the
-  orchestration app and the optional terminal harness.
+- Binding from the brief: dark-mode UI, restrained accent, imagery showing the
+  orchestration app (`/`) and the optional terminal harness (`/tui`).
 - Assets: `public/images/rustcode-logo.png` (icon), `readme-desktop.png`
   (Tauri app screenshot from the main repo), and `tui.png` (terminal harness
   screenshot).
