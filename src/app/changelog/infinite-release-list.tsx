@@ -93,16 +93,15 @@ export function InfiniteReleaseList({
     <>
       <ReleaseList releases={releases} />
       {hasMore && (
-        <div className="release-load-more" ref={sentinelRef}>
+        <div className="load-more" ref={sentinelRef}>
           {error && (
-            <p className="changelog-empty" role="alert">
-              Couldn&apos;t load more releases. Please try again.
+            <p className="load-more-error" role="alert">
+              Couldn&apos;t load more releases. Try again.
             </p>
           )}
           <DrawablyButton
-            className="release-load-more-button"
+            className="load-more-button"
             variant="outline"
-            tone="neutral"
             seed={61}
             type="button"
             onClick={() => void loadMore()}
