@@ -74,7 +74,7 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 ## Evidence on Hand
 
 - Real screenshots: `public/images/readme-desktop.png` (1163×765),
-  `public/images/tui.png` (1163×838), `public/images/rustcode-logo.png`.
+  `public/images/tui.png` (1078×838, real terminal capture; the README's readme-tui.png is a desktop screenshot), `public/images/rustcode-logo.png`.
 - Live data: GitHub stars, GitHub releases/changelog, Vercel page views.
 - Absences that must not be fabricated: no testimonials, no customer logos, no
   pricing, no benchmarks, no usage numbers beyond public GitHub stars.

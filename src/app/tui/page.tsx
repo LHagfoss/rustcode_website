@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/tui.png",
-        width: 1163,
+        width: 1078,
         height: 838,
         alt: "RustCode running a thread",
       },
@@ -112,7 +112,7 @@ export default async function TuiPage() {
               <Image
                 src="/images/tui.png"
                 alt="RustCode with a thread open: the chat list on the left and the composer on the right"
-                width={1163}
+                width={1078}
                 height={838}
                 sizes="(min-width: 1280px) 1240px, 100vw"
                 priority
@@ -254,7 +254,7 @@ export default async function TuiPage() {
                 <Image
                   src="/images/tui.png"
                   alt=""
-                  width={1163}
+                  width={1078}
                   height={838}
                   sizes="(min-width: 860px) 540px, 100vw"
                 />

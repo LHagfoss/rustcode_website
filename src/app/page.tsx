@@ -328,7 +328,7 @@ export default async function Home() {
                 <Image
                   src="/images/tui.png"
                   alt=""
-                  width={1163}
+                  width={1078}
                   height={838}
                   sizes="(min-width: 860px) 540px, 100vw"
                 />
