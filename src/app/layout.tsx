@@ -59,8 +59,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: siteImage,
-        width: 1280,
-        height: 960,
+        width: 1163,
+        height: 765,
         alt: "The RustCode desktop app with a thread open",
       },
     ],
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "dark",
-  themeColor: "#0a0b0d",
+  themeColor: "#0a0a0b",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

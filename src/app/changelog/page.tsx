@@ -33,14 +33,11 @@ export default async function ChangelogPage() {
   return (
     <SiteFrame current="/changelog">
       <div className="wrap">
-        <div className="changelog-head">
-          <div>
-            <h1>Changelog</h1>
-            <p>
-              Release notes for RustCode, the orchestration app for coding
-              agents.
-            </p>
-          </div>
+        <div className="page-head">
+          <h1>Changelog</h1>
+          <p>
+            Release notes for RustCode, the orchestration app for coding agents.
+          </p>
           <a
             className="text-link"
             href={`${githubUrl}/releases`}
@@ -51,17 +48,19 @@ export default async function ChangelogPage() {
           </a>
         </div>
 
-        {releases.length > 0 ? (
-          <InfiniteReleaseList
-            initialReleases={releases}
-            initialHasMore={hasMore}
-          />
-        ) : (
-          <p className="empty-note">
-            Release notes are temporarily unavailable. The latest releases are
-            on GitHub.
-          </p>
-        )}
+        <div className="release-column">
+          {releases.length > 0 ? (
+            <InfiniteReleaseList
+              initialReleases={releases}
+              initialHasMore={hasMore}
+            />
+          ) : (
+            <p className="empty-note">
+              Release notes are temporarily unavailable. The latest releases are
+              on GitHub.
+            </p>
+          )}
+        </div>
       </div>
     </SiteFrame>
   );

@@ -1,69 +1,84 @@
 ---
 name: RustCode
-description: Dark, restrained visual system for RustCode, the coding-agent orchestration app, and its terminal harness.
+description: Dark, restrained marketing site for RustCode, the coding-agent orchestration app, and its terminal harness.
 colors:
-  ground: "#0a0b0d"
-  raised: "#101216"
-  well: "#0d0f12"
-  text: "#f2f4f6"
-  soft-copy: "#a8aeb6"
-  muted-copy: "#838a93"
+  ground: "#0a0a0b"
+  band: "#0d0d0f"
+  surface: "#121214"
+  surface-raised: "#17171a"
+  well: "#0c0c0e"
+  text: "#ededed"
+  soft-copy: "#b6b6bc"
+  muted-copy: "#9a9aa0"
+  quiet-copy: "#7c7c84"
   chalk-blue: "#a9c7dd"
-  rule: "rgba(255, 255, 255, 0.09)"
-  rule-strong: "rgba(255, 255, 255, 0.18)"
+  rule: "rgba(255, 255, 255, 0.08)"
+  rule-strong: "rgba(255, 255, 255, 0.16)"
 typography:
   display:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 6vw, 4.4rem)"
-    fontWeight: 640
+    fontSize: "clamp(2.75rem, 7vw, 5.3rem)"
+    fontWeight: 650
+    lineHeight: 0.98
+    letterSpacing: "-0.055em"
+  section-heading:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.1rem, 4vw, 3.3rem)"
+    fontWeight: 620
     lineHeight: 1.02
     letterSpacing: "-0.045em"
-  headline:
+  card-title:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "18.5px"
+    fontSize: "16.5px"
     fontWeight: 600
     lineHeight: 1.25
-    letterSpacing: "-0.015em"
-  page-title:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.2rem, 5vw, 3.4rem)"
-    fontWeight: 640
-    lineHeight: 1.04
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "14.5px"
-    lineHeight: 1.62
+    fontSize: "15.5px"
+    lineHeight: 1.75
   mono:
     fontFamily: "Geist Mono, ui-monospace, monospace"
-    fontSize: "12.5px"
+    fontSize: "11.5px"
     fontWeight: 500
-    lineHeight: 1.5
+    lineHeight: 1.6
 rounded:
   control: "10px"
-  frame: "16px"
+  tile: "12px"
+  card: "18px"
+  panel: "20px"
+  cta: "24px"
   pill: "999px"
 components:
   install-box:
-    backgroundColor: "rgba(255, 255, 255, 0.028)"
-    rounded: "{rounded.frame}"
-    width: "660px max"
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.card}"
+    width: "620px max"
   command-well:
     backgroundColor: "{colors.well}"
     rounded: "{rounded.control}"
     padding: "8px 8px 8px 13px"
-  copy-button:
-    textColor: "{colors.soft-copy}"
-    rounded: "8px"
-    padding: "4px 10px"
-  stars-chip:
-    textColor: "{colors.muted-copy}"
+  nav-cta:
+    backgroundColor: "{colors.text}"
+    textColor: "{colors.ground}"
     rounded: "{rounded.pill}"
-    padding: "4px 10px"
+    padding: "7px 15px"
   screenshot-frame:
-    backgroundColor: "rgba(255, 255, 255, 0.018)"
-    rounded: "{rounded.frame}"
-    padding: "8px"
+    backgroundColor: "#151517"
+    rounded: "22px"
+    padding: "10px"
+  feature-card:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.card}"
+    padding: "10px"
+  product-card:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.panel}"
+    padding: "10px"
+  cta-block:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.cta}"
+    padding: "64px 32px 52px"
 ---
 
 # Design System: RustCode
@@ -72,41 +87,49 @@ components:
 
 **Creative North Star: "A Quiet Workshop at Night"**
 
-The site is a near-black document with one cool accent, plenty of space, and
-real product screenshots. It reads like a README from a project that respects
-the reader: a short headline, a command to copy, then plain sections in the
-product's own vocabulary. Drawably's hand-drawn chrome appears only where it
-belongs — on the install command's card, its platform tabs, its copy button,
-and one underline in the hero.
+The site is a near-black document with one cool accent, generous vertical
+rhythm, soft rounded surfaces and real product screenshots. It borrows the
+calm editorial composition of the ParalX site — a centered hero, a wide framed
+product image, a split intro with three small cards, a two-card surface row, a
+split FAQ, a contained call to action and a footer with a huge faint wordmark —
+and translates it to dark for a developer tool.
 
 The site covers two surfaces: the desktop orchestration app at `/` and the
-terminal harness at `/tui`. They share the header, the footer, the install box
-and the section grid; each page only changes its hero, screenshot and copy.
+terminal harness at `/tui`. Both share the header, footer, install box,
+feature row, product row, CTA block and FAQ/section rhythm; each page changes
+its hero, screenshot and copy.
 
 **Key Characteristics:**
-- Near-black ground (`#0a0b0d`), white copy, one chalk-blue accent.
-- Geist for prose, Geist Mono for commands, platforms and metadata.
-- Drawably sketches on real controls, used sparingly.
-- Real screenshots, live GitHub data, literal platform lists.
-- Horizontal rules instead of cards; no gradients, glows, blobs or icon grids.
+- Near-black ground (`#0a0a0b`) with raised card surfaces and hairline rules.
+- Centered, heavy, tightly tracked display type.
+- Real screenshots in a soft rounded frame on a subtly tinted band.
+- One accent: chalk blue, used for sketches, links, active tabs and tiny UI
+  fragments. No second hue, gradient, glow or blob.
+- Drawably hand-drawn chrome on real controls only: the install box, its tabs
+  and copy button, the brand badge and the changelog load-more button.
+- Miniature product UI fragments drawn in HTML/CSS inside feature tiles, never
+  stock art or icon grids.
 
 ## Colors
 
 ### Primary
-- **Chalk Blue** (`#a9c7dd`): links, the install prompt glyph, Drawably strokes,
-  the active platform tab. The only accent on the page.
+- **Chalk Blue** (`#a9c7dd`): drawably strokes, text links on hover, the active
+  platform tab, the command prompt, the approve chip and small check marks.
 
 ### Neutral
-- **Ground** (`#0a0b0d`): page background.
-- **Raised** (`#101216`): Drawably paper for filled buttons.
-- **Well** (`#0d0f12`): the recessed command line inside the install box.
-- **Text** (`#f2f4f6`): headings and primary copy.
-- **Soft Copy** (`#a8aeb6`): paragraphs and list items.
-- **Muted Copy** (`#838a93`): captions, metadata, footer, version labels.
-- **Rule** / **Rule Strong**: one-pixel separators; no card borders.
+- **Ground** (`#0a0a0b`): page background.
+- **Band** (`#0d0d0f`): the full-bleed band behind the hero screenshot.
+- **Surface** (`#121214`): install box, feature cards, product cards, CTA block.
+- **Surface Raised** (`#17171a`): the tile inside a feature card.
+- **Well** (`#0c0c0e`): the recessed command line and mini UI rows.
+- **Text** (`#ededed`): headings and primary copy.
+- **Soft Copy** (`#b6b6bc`): hero lede and section paragraphs.
+- **Muted Copy** (`#9a9aa0`): card copy, nav links, captions, footer links.
+- **Quiet Copy** (`#7c7c84`): metadata, versions, indices and micro-labels.
+- **Rule** / **Rule Strong**: hairline borders; cards use `--rule` only.
 
 **The One Accent Rule.** Chalk blue or nothing. No second hue, no gradient, no
-glow. Amber, purple and status colors are gone from the marketing surfaces.
+glow. Error copy is the only exception.
 
 ## Typography
 
@@ -116,99 +139,132 @@ glow. Amber, purple and status colors are gone from the marketing surfaces.
 Drawably Pen is not loaded and not applied.
 
 ### Hierarchy
-- **Display** (640, `clamp(2.5rem, 6vw, 4.4rem)`, 1.02, -0.045em, max 15ch):
-  the home hero headline. It breaks to two lines on desktop.
-- **Page title** (640, `clamp(2.2rem, 5vw, 3.4rem)`, 1.04): `/tui` and
-  `/changelog` headings.
-- **Headline** (600, 18.5px, -0.015em): section and CTA headings.
-- **Body** (14.5px, 1.62): section copy. The hero lede is 17px (16px below
-  600px); paragraphs cap at 52–62ch.
-- **Mono** (500–600, 11.5–13px): commands, tabs, platform lists, version
-  labels, release tags, footer, all inline code.
+- **Display** (650, `clamp(2.75rem, 7vw, 5.3rem)`, 0.98, -0.055em, max 17ch):
+  the centered home and TUI headlines. Two lines on desktop.
+- **Section heading** (620, `clamp(2.1rem, 4vw, 3.3rem)`, 1.02): split
+  intros, the centered two-surface heading, the FAQ and CTA headings.
+- **Page head** (`clamp(2.6rem, 6vw, 4.4rem)`): the changelog.
+- **Card title** (600, 16.5px, -0.02em): feature cards; product titles are
+  22px.
+- **Body** (15.5px, 1.75): split and section copy. The hero lede is 17.5px
+  (16px below 720px) and caps at 640px. Card copy is 13.5–14px.
+- **Mono** (500–600, 10.5–14px): commands, platform strips, feature indices,
+  kickers, footer metadata and inline code.
 
-**The Terminal Spec Rule.** Mono is for commands and metadata. Prose never
-turns into terminal text.
+**The Terminal Spec Rule.** Mono is for commands, labels and metadata. Prose
+never turns into terminal text.
 
 ## Layout
 
-One centred column, `max-width: 1100px`, 24px gutters (20px below 600px).
-The page is a stack: header (64px tall, one rule), hero, install box, one
-full-width screenshot, a four-item section grid (single column, two columns at
-840px), a platform line, a cross-link row, a closing CTA and a one-line footer.
+One centered column, `max-width: 1160px`, 24px gutters (18px below 560px). The
+screenshot band widens to 1280px. The home page is a stack:
 
-Hero: 84px top padding on desktop, 52px on mobile. Headline, 22px gap, lede,
-38px gap, install box, 20px gap, text links. Screenshot follows at 56px
-(40px on mobile).
+1. Sticky header (66px): brand left; nav, live star count and a solid white
+   Install pill right. Below 720px the nav drops to a second row.
+2. Centered hero: display headline, 640px lede, centered install box, GitHub
+   link and a tiny harness list.
+3. Full-bleed tinted band: framed 1163×765 screenshot, one caption line and a
+   metadata strip.
+4. Split intro ("Run several agents at once.") and a three-card feature row.
+5. Centered two-surface heading and a two-card product row.
+6. Split FAQ: heading and link left, native `<details>` accordion right.
+7. Rounded CTA block with the install command again.
+8. Footer: brand intro, three link columns, a huge faint wordmark and a
+   one-line bottom bar.
 
-**The Horizontal Rule Rule.** Sections are separated by 1px rules, not cards,
-shadows or background panels. Only the install box is a surface.
+`/tui` follows the same rhythm: hero, framed screenshot, split with three
+cards, two-surface row, CTA. `/changelog` uses the same header and footer with
+a centered page head and an 840px release column.
+
+**The Rhythm Rule.** Sections are separated by 80–120px of space, not by
+extra rules. Cards carry the only borders.
 
 ## Elevation & Depth
 
-Flat by design. There are no box shadows anywhere on the marketing pages; the
-screenshots carry their own captured depth. Separators are `rgba(255,255,255,
-0.09)` and nothing else.
+Flat surfaces with hairline borders. The screenshot frame gets one deep, soft
+shadow (`0 60px 130px -80px #000`) to lift it off the band; the install box gets
+a smaller one. Cards are flat. No glows.
 
 ## Shapes
 
-Drawably draws its own contours around a small set of host shapes: the install
-box (16px), the copy button (8px), the platform tabs (underlined text), and the
-hero underline. Everything else is rectangular with the document's rules. The
-star chip and the release version are plain monospace text; the star chip uses
-a 999px border, which is a link chip, not a control.
+Drawably draws its own contours on the install box, its tabs, the copy button
+and the brand badge. Everything else is a rounded surface: 12px tiles, 18px
+feature cards, 20px product cards, 24px CTA block, 999px nav pill.
 
 **The Native Sketch Rule.** Drawably chrome sits on real HTML controls. No CSS
-border may imitate it.
+border may imitate it. Miniature UI inside feature tiles is illustration, not a
+control.
 
 ## Components
 
 ### Header
-- Brand: a small sketched `>_` badge plus the "RustCode" wordmark in mono.
-- Navigation: App, TUI, Changelog — 13.5px sans links, the current page in
-  full white. A GitHub stars chip (live count, falls back to "GitHub") closes
-  the row.
-- Below 600px the nav wraps under the brand on its own line; it never
-  overflows.
+- Brand: a sketched `>_` badge plus the RustCode wordmark in mono.
+- Nav: App, TUI, Changelog (13.5px). The current page is full white.
+- GitHub stars: icon plus compact live count, muted, no pill.
+- Install: solid white pill link to `/#install`. Hover lifts 1px.
+- Sticky with a translucent near-black background and a hairline bottom rule.
 
 ### Install box
-- Drawably card, `rgba(255,255,255,0.028)`, max 660px.
+- Drawably card on `--surface`, 620px max, centered.
 - Platform tabs are text buttons with a sketched underline on the active one.
-  The current release tag sits opposite them in muted mono.
+- The current release sits opposite in quiet mono.
 - The command is a recessed well with a chalk-blue `$` and a Drawably outline
-  "Copy" button; copying switches it to the solid variant and says "Copied"
-  for 1.8s. A failed clipboard shows an inline manual-copy message.
-- Below 600px the command wraps onto its own lines and the copy button drops
-  underneath, right-aligned.
-- The note under the command explains what gets installed — including
-  `--no-app` on `/tui`.
+  Copy button; copying turns it solid and says "Copied" for 1.8s. A failed
+  clipboard shows an inline manual-copy message.
+- Below 720px the command wraps and the copy button drops underneath, right
+  aligned.
+- The note explains what gets installed, including `--no-app` on `/tui`.
 
-### Screenshots
-- One frame per page: 8px padding, 1px rule, 16px radius, image at 9px radius.
-- Caption in muted mono/sans below, one line.
+### Screenshot band
+- Full-bleed `--band` with top and bottom rules; 48px of padding.
+- Frame: 10px padding, 1px `--rule-strong`, 22px radius, `#151517`, image at
+  13px radius.
+- One centered caption line, then a ruled strip with platforms and license.
 - `/` uses `readme-desktop.png`; `/tui` uses `tui.png`.
 
-### Sections
-- Heading, one paragraph, up to two dashed-marker bullets.
-- 32px vertical padding, 1px rule between rows; two columns from 840px with a
-  64px gutter and no vertical rule. Section 3 and 4 take a top rule.
+### Feature row
+- Three cards, equal height, 16px gap.
+- Each card: 172px tile (`--surface-raised`) with a miniature UI fragment, then
+  a mono index, a title and two lines of copy.
+- Fragments: a mini thread composer with model chips; two branch rows; a
+  command with Approve/Deny and a checkpoint line.
+- Below 860px the cards stack and the tile moves beside the copy; below 560px
+  the tile sits on top.
 
-### Links
-- Text links are chalk blue, mono, underlined with a 5px offset. The cross-link
-  row pairs a sentence with one right-aligned link.
+### Product row
+- Two large cards, 16px gap, image area on top (16:10 crop, 12px radius).
+- 10px padding, 20px radius, `--surface`; hover lifts 2px and strengthens the
+  border. The link card's bottom label underlines on hover.
+- One card is the current page and says "You are here" / "On this page".
+
+### FAQ
+- Split: heading, short paragraph and one link left; accordion right.
+- Native `<details>`; summary is 15.5px/550 with a CSS plus that loses its
+  vertical stroke when open. Answer is 14px muted, max 62ch.
+- Rows are separated by 1px rules; no card.
+
+### CTA block
+- Contained surface, 24px radius, 64px padding, centered copy, the install box
+  and a GitHub link. Reuses the same install component as the hero.
 
 ### Changelog
-- Release rows: mono tag, muted date, disc-marked notes, ruled rows.
+- Centered page head with GitHub link.
+- 840px column: mono tag, quiet date, dash-marked notes, ruled rows.
 - "Load more" is a Drawably outline button; infinite scroll and the release
   API are unchanged.
 
 ### Footer
-- One row, mono 11.5px: "Apache-2.0 · N views" on the left, GitHub, TUI,
-  Changelog on the right. Wraps to two lines on mobile.
+- Brand intro left, three mono-labelled link columns right (Product, Project,
+  Install).
+- A huge faint "RustCode" wordmark (`rgba(255,255,255,0.055)`,
+  `clamp(50px, 16vw, 232px)`) spans the width, never clipped.
+- Bottom bar: copyright/license/views left; GitHub, TUI, Changelog right.
+  Wraps without overflowing at 375px.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep the page on `#0a0b0d` with chalk blue as the only accent.
+- **Do** keep the page on `#0a0a0b` with chalk blue as the only accent.
 - **Do** show the real screenshots and real GitHub numbers.
 - **Do** use the product's words: thread, harness, model, effort, worktree,
   fan-out, checkpoint, approval.
@@ -216,13 +272,17 @@ border may imitate it.
   properties.
 - **Do** keep focus visible and respect `prefers-reduced-motion` (Drawably
   handles its own freeze).
+- **Do** keep the hero centered and the product image wide; the contrast
+  between centered campaigns and left-aligned split sections carries the page.
 
 ### Don't:
-- **Don't** add gradients, glows, decorative blobs, icon-grid feature cards,
-  eyebrow labels above every section, or emoji.
+- **Don't** add gradients, glows, decorative blobs, icon-grid feature cards or
+  emoji.
 - **Don't** invent testimonials, customer logos, pricing, benchmarks or usage
   numbers.
 - **Don't** fake Drawably's control chrome with CSS borders.
 - **Don't** load or apply Drawably Pen.
+- **Don't** use stock art or stock screenshots; the mini tiles are drawn from
+  the product's own vocabulary.
 - **Don't** reintroduce Tailwind utility classes on marketing markup; the
   styles live in `globals.css` as semantic classes.

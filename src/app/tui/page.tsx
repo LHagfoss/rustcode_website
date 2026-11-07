@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { CtaBlock } from "../cta";
+import { FeatureCard } from "../feature-card";
 import { InstallBox } from "../install-box";
 import { getReleases } from "../releases";
 import { githubUrl, siteUrl } from "../site";
 import { SiteFrame } from "../site-shell";
+import { Underline } from "../sketch";
 
 export const revalidate = 900;
 
@@ -24,13 +27,30 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/tui.png",
-        width: 1078,
+        width: 1163,
         height: 838,
-        alt: "The RustCode terminal harness answering a prompt",
+        alt: "RustCode running a thread",
       },
     ],
   },
 };
+
+function PromptIcon() {
+  return (
+    <svg
+      className="mini-icon"
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m4.5 5 3.5 3-3.5 3M9 11h3" />
+    </svg>
+  );
+}
 
 export default async function TuiPage() {
   const { version } = await getReleases().catch(() => ({ version: null }));
@@ -38,8 +58,10 @@ export default async function TuiPage() {
   return (
     <SiteFrame current="/tui">
       <div className="wrap">
-        <section className="page-head" aria-labelledby="tui-title">
-          <h1 id="tui-title">The same agent, in your terminal.</h1>
+        <section className="hero" aria-labelledby="tui-title">
+          <h1 id="tui-title">
+            The same agent, in your <Underline seed={31}>terminal</Underline>.
+          </h1>
           <p className="hero-lede">
             <code>rustcode</code> is the terminal UI the installer puts next to
             the app. It runs the built-in harness on any model you have
@@ -69,140 +91,202 @@ export default async function TuiPage() {
             >
               Source on GitHub ↗
             </a>
-            <Link className="text-link" href="/">
-              The desktop app →
-            </Link>
+          </div>
+
+          <div className="harness-line">
+            <span className="harness-label">Runs on</span>
+            <ul>
+              <li>Linux x86_64</li>
+              <li>Linux ARM64</li>
+              <li>macOS Apple silicon</li>
+              <li>Windows x64</li>
+            </ul>
           </div>
         </section>
+      </div>
 
-        <figure className="shot">
-          <div className="shot-frame">
-            <Image
-              src="/images/tui.png"
-              alt="The RustCode terminal harness: a prompt, the agent's reasoning steps, a tool call and the input bar"
-              width={1078}
-              height={838}
-              sizes="(min-width: 1100px) 1036px, 100vw"
-              priority
-            />
+      <section className="shot-band" aria-label="The RustCode terminal harness">
+        <div className="wrap shot-wrap">
+          <figure className="hero-shot">
+            <div className="shot-frame">
+              <Image
+                src="/images/tui.png"
+                alt="RustCode with a thread open: the chat list on the left and the composer on the right"
+                width={1163}
+                height={838}
+                sizes="(min-width: 1280px) 1240px, 100vw"
+                priority
+              />
+            </div>
+            <figcaption>
+              A prompt, the agent&apos;s steps and tool calls, and the input bar
+              at the bottom.
+            </figcaption>
+          </figure>
+          <div className="shot-strip">
+            <span>Inline by default · fullscreen on request</span>
+            <span>Any provider · Ollama · OS sandbox</span>
           </div>
-          <figcaption>
-            The inline UI: your prompt, the agent&apos;s steps and tool calls,
-            and the input bar at the bottom.
-          </figcaption>
-        </figure>
+        </div>
+      </section>
 
-        <section
-          className="sections"
-          aria-label="How the terminal harness works"
-        >
-          <article className="section">
-            <h2>Inline by default</h2>
+      <div className="wrap">
+        <section className="parallel" aria-labelledby="tui-parallel-title">
+          <div className="split">
+            <h2 id="tui-parallel-title">Inline, not a takeover.</h2>
             <p>
               The UI draws in the pane you started it from and leaves your shell
               history where it was. Fullscreen is opt-in for when the
               conversation needs the whole window.
             </p>
-            <ul>
-              <li>Your prompt and scrollback stay in place.</li>
-              <li>Fullscreen only when you ask for it.</li>
-            </ul>
-          </article>
+          </div>
 
-          <article className="section">
-            <h2>Three entry points</h2>
-            <dl className="entries">
-              <div className="entry">
-                <dt>
-                  <code>rustcode</code>
-                </dt>
-                <dd>The terminal UI in this project.</dd>
-              </div>
-              <div className="entry">
-                <dt>
-                  <code>rustcode --prompt &quot;…&quot;</code>
-                </dt>
-                <dd>One prompt on the built-in harness, no UI.</dd>
-              </div>
-              <div className="entry">
-                <dt>
-                  <code>rustcode --acp</code>
-                </dt>
-                <dd>Serve ACP over stdio; the desktop app uses this.</dd>
-              </div>
-            </dl>
-          </article>
-
-          <article className="section">
-            <h2>Any model you have</h2>
-            <p>
-              The harness runs on the models you already have access to, through
-              the providers you already configured, including local models
-              through Ollama. Commands run inside an OS sandbox.
-            </p>
-            <ul>
-              <li>Bring your own provider, key or local model.</li>
-              <li>An OS sandbox around the commands it runs.</li>
-            </ul>
-          </article>
-
-          <article className="section">
-            <h2>Ships with the app</h2>
-            <p>
-              The terminal harness and the desktop app share one core, and one
-              installer. Use whichever fits the task; both come from the same
-              command.
-            </p>
-            <ul>
-              <li>No second install and no second account.</li>
-              <li>Installed alongside the app, optional to use.</li>
-            </ul>
-          </article>
-        </section>
-
-        <div className="platforms">
-          <span>
-            Terminal: Linux x86_64 · Linux ARM64 · macOS Apple silicon · Windows
-            x64
-          </span>
-          <span>
-            Desktop app: macOS Apple silicon · Linux x86_64 · Windows x64
-          </span>
-        </div>
-
-        <aside className="crosslink">
-          <p>
-            Want the window instead? The desktop app runs the same threads with
-            worktrees, fan-out, approvals and review.
-          </p>
-          <Link className="text-link" href="/">
-            RustCode app →
-          </Link>
-        </aside>
-
-        <section className="cta" aria-labelledby="tui-cta-title">
-          <h2 id="tui-cta-title">Install the command.</h2>
-          <p>
-            One installer, both surfaces. The <code>rustcode</code> command is
-            all you need if the terminal is where you work.
-          </p>
-          <div className="hero-links">
-            <a className="text-link" href="#install">
-              Install RustCode →
-            </a>
-            <a
-              className="text-link"
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="feature-row">
+            <FeatureCard
+              index="01"
+              title="Inline by default"
+              tile={
+                <div className="mini mini-terminal">
+                  <div className="mini-term-bar">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="mini-term-line">
+                    <span className="mini-prompt">$</span> rustcode
+                  </div>
+                  <div className="mini-term-line is-muted">
+                    › explain this codebase
+                  </div>
+                  <div className="mini-term-cursor" />
+                </div>
+              }
             >
-              GitHub ↗
-            </a>
-            <Link className="text-link" href="/changelog">
-              Changelog
-            </Link>
+              Your prompt and scrollback stay in place. Fullscreen only when you
+              ask for it.
+            </FeatureCard>
+
+            <FeatureCard
+              index="02"
+              title="Three entry points"
+              tile={
+                <div className="mini mini-entries">
+                  <div className="mini-entry">
+                    <PromptIcon />
+                    <code>rustcode</code>
+                    <span className="mini-chip">UI</span>
+                  </div>
+                  <div className="mini-entry">
+                    <PromptIcon />
+                    <code>--prompt &quot;…&quot;</code>
+                    <span className="mini-chip">one-shot</span>
+                  </div>
+                  <div className="mini-entry">
+                    <PromptIcon />
+                    <code>--acp</code>
+                    <span className="mini-chip">stdio</span>
+                  </div>
+                </div>
+              }
+            >
+              The UI, one prompt on the built-in harness, or ACP over stdio for
+              the app.
+            </FeatureCard>
+
+            <FeatureCard
+              index="03"
+              title="Any model you have"
+              tile={
+                <div className="mini mini-models">
+                  <div className="mini-chips">
+                    <span className="mini-chip is-strong">OpenAI</span>
+                    <span className="mini-chip">Anthropic</span>
+                    <span className="mini-chip">Ollama</span>
+                  </div>
+                  <div className="mini-line w-80" />
+                  <div className="mini-line w-45" />
+                  <div className="mini-saved">
+                    <span className="mini-dot" />
+                    local model · sandboxed
+                  </div>
+                </div>
+              }
+            >
+              Bring your own provider, key or local model. Commands run inside
+              an OS sandbox.
+            </FeatureCard>
           </div>
         </section>
+
+        <section className="surfaces" aria-labelledby="tui-surfaces-title">
+          <div className="section-heading">
+            <h2 id="tui-surfaces-title">One installer, both surfaces.</h2>
+            <p>
+              The terminal harness and the desktop app share one core and one
+              command.
+            </p>
+          </div>
+
+          <div className="product-grid">
+            <Link className="product-card" href="/">
+              <div className="product-media">
+                <Image
+                  src="/images/readme-desktop.png"
+                  alt=""
+                  width={1163}
+                  height={765}
+                  sizes="(min-width: 860px) 540px, 100vw"
+                />
+              </div>
+              <div className="product-copy">
+                <span className="product-kicker">Desktop app</span>
+                <h3>The orchestration window</h3>
+                <p>
+                  Threads, worktrees, approvals and review, with every agent in
+                  one sidebar.
+                </p>
+                <span className="product-link">Open the app page →</span>
+              </div>
+            </Link>
+
+            <article className="product-card" aria-current="page">
+              <div className="product-media">
+                <Image
+                  src="/images/tui.png"
+                  alt=""
+                  width={1163}
+                  height={838}
+                  sizes="(min-width: 860px) 540px, 100vw"
+                />
+              </div>
+              <div className="product-copy">
+                <span className="product-kicker">
+                  Terminal harness · you are here
+                </span>
+                <h3>The same agent, inline</h3>
+                <p>
+                  Inline by default, fullscreen when you want it, on any model
+                  you have configured.
+                </p>
+                <span className="product-link">On this page</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <CtaBlock
+          id="tui-cta"
+          version={version}
+          seed={90}
+          title="Put the command on your machine."
+          copy="One installer, both surfaces. Add --no-app if the terminal is all you want."
+          note={
+            <>
+              Installs the <code>rustcode</code> command and the desktop app.
+              Linux ARM64 gets the command only.
+            </>
+          }
+        />
       </div>
     </SiteFrame>
   );
