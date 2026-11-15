@@ -2,13 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  githubUrl,
-  siteDescription,
-  siteImage,
-  siteName,
-  siteUrl,
-} from "./site";
+import { githubUrl, siteDescription, siteName, siteUrl } from "./site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "RustCode — One app for your coding agents",
+    default: "RustCode — Coding agent orchestration desktop app",
     template: "%s | RustCode",
   },
   description: siteDescription,
@@ -50,7 +44,7 @@ export const metadata: Metadata = {
     apple: "/images/rustcode-logo.png",
   },
   openGraph: {
-    title: "RustCode — One app for your coding agents",
+    title: "RustCode — Coding agent orchestration desktop app",
     description: siteDescription,
     url: siteUrl,
     siteName,
@@ -58,18 +52,18 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: siteImage,
-        width: 1163,
-        height: 765,
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
         alt: "The RustCode desktop app with a thread open",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RustCode — One app for your coding agents",
+    title: "RustCode — Coding agent orchestration desktop app",
     description: siteDescription,
-    images: [siteImage],
+    images: ["/opengraph-image"],
   },
 };
 

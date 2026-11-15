@@ -83,3 +83,7 @@ styled in `src/app/globals.css`.
 - **FAQ:** native `<details>` with a drawn plus/minus.
 - **Changelog:** a two-column ruled list, tag and date on the left, notes with
   square slate bullets on the right.
+
+## Orchestration landing page
+
+The homepage leads with a two-line desktop-app headline and full-column real screenshot. A slate caption bar anchors the image. Six ruled harness slots use the logo geometry, with paper identifying the built-in harness. A three-step thread workflow follows; installation comes before a compact secondary terminal link. At mobile widths harness slots become two columns and the workflow stacks.

@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBlock } from "./cta";
-import { type FaqItem, FaqList } from "./faq";
-import { FeatureCard } from "./feature-card";
 import { InstallBox } from "./install-box";
 import { getReleases } from "./releases";
 import {
@@ -13,9 +11,7 @@ import {
   siteUrl,
 } from "./site";
 import { SiteFrame } from "./site-shell";
-
 export const revalidate = 900;
-
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -50,80 +46,15 @@ const structuredData = {
 };
 
 const harnesses = [
-  "Claude Code",
-  "Codex",
-  "Gemini CLI",
-  "OpenCode",
-  "Pi",
-] as const;
-
-const faq: readonly FaqItem[] = [
-  {
-    question: "Is RustCode free?",
-    answer:
-      "Yes. RustCode is open source under Apache-2.0, with no account, subscription or usage fee. You pay your model provider, if you use one.",
-  },
-  {
-    question: "Which agents can I run?",
-    answer:
-      "Claude Code, Codex, Gemini CLI, OpenCode, Pi or RustCode's built-in harness. Each thread picks its own harness, model and effort.",
-  },
-  {
-    question: "Which platforms are supported?",
-    answer:
-      "The desktop app runs on macOS Apple silicon, Linux x86_64 and Windows x64. The rustcode command also runs on Linux ARM64.",
-  },
-  {
-    question: "Do I need the terminal harness?",
-    answer:
-      "No. The installer puts both on your machine; the app does not depend on the terminal UI. Add --no-app to install the command alone.",
-  },
-  {
-    question: "Where does my data live?",
-    answer:
-      "On your machine, local-first: threads, settings and usage. Agents talk to their own providers directly, and RustCode has no account to create.",
-  },
+  ["Claude Code", "Anthropic harness"],
+  ["Codex", "OpenAI harness"],
+  ["Gemini CLI", "Google harness"],
+  ["OpenCode", "Open source harness"],
+  ["Pi", "Open source harness"],
+  ["RustCode", "Built-in harness"],
 ];
-
-function BranchIcon() {
-  return (
-    <svg
-      className="mini-icon"
-      viewBox="0 0 16 16"
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-    >
-      <circle cx="4" cy="3.5" r="1.6" />
-      <circle cx="4" cy="12.5" r="1.6" />
-      <circle cx="12" cy="5.5" r="1.6" />
-      <path d="M4 5.2v5.6M12 7.2v.3a3 3 0 0 1-3 3H6.8" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      className="mini-icon"
-      viewBox="0 0 16 16"
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m3.4 8.4 3 3 6.2-7" />
-    </svg>
-  );
-}
-
 export default async function Home() {
   const { version } = await getReleases().catch(() => ({ version: null }));
-
   return (
     <SiteFrame current="/">
       <script
@@ -133,251 +64,151 @@ export default async function Home() {
           __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
         }}
       />
-
       <div className="wrap">
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-main">
-            <h1 id="hero-title">One app for your coding agents.</h1>
-            <p className="hero-lede">
-              RustCode runs Claude Code, Codex, Gemini CLI, OpenCode, Pi and its
-              own harness side by side in one desktop window. Every thread picks
-              its agent, model and effort.
+        <section className="orchestration-hero" aria-labelledby="hero-title">
+          <h1 id="hero-title">
+            Your coding agents.
+            <br />
+            <span>One desktop app.</span>
+          </h1>
+          <div className="hero-intro">
+            <p>
+              RustCode is a local-first orchestration app for coding agents. Run
+              the harnesses you already use, plus our built-in harness, in one
+              desktop GUI. Keep parallel work in view, from the first prompt to
+              the reviewed diff.
             </p>
-
-            <InstallBox
-              anchor="install"
-              version={version}
-              note={
-                <>
-                  Installs the desktop app and the <code>rustcode</code>{" "}
-                  command. The terminal UI is optional to use; Linux ARM64 gets
-                  the command only.
-                </>
-              }
+            <a className="nav-cta" href="#install">
+              Install RustCode <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </section>
+        <figure className="desktop-reveal">
+          <div className="reveal-label">
+            <span>RustCode / Desktop</span>
+            <span>Local-first · Apache-2.0</span>
+          </div>
+          <div className="shot-frame">
+            <Image
+              src="/images/readme-desktop.png"
+              alt="RustCode desktop GUI showing project threads, an agent conversation and the prompt composer"
+              width={1163}
+              height={765}
+              sizes="(min-width: 1200px) 1100px, 100vw"
+              priority
             />
           </div>
-
-          <aside className="hero-side" aria-labelledby="harness-title">
-            <h2 id="harness-title" className="side-title">
-              Works with
-            </h2>
-            <ul className="harness-list">
-              {harnesses.map((harness) => (
-                <li key={harness}>{harness}</li>
-              ))}
-              <li className="is-own">RustCode harness</li>
-            </ul>
-            <dl className="side-facts">
-              <div>
-                <dt>License</dt>
-                <dd>Apache-2.0</dd>
-              </div>
-              <div>
-                <dt>Data</dt>
-                <dd>Local-first, no account</dd>
-              </div>
-            </dl>
-            <a
-              className="text-link"
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source on GitHub
-              <span aria-hidden="true"> ↗</span>
-            </a>
-          </aside>
-        </section>
-      </div>
-
-      <section className="shot-band" aria-label="The RustCode desktop app">
-        <div className="wrap shot-wrap">
-          <figure className="hero-shot">
-            <div className="shot-frame">
-              <Image
-                src="/images/readme-desktop.png"
-                alt="The RustCode desktop app with a thread open: the thread list on the left and the agent's composer on the right"
-                width={1163}
-                height={765}
-                sizes="(min-width: 1280px) 1240px, 100vw"
-                priority
-              />
-            </div>
-            <figcaption>
-              Threads on the left, the active conversation and its changes on
-              the right.
-            </figcaption>
-          </figure>
-          <div className="shot-strip">
-            <span>macOS Apple silicon · Linux x86_64 · Windows x64</span>
-            <span>Apache-2.0 · local-first</span>
-          </div>
-        </div>
-      </section>
-
-      <div className="wrap">
-        <section className="parallel" aria-labelledby="parallel-title">
+          <figcaption>
+            One workspace for your threads, conversations and changes.
+          </figcaption>
+        </figure>
+        <section className="harness-section" aria-labelledby="harness-title">
           <div className="split">
-            <h2 id="parallel-title">Run several agents at once.</h2>
+            <h2 id="harness-title">
+              Keep your harness.
+              <br />
+              Choose it per thread.
+            </h2>
             <p>
-              Start a thread, pick its harness, model and effort, then let a
-              second thread work next to it. RustCode keeps every conversation,
-              worktree and approval in one window.
+              Claude Code, Codex, Gemini CLI, OpenCode, Pi or RustCode itself.
+              Each thread gets its own harness, model and effort. Sign in to
+              each agent once, then choose the right setup for the work.
             </p>
           </div>
-
-          <div className="feature-row">
-            <FeatureCard
-              title="Per-thread agent, model and effort"
-              tile={
-                <div className="mini mini-thread">
-                  <div className="mini-head">
-                    <span className="mini-dot" />
-                    <span className="mini-title">New thread</span>
-                    <span className="mini-chip">High</span>
-                  </div>
-                  <div className="mini-input">What should we build?</div>
-                  <div className="mini-chips">
-                    <span className="mini-chip is-strong">Claude Code</span>
-                    <span className="mini-chip">claude-opus-4.5</span>
-                  </div>
-                  <div className="mini-line w-80" />
-                  <div className="mini-line w-55" />
-                </div>
-              }
-            >
-              Sign in to each agent once. Switch harness, model and effort per
-              thread, not per app.
-            </FeatureCard>
-
-            <FeatureCard
-              title="A worktree per thread"
-              tile={
-                <div className="mini mini-worktree">
-                  <div className="mini-branch">
-                    <BranchIcon />
-                    <span>feat/parallel-layout</span>
-                    <span className="mini-chip">thread 3</span>
-                  </div>
-                  <div className="mini-branch is-muted">
-                    <BranchIcon />
-                    <span>feat/site-copy</span>
-                    <span className="mini-chip">thread 4</span>
-                  </div>
-                  <div className="mini-line w-70" />
-                </div>
-              }
-            >
-              Run a thread in its own git worktree. Parallel changes stay
-              isolated, so you compare branches and merge the one that works.
-            </FeatureCard>
-
-            <FeatureCard
-              title="Approvals before anything lands"
-              tile={
-                <div className="mini mini-approval">
-                  <div className="mini-command">
-                    <span className="mini-prompt">$</span>
-                    <code>rm -rf dist</code>
-                  </div>
-                  <div className="mini-actions">
-                    <span className="mini-approve">Approve</span>
-                    <span className="mini-deny">Deny</span>
-                  </div>
-                  <div className="mini-saved">
-                    <CheckIcon />
-                    checkpoint saved
-                  </div>
-                </div>
-              }
-            >
-              Commands wait for you. Every turn leaves a checkpoint, and the
-              diff is reviewed in the thread before it lands.
-            </FeatureCard>
-          </div>
+          <ul className="harness-grid">
+            {harnesses.map(([name, detail]) => (
+              <li key={name}>
+                <span className="harness-block" aria-hidden="true" />
+                <strong>{name}</strong>
+                <span>{detail}</span>
+              </li>
+            ))}
+          </ul>
         </section>
-
-        <section className="surfaces" aria-labelledby="surfaces-title">
-          <div className="section-heading">
-            <h2 id="surfaces-title">Two surfaces. One installer.</h2>
+        <section className="thread-section" aria-labelledby="thread-title">
+          <div className="split">
+            <h2 id="thread-title">
+              Start a thread.
+              <br />
+              Give it room to work.
+            </h2>
             <p>
-              Use the window for orchestration, the command for everything else.
-              Both ship together.
+              One task can become several threads. Agents can start and message
+              other threads, so delegation and fan-out stay connected to the
+              work you are directing.
             </p>
           </div>
-
-          <div className="product-grid">
-            <article className="product-card" aria-current="page">
-              <div className="product-media">
-                <Image
-                  src="/images/readme-desktop.png"
-                  alt=""
-                  width={1163}
-                  height={765}
-                  sizes="(min-width: 860px) 540px, 100vw"
-                />
-              </div>
-              <div className="product-copy">
-                <h3>The orchestration window</h3>
-                <p>
-                  Threads, worktrees, approvals and review, with every agent in
-                  one sidebar.
-                </p>
-                <span className="product-link">On this page</span>
-              </div>
-            </article>
-
-            <Link className="product-card" href="/tui">
-              <div className="product-media">
-                <Image
-                  src="/images/tui.png"
-                  alt=""
-                  width={1078}
-                  height={838}
-                  sizes="(min-width: 860px) 540px, 100vw"
-                />
-              </div>
-              <div className="product-copy">
-                <h3>The same agent, inline</h3>
-                <p>
-                  Inline by default, fullscreen when you want it, on any model
-                  you have configured.
-                </p>
-                <span className="product-link">Open the TUI page →</span>
-              </div>
-            </Link>
-          </div>
+          <ol className="thread-flow">
+            <li>
+              <span>01 / Configure</span>
+              <h3>Pick the harness.</h3>
+              <p>
+                Choose a model and effort for the task. Keep a conversation and
+                its context together in a thread.
+              </p>
+            </li>
+            <li>
+              <span>02 / Run in parallel</span>
+              <h3>Branch the work.</h3>
+              <p>
+                Give a thread its own git worktree. Delegate to other threads
+                without mixing their changes into the same checkout.
+              </p>
+            </li>
+            <li>
+              <span>03 / Review</span>
+              <h3>Stay in the loop.</h3>
+              <p>
+                Handle approval requests, return to per-turn checkpoints and
+                review the diff. Bring the work through review and merge PRs.
+              </p>
+            </li>
+          </ol>
         </section>
-
-        <section className="faq-section" aria-labelledby="faq-title">
-          <div className="faq-intro">
-            <h2 id="faq-title">Questions, answered.</h2>
+        <section className="install-section" aria-labelledby="install-title">
+          <div>
+            <h2 id="install-title">
+              On your machine.
+              <br />
+              Under your control.
+            </h2>
             <p>
-              Short answers about the app, the agents and what gets installed.
+              Open source under Apache-2.0. Threads, settings and usage live
+              locally. No RustCode account required.
             </p>
-            <a
-              className="text-link"
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read the source ↗
-            </a>
+            <p className="platform-note">
+              Desktop: macOS Apple silicon · Linux x86_64 · Windows x64.
+            </p>
           </div>
-          <FaqList items={faq} />
+          <InstallBox
+            anchor="install"
+            version={version}
+            note={
+              <>
+                Installs the desktop app and the <code>rustcode</code> command.
+                Linux ARM64 gets the command only.
+              </>
+            }
+          />
         </section>
-
+        <aside className="terminal-secondary">
+          <div>
+            <h2>Prefer a terminal?</h2>
+            <p>
+              The optional terminal UI is installed alongside the desktop app.
+              Use the built-in harness inline or fullscreen.
+            </p>
+          </div>
+          <Link className="text-link" href="/tui">
+            Explore the terminal UI →
+          </Link>
+        </aside>
         <CtaBlock
           id="home-cta"
           version={version}
-          title="Install it and open a thread."
-          copy="One command installs the desktop app and the rustcode command. Open a thread and pick the agent."
-          note={
-            <>
-              Installs both surfaces. Add <code>--no-app</code> for the command
-              alone.
-            </>
-          }
+          title="Put your agents to work."
+          copy="Open a project, start a thread and choose your harness."
+          note={<>Desktop app + optional terminal UI. Free and open source.</>}
         />
       </div>
     </SiteFrame>

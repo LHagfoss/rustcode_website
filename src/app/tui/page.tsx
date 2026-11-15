@@ -11,14 +11,21 @@ import { SiteFrame } from "../site-shell";
 export const revalidate = 900;
 
 export const metadata: Metadata = {
-  title: "Terminal harness",
+  title: "Optional terminal UI",
   description:
-    "rustcode is the terminal UI that ships with RustCode: the built-in coding agent inline by default, fullscreen when you want it, on any model including local ones through Ollama.",
+    "The optional terminal UI installed alongside the RustCode desktop orchestration app: the built-in coding agent inline by default, fullscreen when you want it, on any model including local ones through Ollama.",
+  twitter: {
+    card: "summary_large_image",
+    title: "RustCode — Optional terminal UI",
+    description:
+      "The optional terminal companion to the RustCode desktop orchestration app.",
+    images: ["/images/tui.png"],
+  },
   alternates: {
     canonical: "/tui",
   },
   openGraph: {
-    title: "RustCode terminal harness",
+    title: "RustCode — Optional terminal UI",
     description:
       "The rustcode terminal UI: inline by default, fullscreen when you want it, on any model including local ones through Ollama.",
     url: `${siteUrl}/tui`,

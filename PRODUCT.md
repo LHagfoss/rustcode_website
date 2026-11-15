@@ -24,7 +24,7 @@ product, and copies the install command.
 
 ## Positioning
 
-"One app for your coding agents." Every thread picks its agent (harness),
+"Your coding agents. One desktop app." Every thread picks its agent (harness),
 model and effort; threads can use separate git worktrees to isolate parallel
 changes; an agent can start and message other threads; approvals,
 per-turn checkpoints and review keep the human in control. The mechanism a
@@ -58,7 +58,7 @@ orchestrator and the installed, optional `rustcode` terminal harness.
   semantic HTML styled from the site's own tokens.
 - Open decision: none blocking — visual direction is pinned by the brief:
   near-black ground, one accent, generous whitespace, a 1100px column, real
-  screenshots, roughly 300–400 words of copy per marketing page.
+  screenshots, roughly 300–450 words of copy per marketing page.
 
 ## Brand Commitments
 

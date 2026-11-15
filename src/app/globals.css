@@ -1471,3 +1471,224 @@ a.product-card:hover .product-link {
     transform: none;
   }
 }
+
+/* Desktop orchestration landing page: the logo's blocks become harness slots. */
+.orchestration-hero {
+  padding: 76px 0 44px;
+}
+.orchestration-hero h1 {
+  font-size: clamp(3rem, 6.8vw, 5.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 640;
+}
+.orchestration-hero h1 span {
+  color: var(--accent);
+}
+.hero-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  margin-top: 28px;
+}
+.hero-intro p {
+  max-width: 66ch;
+  color: var(--soft);
+  font-size: 17px;
+}
+.hero-intro .nav-cta {
+  flex: none;
+  height: 46px;
+  gap: 28px;
+}
+.desktop-reveal {
+  margin: 0;
+}
+.reveal-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px;
+  background: var(--slate);
+  color: var(--text);
+  font-size: 13px;
+}
+.desktop-reveal img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.desktop-reveal figcaption {
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.harness-section,
+.thread-section {
+  padding-top: 104px;
+}
+.harness-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin-top: 36px;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
+}
+.harness-grid li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 5px 18px;
+  padding: 27px 24px;
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+.harness-block {
+  width: 20px;
+  height: 24px;
+  background: var(--slate);
+  grid-row: span 2;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 35% 30%, 35% 100%, 0 100%);
+}
+.harness-grid li:last-child .harness-block {
+  background: var(--text);
+}
+.harness-grid strong {
+  font-size: 20px;
+  font-weight: 550;
+}
+.harness-grid li > span:last-child {
+  color: var(--muted);
+  font-size: 13px;
+}
+.thread-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin-top: 36px;
+  border-top: 1px solid var(--line-strong);
+}
+.thread-flow li {
+  padding: 26px 28px 0 0;
+}
+.thread-flow li > span {
+  color: var(--accent);
+  font-size: 13px;
+}
+.thread-flow h3 {
+  font-size: 23px;
+  margin: 22px 0 12px;
+  letter-spacing: -0.025em;
+}
+.thread-flow p,
+.install-section p,
+.terminal-secondary p {
+  color: var(--muted);
+  font-size: 15px;
+}
+.install-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-top: 104px;
+  padding: 48px 0;
+  border-top: 1px solid var(--line-strong);
+}
+.install-section p {
+  max-width: 45ch;
+  margin-top: 20px;
+}
+.install-section .platform-note {
+  font-size: 13px;
+}
+.terminal-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+}
+.terminal-secondary h2 {
+  font-size: 21px;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.terminal-secondary p {
+  max-width: 62ch;
+}
+.terminal-secondary a {
+  flex: none;
+}
+@media (max-width: 700px) {
+  .orchestration-hero {
+    padding-top: 44px;
+  }
+  .hero-intro,
+  .terminal-secondary {
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+  }
+  .harness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .harness-grid li {
+    padding: 20px 12px;
+    gap: 6px 10px;
+    grid-template-columns: 16px 1fr;
+  }
+  .harness-grid strong {
+    font-size: 17px;
+  }
+  .harness-block {
+    width: 16px;
+    height: 20px;
+  }
+  .harness-grid li > span:last-child {
+    font-size: 12px;
+  }
+  .reveal-label {
+    font-size: 11px;
+    padding: 10px;
+  }
+  .thread-flow,
+  .install-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .thread-flow li {
+    padding-top: 20px;
+  }
+  .thread-flow li + li {
+    border-top: 1px solid var(--line);
+  }
+  .thread-flow h3 {
+    margin-top: 12px;
+  }
+  .harness-section,
+  .thread-section {
+    padding-top: 72px;
+  }
+  .install-section {
+    margin-top: 72px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none;
+    transition: none;
+    scroll-behavior: auto;
+  }
+}
+.install-section > * {
+  min-width: 0;
+}
+.install-section .install {
+  width: 100%;
+}
