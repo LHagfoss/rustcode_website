@@ -1,14 +1,8 @@
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  githubUrl,
-  siteDescription,
-  siteImage,
-  siteName,
-  siteUrl,
-} from "./site";
+import { githubUrl, siteDescription, siteName, siteUrl } from "./site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "RustCode — Native terminal AI coding agent",
+    default: "RustCode — Coding agent orchestration desktop app",
     template: "%s | RustCode",
   },
   description: siteDescription,
@@ -50,7 +44,7 @@ export const metadata: Metadata = {
     apple: "/images/rustcode-logo.png",
   },
   openGraph: {
-    title: "RustCode — Native terminal AI coding agent",
+    title: "RustCode — Coding agent orchestration desktop app",
     description: siteDescription,
     url: siteUrl,
     siteName,
@@ -58,28 +52,30 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: siteImage,
-        width: 1078,
-        height: 712,
-        alt: "RustCode terminal interface running in a project",
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "The RustCode desktop app with a thread open",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RustCode — Native terminal AI coding agent",
+    title: "RustCode — Coding agent orchestration desktop app",
     description: siteDescription,
-    images: [siteImage],
+    images: ["/opengraph-image"],
   },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#0a0a0b",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         {children}
         <Analytics />
       </body>

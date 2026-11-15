@@ -92,14 +92,14 @@ export function InfiniteReleaseList({
     <>
       <ReleaseList releases={releases} />
       {hasMore && (
-        <div className="release-load-more" ref={sentinelRef}>
+        <div className="load-more" ref={sentinelRef}>
           {error && (
-            <p className="changelog-empty" role="alert">
-              Couldn&apos;t load more releases. Please try again.
+            <p className="load-more-error" role="alert">
+              Couldn&apos;t load more releases. Try again.
             </p>
           )}
           <button
-            className="release-load-more-button"
+            className="load-more-button"
             type="button"
             onClick={() => void loadMore()}
             disabled={loading}

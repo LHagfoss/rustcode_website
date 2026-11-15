@@ -1,6 +1,6 @@
 export const siteUrl = "https://rustcode.lhagfoss.com";
 export const siteName = "RustCode";
 export const githubUrl = "https://github.com/LHagfoss/rustcode";
-export const siteImage = "/images/readme-macos.png";
+export const siteImage = "/images/readme-desktop.png";
 export const siteDescription =
-  "RustCode is a native terminal AI coding agent for pair programming in your codebase. Open source, local-first, and available on macOS, Linux, and Windows.";
+  "RustCode is a local-first coding agent orchestration app: a desktop GUI for Claude Code, Codex, Gemini CLI, OpenCode, Pi and its own harness. Free and open source.";
