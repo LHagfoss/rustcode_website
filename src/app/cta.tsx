@@ -5,14 +5,12 @@ import { githubUrl } from "./site";
 export function CtaBlock({
   id,
   version,
-  seed,
   title,
   copy,
   note,
 }: {
   id: string;
   version: string | null;
-  seed: number;
   title: string;
   copy: string;
   note: ReactNode;
@@ -23,7 +21,7 @@ export function CtaBlock({
         <h2 id={`${id}-title`}>{title}</h2>
         <p>{copy}</p>
       </div>
-      <InstallBox version={version} seed={seed} note={note} />
+      <InstallBox version={version} note={note} />
       <a
         className="text-link cta-link"
         href={githubUrl}

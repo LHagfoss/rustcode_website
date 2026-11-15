@@ -41,7 +41,7 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 - Install: one-line installers put the `rustcode` CLI on the machine and,
   unless `--no-app`, the desktop app as well (`docs/install.md`). The TUI is
   installed alongside and optional to use (stated in the user's brief).
-- This site: Next.js 16 + drawably hand-drawn UI library, deployed on Vercel
+- This site: Next.js 16 with plain CSS (no component library), deployed on Vercel
   at https://rustcode.lhagfoss.com.
 
 ## Capabilities and Constraints
@@ -54,8 +54,8 @@ orchestrator and the installed, optional `rustcode` terminal harness.
   The terminal harness also supports Linux ARM64.
 - Terminology: thread, harness, effort, worktree, fan-out, orchestrator,
   checkpoint, approval — use the product's own words.
-- Constraint: the site must keep the drawably hand-drawn control language
-  (repo AGENTS.md); controls are real HTML elements with SVG chrome.
+- Constraint: no third-party UI component library; controls are plain
+  semantic HTML styled from the site's own tokens.
 - Open decision: none blocking — visual direction is pinned by the brief:
   near-black ground, one accent, generous whitespace, a 1100px column, real
   screenshots, roughly 300–400 words of copy per marketing page.
@@ -63,8 +63,8 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 ## Brand Commitments
 
 - Name: RustCode. Voice: calm, concrete, developer-to-developer.
-- Binding: the drawably sketch identity (hand-drawn SVG chrome over real
-  controls) must stay; no CSS-border fakery of controls.
+- Binding: the identity comes from the logo: block-built "rc" mark, slate
+  blue and warm off-white on near-black, square crisp geometry.
 - Binding from the brief: dark-mode UI, restrained accent, imagery showing the
   orchestration app (`/`) and the optional terminal harness (`/tui`).
 - Assets: `public/images/rustcode-logo.png` (icon), `readme-desktop.png`
@@ -94,6 +94,6 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 ## Accessibility & Inclusion
 
 Body/secondary text ≥ 4.5:1 contrast on the dark ground, visible keyboard
-focus, semantic HTML, `prefers-reduced-motion` respected (drawably already
-freezes boil and hover re-sketch under it). No product-specific a11y standard
+focus, semantic HTML, `prefers-reduced-motion` respected (the screenshot reveal
+and hover transitions switch off under it). No product-specific a11y standard
 was stated by the user.

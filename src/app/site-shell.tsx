@@ -117,9 +117,6 @@ export function SiteFrame({
             ))}
           </div>
         </div>
-        <div className="footer-wordmark" aria-hidden="true">
-          RustCode
-        </div>
         <div className="wrap footer-bottom">
           <span>
             © {new Date().getFullYear()} RustCode · Apache-2.0

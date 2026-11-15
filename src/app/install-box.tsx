@@ -1,6 +1,5 @@
 "use client";
 
-import { DrawablyButton, DrawablyCard, DrawablyTabs } from "drawably/react";
 import { type ReactNode, useId, useState } from "react";
 
 type Installer = {
@@ -31,12 +30,10 @@ export function InstallBox({
   version,
   note,
   anchor,
-  seed = 20,
 }: {
   version: string | null;
   note: ReactNode;
   anchor?: string;
-  seed?: number;
 }) {
   const [active, setActive] = useState(0);
   const [copied, setCopied] = useState<string | null>(null);
@@ -67,19 +64,12 @@ export function InstallBox({
   }
 
   return (
-    <DrawablyCard
-      className="install"
-      id={anchor}
-      seed={seed}
-      role="group"
-      aria-label="Install RustCode"
-    >
+    <section className="install" id={anchor} aria-label="Install RustCode">
       <div className="install-top">
-        <DrawablyTabs
+        <div
           className="install-tabs"
+          role="tablist"
           aria-label="Choose your platform"
-          active={active}
-          seed={seed + 1}
         >
           {installers.map((item, index) => (
             <button
@@ -94,7 +84,7 @@ export function InstallBox({
               {item.label}
             </button>
           ))}
-        </DrawablyTabs>
+        </div>
         <span className="install-version">{version ?? "latest release"}</span>
       </div>
 
@@ -110,15 +100,15 @@ export function InstallBox({
           </span>
           {installer.command}
         </code>
-        <DrawablyButton
+        <button
+          type="button"
           className="copy"
-          variant={copied === installer.id ? "solid" : "outline"}
-          seed={seed + 2}
+          data-copied={copied === installer.id || undefined}
           onClick={copy}
           aria-label={`Copy the ${installer.label} install command`}
         >
           {copied === installer.id ? "Copied" : "Copy"}
-        </DrawablyButton>
+        </button>
       </div>
 
       {failed === installer.id && (
@@ -132,6 +122,6 @@ export function InstallBox({
       <span className="sr-only" aria-live="polite">
         {copied === installer.id ? `${installer.label} command copied` : ""}
       </span>
-    </DrawablyCard>
+    </section>
   );
 }

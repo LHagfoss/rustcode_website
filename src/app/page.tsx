@@ -13,7 +13,6 @@ import {
   siteUrl,
 } from "./site";
 import { SiteFrame } from "./site-shell";
-import { Underline } from "./sketch";
 
 export const revalidate = 900;
 
@@ -137,46 +136,57 @@ export default async function Home() {
 
       <div className="wrap">
         <section className="hero" aria-labelledby="hero-title">
-          <h1 id="hero-title">
-            One app for your <Underline seed={7}>coding agents</Underline>.
-          </h1>
-          <p className="hero-lede">
-            RustCode runs Claude Code, Codex, Gemini CLI, OpenCode, Pi and its
-            own harness side by side in one desktop window. Every thread picks
-            its agent, model and effort.
-          </p>
+          <div className="hero-main">
+            <h1 id="hero-title">One app for your coding agents.</h1>
+            <p className="hero-lede">
+              RustCode runs Claude Code, Codex, Gemini CLI, OpenCode, Pi and its
+              own harness side by side in one desktop window. Every thread picks
+              its agent, model and effort.
+            </p>
 
-          <InstallBox
-            anchor="install"
-            version={version}
-            note={
-              <>
-                Installs the desktop app and the <code>rustcode</code> command.
-                The terminal UI is optional to use; Linux ARM64 gets the command
-                only.
-              </>
-            }
-          />
+            <InstallBox
+              anchor="install"
+              version={version}
+              note={
+                <>
+                  Installs the desktop app and the <code>rustcode</code>{" "}
+                  command. The terminal UI is optional to use; Linux ARM64 gets
+                  the command only.
+                </>
+              }
+            />
+          </div>
 
-          <div className="hero-links">
+          <aside className="hero-side" aria-labelledby="harness-title">
+            <h2 id="harness-title" className="side-title">
+              Works with
+            </h2>
+            <ul className="harness-list">
+              {harnesses.map((harness) => (
+                <li key={harness}>{harness}</li>
+              ))}
+              <li className="is-own">RustCode harness</li>
+            </ul>
+            <dl className="side-facts">
+              <div>
+                <dt>License</dt>
+                <dd>Apache-2.0</dd>
+              </div>
+              <div>
+                <dt>Data</dt>
+                <dd>Local-first, no account</dd>
+              </div>
+            </dl>
             <a
               className="text-link"
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Source on GitHub ↗
+              Source on GitHub
+              <span aria-hidden="true"> ↗</span>
             </a>
-          </div>
-
-          <div className="harness-line">
-            <span className="harness-label">Works with</span>
-            <ul>
-              {harnesses.map((harness) => (
-                <li key={harness}>{harness}</li>
-              ))}
-            </ul>
-          </div>
+          </aside>
         </section>
       </div>
 
@@ -218,7 +228,6 @@ export default async function Home() {
 
           <div className="feature-row">
             <FeatureCard
-              index="01"
               title="Per-thread agent, model and effort"
               tile={
                 <div className="mini mini-thread">
@@ -242,7 +251,6 @@ export default async function Home() {
             </FeatureCard>
 
             <FeatureCard
-              index="02"
               title="A worktree per thread"
               tile={
                 <div className="mini mini-worktree">
@@ -265,7 +273,6 @@ export default async function Home() {
             </FeatureCard>
 
             <FeatureCard
-              index="03"
               title="Approvals before anything lands"
               tile={
                 <div className="mini mini-approval">
@@ -311,9 +318,6 @@ export default async function Home() {
                 />
               </div>
               <div className="product-copy">
-                <span className="product-kicker">
-                  Desktop app · you are here
-                </span>
                 <h3>The orchestration window</h3>
                 <p>
                   Threads, worktrees, approvals and review, with every agent in
@@ -334,7 +338,6 @@ export default async function Home() {
                 />
               </div>
               <div className="product-copy">
-                <span className="product-kicker">Terminal harness</span>
                 <h3>The same agent, inline</h3>
                 <p>
                   Inline by default, fullscreen when you want it, on any model
@@ -367,7 +370,6 @@ export default async function Home() {
         <CtaBlock
           id="home-cta"
           version={version}
-          seed={80}
           title="Install it and open a thread."
           copy="One command installs the desktop app and the rustcode command. Open a thread and pick the agent."
           note={

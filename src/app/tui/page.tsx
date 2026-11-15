@@ -7,7 +7,6 @@ import { InstallBox } from "../install-box";
 import { getReleases } from "../releases";
 import { githubUrl, siteUrl } from "../site";
 import { SiteFrame } from "../site-shell";
-import { Underline } from "../sketch";
 
 export const revalidate = 900;
 
@@ -59,49 +58,48 @@ export default async function TuiPage() {
     <SiteFrame current="/tui">
       <div className="wrap">
         <section className="hero" aria-labelledby="tui-title">
-          <h1 id="tui-title">
-            The same agent, in your <Underline seed={31}>terminal</Underline>.
-          </h1>
-          <p className="hero-lede">
-            <code>rustcode</code> is the terminal UI the installer puts next to
-            the app. It runs the built-in harness on any model you have
-            configured, including local ones through Ollama, inline by default
-            and fullscreen when you want it.
-          </p>
+          <div className="hero-main">
+            <h1 id="tui-title">The same agent, in your terminal.</h1>
+            <p className="hero-lede">
+              <code>rustcode</code> is the terminal UI the installer puts next
+              to the app. It runs the built-in harness on any model you have
+              configured, including local ones through Ollama, inline by default
+              and fullscreen when you want it.
+            </p>
 
-          <InstallBox
-            anchor="install"
-            seed={40}
-            version={version}
-            note={
-              <>
-                Installs the <code>rustcode</code> command and the desktop app.
-                Add <code>--no-app</code> to install the command alone; Linux
-                ARM64 gets the command only.
-              </>
-            }
-          />
+            <InstallBox
+              anchor="install"
+              version={version}
+              note={
+                <>
+                  Installs the <code>rustcode</code> command and the desktop
+                  app. Add <code>--no-app</code> to install the command alone;
+                  Linux ARM64 gets the command only.
+                </>
+              }
+            />
+          </div>
 
-          <div className="hero-links">
+          <aside className="hero-side" aria-labelledby="platform-title">
+            <h2 id="platform-title" className="side-title">
+              Runs on
+            </h2>
+            <ul className="harness-list">
+              <li>Linux x86_64</li>
+              <li>Linux ARM64</li>
+              <li>macOS Apple silicon</li>
+              <li>Windows x64</li>
+            </ul>
             <a
               className="text-link"
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Source on GitHub ↗
+              Source on GitHub
+              <span aria-hidden="true"> ↗</span>
             </a>
-          </div>
-
-          <div className="harness-line">
-            <span className="harness-label">Runs on</span>
-            <ul>
-              <li>Linux x86_64</li>
-              <li>Linux ARM64</li>
-              <li>macOS Apple silicon</li>
-              <li>Windows x64</li>
-            </ul>
-          </div>
+          </aside>
         </section>
       </div>
 
@@ -143,7 +141,6 @@ export default async function TuiPage() {
 
           <div className="feature-row">
             <FeatureCard
-              index="01"
               title="Inline by default"
               tile={
                 <div className="mini mini-terminal">
@@ -167,7 +164,6 @@ export default async function TuiPage() {
             </FeatureCard>
 
             <FeatureCard
-              index="02"
               title="Three entry points"
               tile={
                 <div className="mini mini-entries">
@@ -194,7 +190,6 @@ export default async function TuiPage() {
             </FeatureCard>
 
             <FeatureCard
-              index="03"
               title="Any model you have"
               tile={
                 <div className="mini mini-models">
@@ -239,7 +234,6 @@ export default async function TuiPage() {
                 />
               </div>
               <div className="product-copy">
-                <span className="product-kicker">Desktop app</span>
                 <h3>The orchestration window</h3>
                 <p>
                   Threads, worktrees, approvals and review, with every agent in
@@ -260,9 +254,6 @@ export default async function TuiPage() {
                 />
               </div>
               <div className="product-copy">
-                <span className="product-kicker">
-                  Terminal harness · you are here
-                </span>
                 <h3>The same agent, inline</h3>
                 <p>
                   Inline by default, fullscreen when you want it, on any model
@@ -277,7 +268,6 @@ export default async function TuiPage() {
         <CtaBlock
           id="tui-cta"
           version={version}
-          seed={90}
           title="Put the command on your machine."
           copy="One installer, both surfaces. Add --no-app if the terminal is all you want."
           note={

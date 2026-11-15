@@ -6,7 +6,6 @@
       "name": "rustcode_website",
       "dependencies": {
         "@vercel/analytics": "^2.0.1",
-        "drawably": "^0.4.2",
         "next": "16.3.5",
         "react": "19.2.8",
         "react-dom": "19.2.8",
@@ -188,8 +187,6 @@
     "csstype": ["csstype@3.2.3", "", {}, "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="],
 
     "detect-libc": ["detect-libc@2.1.2", "", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
-
-    "drawably": ["drawably@0.4.2", "", { "peerDependencies": { "react": ">=18 <20" }, "optionalPeers": ["react"] }, "sha512-kHLnj08iHHVgwXxn7htKszWMlGIOy+CqUTekInCwoAqITwIAYjD4E/K7PMF6GLj5bM/t7sxysv1WmVGPOKDJzA=="],
 
     "enhanced-resolve": ["enhanced-resolve@5.25.1", "", { "dependencies": { "graceful-fs": "^4.2.4", "tapable": "^2.3.3" } }, "sha512-nGXts5znJzmWPu+mIE9izCOzdg63oJca2mDzGWWTth7sr4aCToKcoyFVBQwN75Ij5Pf6p510EwkTqViTRzDV+w=="],
 
