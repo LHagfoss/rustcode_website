@@ -1472,17 +1472,17 @@ a.product-card:hover .product-link {
   }
 }
 
-/* Desktop orchestration landing page: the logo's blocks become harness slots. */
-.orchestration-hero {
+/* Desktop ADE landing page: the logo's blocks become harness slots. */
+.ade-hero {
   padding: 76px 0 44px;
 }
-.orchestration-hero h1 {
+.ade-hero h1 {
   font-size: clamp(3rem, 6.8vw, 5.8rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
   font-weight: 640;
 }
-.orchestration-hero h1 span {
+.ade-hero h1 span {
   color: var(--accent);
 }
 .hero-intro {
@@ -1624,7 +1624,7 @@ a.product-card:hover .product-link {
   flex: none;
 }
 @media (max-width: 700px) {
-  .orchestration-hero {
+  .ade-hero {
     padding-top: 44px;
   }
   .hero-intro,

@@ -1,6 +1,6 @@
 ---
 name: RustCode
-description: Dark, precise marketing site for RustCode, the coding-agent orchestration app, and its terminal harness. Identity taken from the block-built "rc" logo.
+description: Dark, precise marketing site for RustCode, the agentic development environment (ADE), and its terminal harness. Identity taken from the block-built "rc" logo.
 colors:
   ground: "#0d0d0f"
   band: "#111114"
@@ -84,6 +84,6 @@ styled in `src/app/globals.css`.
 - **Changelog:** a two-column ruled list, tag and date on the left, notes with
   square slate bullets on the right.
 
-## Orchestration landing page
+## ADE landing page
 
 The homepage leads with a two-line desktop-app headline and full-column real screenshot. A slate caption bar anchors the image. Six ruled harness slots use the logo geometry, with paper identifying the built-in harness. A three-step thread workflow follows; installation comes before a compact secondary terminal link. At mobile widths harness slots become two columns and the workflow stacks.
