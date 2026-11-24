@@ -16,20 +16,21 @@ README; not separately confirmed with the user.)
 
 ## Product Purpose
 
-RustCode is the open source orchestration app for coding agents: one desktop
-app that runs several agents side by side, plus the `rustcode` terminal
+RustCode is the open source agentic development environment (ADE) for
+coding agents: one desktop app that runs several agents side by side, plus the `rustcode` terminal
 harness. Success for this surface is a visitor who understands within seconds
-that RustCode is an orchestration app (not a chat wrapper), sees the real
+that RustCode is an ADE, an agentic development environment (not a chat
+wrapper), sees the real
 product, and copies the install command.
 
 ## Positioning
 
-"Your coding agents. One desktop app." Every thread picks its agent (harness),
+"Your coding agents. One development environment." Every thread picks its agent (harness),
 model and effort; threads can use separate git worktrees to isolate parallel
 changes; an agent can start and message other threads; approvals,
 per-turn checkpoints and review keep the human in control. The mechanism a
 neighbor cannot copy truthfully: the same core drives both the Tauri desktop
-orchestrator and the installed, optional `rustcode` terminal harness.
+ADE and the installed, optional `rustcode` terminal harness.
 
 ## Operating Context
 
@@ -52,7 +53,7 @@ orchestrator and the installed, optional `rustcode` terminal harness.
   has its own page.
 - Desktop app platforms: macOS Apple silicon, Linux x86_64, Windows x64.
   The terminal harness also supports Linux ARM64.
-- Terminology: thread, harness, effort, worktree, fan-out, orchestrator,
+- Terminology: thread, harness, effort, worktree, fan-out, ADE,
   checkpoint, approval — use the product's own words.
 - Constraint: no third-party UI component library; controls are plain
   semantic HTML styled from the site's own tokens.
@@ -66,7 +67,7 @@ orchestrator and the installed, optional `rustcode` terminal harness.
 - Binding: the identity comes from the logo: block-built "rc" mark, slate
   blue and warm off-white on near-black, square crisp geometry.
 - Binding from the brief: dark-mode UI, restrained accent, imagery showing the
-  orchestration app (`/`) and the optional terminal harness (`/tui`).
+  desktop ADE (`/`) and the optional terminal harness (`/tui`).
 - Assets: `public/images/rustcode-logo.png` (icon), `readme-desktop.png`
   (Tauri app screenshot from the main repo), and `tui.png` (terminal harness
   screenshot).

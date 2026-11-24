@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "RustCode — Coding agent orchestration desktop app",
+    default: "RustCode — Agentic development environment (ADE)",
     template: "%s | RustCode",
   },
   description: siteDescription,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     apple: "/images/rustcode-logo.png",
   },
   openGraph: {
-    title: "RustCode — Coding agent orchestration desktop app",
+    title: "RustCode — Agentic development environment (ADE)",
     description: siteDescription,
     url: siteUrl,
     siteName,
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RustCode — Coding agent orchestration desktop app",
+    title: "RustCode — Agentic development environment (ADE)",
     description: siteDescription,
     images: ["/opengraph-image"],
   },

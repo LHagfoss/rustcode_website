@@ -9,14 +9,14 @@ export const revalidate = 900;
 export const metadata: Metadata = {
   title: "Changelog",
   description:
-    "Release notes for RustCode, the orchestration app for coding agents.",
+    "Release notes for RustCode, the agentic development environment (ADE) for coding agents.",
   alternates: {
     canonical: "/changelog",
   },
   openGraph: {
     title: "RustCode changelog",
     description:
-      "Release notes for RustCode, the orchestration app for coding agents.",
+      "Release notes for RustCode, the agentic development environment (ADE) for coding agents.",
     url: `${siteUrl}/changelog`,
     type: "website",
   },
@@ -36,7 +36,8 @@ export default async function ChangelogPage() {
         <div className="page-head">
           <h1>Changelog</h1>
           <p>
-            Release notes for RustCode, the orchestration app for coding agents.
+            Release notes for RustCode, the agentic development environment
+            (ADE) for coding agents.
           </p>
           <a
             className="text-link"

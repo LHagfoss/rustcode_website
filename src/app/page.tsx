@@ -30,7 +30,7 @@ const structuredData = {
       url: siteUrl,
       image: `${siteUrl}${siteImage}`,
       applicationCategory: "DeveloperApplication",
-      applicationSubCategory: "Coding agent orchestration app",
+      applicationSubCategory: "Agentic development environment (ADE)",
       operatingSystem: "macOS, Linux, Windows",
       license: "https://www.apache.org/licenses/LICENSE-2.0",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -65,18 +65,18 @@ export default async function Home() {
         }}
       />
       <div className="wrap">
-        <section className="orchestration-hero" aria-labelledby="hero-title">
+        <section className="ade-hero" aria-labelledby="hero-title">
           <h1 id="hero-title">
             Your coding agents.
             <br />
-            <span>One desktop app.</span>
+            <span>One development environment.</span>
           </h1>
           <div className="hero-intro">
             <p>
-              RustCode is a local-first orchestration app for coding agents. Run
-              the harnesses you already use, plus our built-in harness, in one
-              desktop GUI. Keep parallel work in view, from the first prompt to
-              the reviewed diff.
+              RustCode is a local-first agentic development environment (ADE).
+              Run the coding agents you already use, plus our built-in harness,
+              in one desktop app. Keep parallel work in view, from the first
+              prompt to the reviewed diff.
             </p>
             <a className="nav-cta" href="#install">
               Install RustCode <span aria-hidden="true">↓</span>
