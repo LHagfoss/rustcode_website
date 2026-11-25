@@ -84,6 +84,15 @@ styled in `src/app/globals.css`.
 - **Changelog:** a two-column ruled list, tag and date on the left, notes with
   square slate bullets on the right.
 
-## ADE landing page
+## Homepage
 
-The homepage leads with a two-line desktop-app headline and full-column real screenshot. A slate caption bar anchors the image. Six ruled harness slots use the logo geometry, with paper identifying the built-in harness. A three-step thread workflow follows; installation comes before a compact secondary terminal link. At mobile widths harness slots become two columns and the workflow stacks.
+Modelled on a centred product-launch layout: a faint grid, floating harness
+tiles (monograms plus the brand mark) around a three-line centred headline, a
+filled blue primary button (`.btn-primary`, the one place a saturated blue is
+used), a source link, then the real desktop screenshot in a 12px-radius frame.
+Below: a six-cell ruled harness row with a checklist footer, two split
+feature sections with small illustrative UI cards (threads + worktrees;
+diff review + approval), an open-source terminal card with real build
+commands beside a checklist, and a centred closing CTA holding the install
+box. Testimonials are deliberately absent: no invented proof. Homepage
+tokens are neutral (near-black `#050506`, `#f5f5f5` text, 8px/12px radii).

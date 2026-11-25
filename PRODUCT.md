@@ -48,7 +48,7 @@ ADE and the installed, optional `rustcode` terminal harness.
 ## Capabilities and Constraints
 
 - Surfaces: the app's landing page (`/`), the terminal harness page (`/tui`),
-  changelog (`/changelog`), install command copy, GitHub star count,
+  changelog (`/changelog`), install command copy, latest-release chip in the header,
   release/version feed from GitHub. `/` is about the desktop app only; the TUI
   has its own page.
 - Desktop app platforms: macOS Apple silicon, Linux x86_64, Windows x64.
@@ -76,9 +76,9 @@ ADE and the installed, optional `rustcode` terminal harness.
 
 - Real screenshots: `public/images/readme-desktop.png` (1163×765),
   `public/images/tui.png` (1078×838, real terminal capture; the README's readme-tui.png is a desktop screenshot), `public/images/rustcode-logo.png`.
-- Live data: GitHub stars, GitHub releases/changelog, Vercel page views.
+- Live data: GitHub releases/changelog (header version chip), Vercel page views.
 - Absences that must not be fabricated: no testimonials, no customer logos, no
-  pricing, no benchmarks, no usage numbers beyond public GitHub stars.
+  pricing, no benchmarks, no usage numbers.
 
 ## Product Principles
 

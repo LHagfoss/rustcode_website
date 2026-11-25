@@ -1,15 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { BrandMark } from "./brand-mark";
-import { GithubStars } from "./github-stars";
 import { PageViews } from "./page-views";
+import { getReleases } from "./releases";
+import { ScrollReveal } from "./scroll-reveal";
 import { githubUrl } from "./site";
-
-const navItems = [
-  { href: "/", label: "App" },
-  { href: "/tui", label: "TUI" },
-  { href: "/changelog", label: "Changelog" },
-] as const;
+import { SiteHeader } from "./site-header";
 
 type FooterLink = {
   href: string;
@@ -48,43 +44,20 @@ const footerColumns: { title: string; links: FooterLink[] }[] = [
   },
 ];
 
-export function SiteFrame({
+export async function SiteFrame({
   current,
   children,
 }: {
   current: "/" | "/tui" | "/changelog";
   children: ReactNode;
 }) {
-  const installHref = current === "/changelog" ? "/#install" : "#install";
+  const { version } = await getReleases().catch(() => ({ version: null }));
 
   return (
     <div className="site-shell">
-      <header className="site-header">
-        <div className="wrap header-inner">
-          <Link className="brand" href="/" aria-label="RustCode home">
-            <BrandMark />
-            <span className="brand-word">RustCode</span>
-          </Link>
-          <nav className="site-nav" aria-label="Main">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={current === item.href ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="header-actions">
-            <GithubStars />
-            <Link className="nav-cta" href={installHref}>
-              Install
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader current={current} version={version} />
       <main className="site-main">{children}</main>
+      <ScrollReveal />
       <footer className="site-footer">
         <div className="wrap footer-main">
           <div className="footer-brand">
