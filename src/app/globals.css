@@ -1938,6 +1938,7 @@ a.product-card:hover .product-link {
 /* app showcase: real screenshots behind tabs */
 
 .showcase {
+  position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: #0b0b0c;
@@ -1946,75 +1947,117 @@ a.product-card:hover .product-link {
     0 40px 120px -40px rgba(74, 101, 119, 0.45);
 }
 
-.showcase-bar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+/* the floating dock: dots, the active one a pill that fills up */
+.showcase-dock {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface);
-}
-
-.showcase-lights {
-  display: flex;
-  gap: 7px;
-}
-
-.showcase-lights span {
-  width: 11px;
-  height: 11px;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(8, 8, 10, 0.74);
+  box-shadow:
+    0 16px 40px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(1.4);
+  transform: translateX(-50%);
 }
 
-.showcase-tabs {
-  display: flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.showcase-tabs button {
+.showcase-dock button {
   position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
   overflow: hidden;
-  padding: 6px 14px;
+  padding: 0;
   border: 0;
-  border-radius: 7px;
+  border-radius: 999px;
   background: transparent;
-  color: var(--muted);
+  color: var(--text);
   font: inherit;
-  font-size: 13px;
-  font-weight: 500;
   cursor: pointer;
   transition:
-    color 180ms ease,
-    background-color 180ms ease;
+    width 560ms var(--ease-out),
+    background-color 240ms ease;
 }
 
-.showcase-tabs button:hover {
-  color: var(--text);
-}
-
-.showcase-tabs button[aria-selected="true"] {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
-}
-
-/* the active tab fills while it waits to advance */
-.showcase-tabs button[data-auto]::after {
+/* an idle view is a dot */
+.showcase-dock button::before {
   content: "";
   position: absolute;
-  inset: auto 10px 2px;
-  height: 1px;
-  background: var(--accent);
-  transform-origin: 0 50%;
-  animation: tab-fill var(--cycle) linear both;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  transition:
+    opacity 240ms ease,
+    transform 240ms var(--ease-out),
+    background-color 240ms ease;
 }
 
-@keyframes tab-fill {
+.showcase-dock button:hover::before {
+  background: rgba(255, 255, 255, 0.75);
+  transform: scale(1.3);
+}
+
+.showcase-dock button[aria-selected="true"] {
+  width: var(--w, 96px);
+  background: rgba(255, 255, 255, 0.07);
+  cursor: default;
+}
+
+.showcase-dock button[aria-selected="true"]::before {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.showcase-label {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  opacity: 0;
+  filter: blur(4px);
+  transition:
+    opacity 200ms ease,
+    filter 200ms ease;
+}
+
+.showcase-dock button[aria-selected="true"] .showcase-label {
+  opacity: 1;
+  filter: none;
+  transition-delay: 180ms;
+  transition-duration: 380ms;
+}
+
+/* the timer: fills the pill left to right, then the next view comes in */
+.showcase-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(156, 188, 208, 0.06),
+    rgba(156, 188, 208, 0.2)
+  );
+  transform-origin: 0 50%;
+  animation: dock-fill var(--cycle) linear both;
+}
+
+.showcase-dock[data-paused] .showcase-fill {
+  animation-play-state: paused;
+}
+
+@keyframes dock-fill {
   from {
     transform: scaleX(0);
   }
@@ -2023,33 +2066,63 @@ a.product-card:hover .product-link {
   }
 }
 
-.showcase-caption {
-  justify-self: end;
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 12px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .showcase-stage {
   display: grid;
+  overflow: hidden;
+  background: #0b0b0c;
 }
 
+/* every view sits in the same cell; only the incoming and outgoing ones draw */
 .showcase-stage img {
   grid-area: 1 / 1;
   width: 100%;
   height: auto;
   opacity: 0;
-  transform: scale(1.015);
-  transition:
-    opacity 600ms ease,
-    transform 900ms var(--ease-out);
+  visibility: hidden;
 }
 
-.showcase-stage img[data-active] {
+.showcase-stage img[data-state] {
+  visibility: visible;
+}
+
+.showcase-stage img[data-state="idle"] {
   opacity: 1;
-  transform: none;
+}
+
+.showcase-stage img[data-state="in"] {
+  z-index: 1;
+  opacity: 1;
+  animation: view-in var(--swap) var(--ease-out) both;
+}
+
+.showcase-stage img[data-state="out"] {
+  animation: view-out var(--swap) var(--ease-out) both;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir) * 6%)) scale(0.985);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes view-out {
+  from {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--dir) * -4%)) scale(0.97);
+    filter: blur(6px);
+  }
 }
 
 /* sections */
@@ -2557,16 +2630,8 @@ a.product-card:hover .product-link {
     margin-top: 16px;
   }
 
-  .showcase-caption {
-    display: none;
-  }
-
-  .showcase-bar {
-    grid-template-columns: auto 1fr;
-  }
-
-  .showcase-tabs {
-    justify-self: end;
+  .showcase-dock {
+    bottom: 10px;
   }
 }
 
@@ -2605,7 +2670,8 @@ a.product-card:hover .product-link {
 @media (prefers-reduced-motion: reduce) {
   [data-rise],
   .hero-stack-icon,
-  .showcase-tabs button[data-auto]::after,
+  .showcase-fill,
+  .showcase-stage img[data-state],
   .ui-dot.is-run,
   .open-term-body .cursor {
     animation: none;
@@ -2822,7 +2888,9 @@ a.product-card:hover .product-link {
   [data-stagger] > *,
   .feature-visual .ui-connector,
   .feature-visual .ui-approval,
-  .showcase-stage img {
+  .showcase-dock button,
+  .showcase-dock button::before,
+  .showcase-label {
     transition: none;
   }
 
