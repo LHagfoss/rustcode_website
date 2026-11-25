@@ -232,10 +232,10 @@ export default async function TuiPage() {
             <Link className="product-card" href="/">
               <div className="product-media">
                 <Image
-                  src="/images/readme-desktop.png"
+                  src="/images/app-thread.png"
                   alt=""
-                  width={1163}
-                  height={765}
+                  width={3024}
+                  height={1716}
                   sizes="(min-width: 860px) 540px, 100vw"
                 />
               </div>
