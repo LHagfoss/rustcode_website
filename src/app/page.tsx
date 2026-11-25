@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CtaBlock } from "./cta";
+import type { CSSProperties } from "react";
+import { BrandMark } from "./brand-mark";
 import { InstallBox } from "./install-box";
 import { getReleases } from "./releases";
 import {
@@ -46,13 +47,64 @@ const structuredData = {
 };
 
 const harnesses = [
-  ["Claude Code", "Anthropic harness"],
-  ["Codex", "OpenAI harness"],
-  ["Gemini CLI", "Google harness"],
-  ["OpenCode", "Open source harness"],
-  ["Pi", "Open source harness"],
-  ["RustCode", "Built-in harness"],
+  { name: "Claude Code", tag: "anthropic", glyph: "Cc" },
+  { name: "Codex", tag: "openai", glyph: "Cx" },
+  { name: "Gemini CLI", tag: "google", glyph: "Gm" },
+  { name: "OpenCode", tag: "open source", glyph: "Oc" },
+  { name: "Pi", tag: "open source", glyph: "Pi" },
+  { name: "RustCode", tag: "built in", glyph: "rc", own: true },
 ];
+
+// Floating harness tiles around the hero headline: x offset from centre,
+// top, size, rotation, parallax-free entrance delay.
+const floats = [
+  { glyph: "Cc", x: "-560px", y: "150px", s: "76px", r: "-8deg", d: "120ms" },
+  { glyph: "Cx", x: "560px", y: "160px", s: "76px", r: "8deg", d: "200ms" },
+  { glyph: "Gm", x: "-470px", y: "430px", s: "60px", r: "6deg", d: "280ms" },
+  { glyph: "Oc", x: "-280px", y: "40px", s: "50px", r: "-4deg", d: "360ms" },
+  { glyph: "Pi", x: "290px", y: "36px", s: "54px", r: "5deg", d: "440ms" },
+  { glyph: "rc", x: "480px", y: "420px", s: "64px", r: "-6deg", d: "520ms" },
+];
+
+function Check() {
+  return (
+    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+      <path
+        d="M3 8.5l3.2 3L13 4.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function GithubMark() {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+      />
+    </svg>
+  );
+}
+
+function Checklist({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="checklist" data-stagger>
+      {items.map((item) => (
+        <li key={item}>
+          <Check />
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function Home() {
   const { version } = await getReleases().catch(() => ({ version: null }));
   return (
@@ -64,153 +116,388 @@ export default async function Home() {
           __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
         }}
       />
-      <div className="wrap">
-        <section className="ade-hero" aria-labelledby="hero-title">
-          <h1 id="hero-title">
-            Your coding agents.
+
+      <section className="home-hero" aria-labelledby="hero-title">
+        <div className="home-hero-grid" aria-hidden="true" />
+        <div className="home-float" aria-hidden="true">
+          {floats.map((f) => (
+            <span
+              key={f.glyph}
+              className="home-float-mark"
+              style={
+                {
+                  "--x": f.x,
+                  "--y": f.y,
+                  "--s": f.s,
+                  "--rot": f.r,
+                  "--d": f.d,
+                } as CSSProperties
+              }
+            >
+              <span
+                className={`home-float-card${f.glyph === "rc" ? " is-own" : ""}`}
+              >
+                {f.glyph === "rc" ? <BrandMark /> : f.glyph}
+              </span>
+            </span>
+          ))}
+        </div>
+
+        <div className="container home-hero-inner">
+          <h1 id="hero-title" className="display home-title">
+            <span data-rise>The open-source</span>
             <br />
-            <span>One development environment.</span>
+            <span data-rise style={{ "--d": "90ms" } as CSSProperties}>
+              development environment
+            </span>
+            <br />
+            <span data-rise style={{ "--d": "180ms" } as CSSProperties}>
+              for coding agents.
+            </span>
           </h1>
-          <div className="hero-intro">
-            <p>
-              RustCode is a local-first agentic development environment (ADE).
-              Run the coding agents you already use, plus our built-in harness,
-              in one desktop app. Keep parallel work in view, from the first
-              prompt to the reviewed diff.
-            </p>
-            <a className="nav-cta" href="#install">
-              Install RustCode <span aria-hidden="true">↓</span>
+          <p
+            className="home-sub"
+            data-rise
+            style={{ "--d": "300ms" } as CSSProperties}
+          >
+            Run Claude Code, Codex, Gemini CLI, OpenCode, Pi and our own harness
+            side by side in one desktop app. Local-first. No account.
+          </p>
+          <div
+            className="home-actions"
+            data-rise
+            style={{ "--d": "400ms" } as CSSProperties}
+          >
+            <a className="btn btn-primary btn-lg" href="#install" data-hero-cta>
+              <svg
+                viewBox="0 0 16 16"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              >
+                <path
+                  d="M8 2v8.5M4.5 7.5L8 11l3.5-3.5M3 14h10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Install RustCode
             </a>
-          </div>
-        </section>
-        <figure className="desktop-reveal">
-          <div className="reveal-label">
-            <span>RustCode / Desktop</span>
-            <span>Local-first · Apache-2.0</span>
-          </div>
-          <div className="shot-frame">
-            <Image
-              src="/images/readme-desktop.png"
-              alt="RustCode desktop GUI showing project threads, an agent conversation and the prompt composer"
-              width={1163}
-              height={765}
-              sizes="(min-width: 1200px) 1100px, 100vw"
-              priority
-            />
-          </div>
-          <figcaption>
-            One workspace for your threads, conversations and changes.
-          </figcaption>
-        </figure>
-        <section className="harness-section" aria-labelledby="harness-title">
-          <div className="split">
-            <h2 id="harness-title">
-              Keep your harness.
-              <br />
-              Choose it per thread.
-            </h2>
-            <p>
-              Claude Code, Codex, Gemini CLI, OpenCode, Pi or RustCode itself.
-              Each thread gets its own harness, model and effort. Sign in to
-              each agent once, then choose the right setup for the work.
+            <a
+              className="home-source-link"
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GithubMark />
+              Read the source
+              <span aria-hidden="true">↗</span>
+            </a>
+            <p className="home-also">
+              Also in your terminal: <Link href="/tui">rustcode TUI</Link>
             </p>
           </div>
-          <ul className="harness-grid">
-            {harnesses.map(([name, detail]) => (
-              <li key={name}>
-                <span className="harness-block" aria-hidden="true" />
-                <strong>{name}</strong>
-                <span>{detail}</span>
+
+          <div data-rise style={{ "--d": "520ms" } as CSSProperties}>
+            <figure className="home-shot" data-tilt>
+              <Image
+                src="/images/readme-desktop.png"
+                alt="RustCode desktop app showing project threads, an agent conversation and the prompt composer"
+                width={1163}
+                height={765}
+                sizes="(min-width: 1240px) 1180px, 100vw"
+                priority
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="harness-title">
+        <div className="container">
+          <div className="sec-head" data-reveal>
+            <h2 id="harness-title" className="display sec-title">
+              Bring your own harness
+            </h2>
+            <p className="sec-lede">
+              RustCode doesn&apos;t resell tokens. Sign in to the agents you
+              already use, then pick the harness, model and effort for each
+              thread.
+            </p>
+          </div>
+          <ul className="harness-row" data-reveal data-stagger>
+            {harnesses.map((h) => (
+              <li key={h.name} className="harness-cell">
+                <span
+                  className={`harness-glyph${h.own ? " is-own" : ""}`}
+                  aria-hidden="true"
+                >
+                  {h.own ? <BrandMark /> : h.glyph}
+                </span>
+                <span className="harness-meta">
+                  <strong>{h.name}</strong>
+                  <code>{h.tag}</code>
+                </span>
               </li>
             ))}
           </ul>
-        </section>
-        <section className="thread-section" aria-labelledby="thread-title">
-          <div className="split">
-            <h2 id="thread-title">
-              Start a thread.
-              <br />
-              Give it room to work.
-            </h2>
-            <p>
-              One task can become several threads. Agents can start and message
-              other threads, so delegation and fan-out stay connected to the
-              work you are directing.
-            </p>
+          <ul className="harness-foot" data-reveal data-stagger>
+            <li>
+              <Check /> Your subscriptions, your keys.
+            </li>
+            <li>
+              <Check /> Switch harness per thread.
+            </li>
+            <li>
+              <Check /> Threads stay on your machine.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="parallel-title">
+        <div className="container feature">
+          <div className="feature-visual" aria-hidden="true" data-reveal>
+            <div className="card ui-card">
+              <div className="ui-card-head">
+                <span>Threads</span>
+                <span className="ui-dim">rustcode</span>
+              </div>
+              <ul className="ui-threads" data-stagger>
+                <li>
+                  <span className="ui-dot is-run" />
+                  <span className="ui-thread-title">Add release feed</span>
+                  <code>Claude Code · high</code>
+                  <span className="ui-status">Running</span>
+                </li>
+                <li>
+                  <span className="ui-dot is-wait" />
+                  <span className="ui-thread-title">Fix Windows installer</span>
+                  <code>Codex · medium</code>
+                  <span className="ui-status is-wait">Approval</span>
+                </li>
+                <li>
+                  <span className="ui-dot is-ok" />
+                  <span className="ui-thread-title">Write changelog page</span>
+                  <code>RustCode · low</code>
+                  <span className="ui-status is-ok">Ready</span>
+                </li>
+              </ul>
+              <div className="ui-branch">
+                <code>⎇ wt/release-feed</code>
+                <code>⎇ wt/win-installer</code>
+                <code>⎇ wt/changelog</code>
+              </div>
+            </div>
           </div>
-          <ol className="thread-flow">
-            <li>
-              <span>01 / Configure</span>
-              <h3>Pick the harness.</h3>
-              <p>
-                Choose a model and effort for the task. Keep a conversation and
-                its context together in a thread.
-              </p>
-            </li>
-            <li>
-              <span>02 / Run in parallel</span>
-              <h3>Branch the work.</h3>
-              <p>
-                Give a thread its own git worktree. Delegate to other threads
-                without mixing their changes into the same checkout.
-              </p>
-            </li>
-            <li>
-              <span>03 / Review</span>
-              <h3>Stay in the loop.</h3>
-              <p>
-                Handle approval requests, return to per-turn checkpoints and
-                review the diff. Bring the work through review and merge PRs.
-              </p>
-            </li>
-          </ol>
-        </section>
-        <section className="install-section" aria-labelledby="install-title">
-          <div>
-            <h2 id="install-title">
-              On your machine.
+          <div className="feature-copy" data-reveal>
+            <h2 id="parallel-title" className="display sec-title">
+              Parallel threads.
               <br />
-              Under your control.
+              Separate worktrees.
             </h2>
-            <p>
-              Open source under Apache-2.0. Threads, settings and usage live
-              locally. No RustCode account required.
+            <p className="sec-lede">
+              Give each thread its own git worktree, so parallel work never
+              lands in the same checkout. Agents can start and message other
+              threads to fan out a task.
             </p>
-            <p className="platform-note">
-              Desktop: macOS Apple silicon · Linux x86_64 · Windows x64.
-            </p>
+            <Checklist
+              items={[
+                "Harness, model and effort per thread",
+                "One git worktree per thread",
+                "Threads that start and message threads",
+                "Everything in view in one window",
+              ]}
+            />
           </div>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="review-title">
+        <div className="container feature is-reverse">
+          <div className="feature-visual" aria-hidden="true" data-reveal>
+            <div className="card ui-card">
+              <div className="ui-card-head">
+                <span>Fix Windows installer</span>
+                <span className="ui-ok">Ready</span>
+              </div>
+              <p className="ui-sub">
+                <code>⎇ wt/win-installer → main · +42 −9 · 3 turns</code>
+              </p>
+              <ul className="ui-files" data-stagger>
+                <li>
+                  <code>install.ps1</code>
+                  <code>
+                    <em>+31</em> <i>−6</i>
+                  </code>
+                </li>
+                <li>
+                  <code>src/app/install-box.tsx</code>
+                  <code>
+                    <em>+9</em> <i>−3</i>
+                  </code>
+                </li>
+                <li>
+                  <code>README.md</code>
+                  <code>
+                    <em>+2</em> <i>−0</i>
+                  </code>
+                </li>
+              </ul>
+              <div className="ui-card-actions">
+                <span className="ui-btn">Checkpoints</span>
+                <span className="ui-btn">Review diff</span>
+                <span className="ui-btn is-solid">Merge PR</span>
+              </div>
+            </div>
+            <div className="ui-connector" />
+            <div className="ui-approval">
+              <span>
+                Run <code>pwsh ./install.ps1 -DryRun</code>?
+              </span>
+              <span className="ui-btn">Deny</span>
+              <span className="ui-btn is-solid">Approve</span>
+            </div>
+          </div>
+          <div className="feature-copy" data-reveal>
+            <h2 id="review-title" className="display sec-title">
+              Stay in the loop,
+              <br />
+              from prompt to PR.
+            </h2>
+            <p className="sec-lede">
+              Agents ask before they act. Step back to any turn, review the diff
+              and merge the pull request without leaving the app.
+            </p>
+            <Checklist
+              items={[
+                "Approval requests you answer inline",
+                "Per-turn checkpoints to roll back to",
+                "Diff review before anything ships",
+                "Pull requests through review and merge",
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="open-title">
+        <div className="container">
+          <h2
+            id="open-title"
+            className="display sec-title is-center"
+            data-reveal
+          >
+            Don&apos;t like something?
+            <br />
+            Change it.
+          </h2>
+          <div className="open-grid">
+            <div className="card open-term" aria-hidden="true" data-reveal>
+              <div className="open-term-head">
+                <span />
+                <span />
+                <span />
+                <span className="open-term-title">~/code</span>
+              </div>
+              <div className="open-term-body" data-stagger>
+                <div>
+                  <span className="prompt">$</span>git clone
+                  https://github.com/LHagfoss/rustcode
+                </div>
+                <div className="dim">✓ Cloned into ./rustcode</div>
+                <div>
+                  <span className="prompt">$</span>cargo build -p rustcode-tui
+                  --bin rustcode
+                </div>
+                <div className="dim">✓ Finished dev profile</div>
+                <div>
+                  <span className="prompt">$</span>cd apps/desktop &amp;&amp;
+                  bun install
+                </div>
+                <div>
+                  <span className="prompt">$</span>bun tauri dev
+                </div>
+                <div className="dim">▲ RustCode desktop is running</div>
+                <div>
+                  <span className="prompt">$</span>
+                  <span className="cursor" />
+                </div>
+              </div>
+            </div>
+            <div className="card open-side" data-reveal>
+              <ul className="open-list">
+                <li>
+                  <Check />
+                  <span>
+                    <strong>Read every line.</strong> Desktop app, harness and
+                    terminal UI share one Rust core.
+                  </span>
+                </li>
+                <li>
+                  <Check />
+                  <span>
+                    <strong>Keep it local.</strong> Threads, settings and usage
+                    live on your machine.
+                  </span>
+                </li>
+                <li>
+                  <Check />
+                  <span>
+                    <strong>Fork it.</strong> Apache-2.0. No RustCode account
+                    required.
+                  </span>
+                </li>
+              </ul>
+              <p className="open-meta">
+                <code>Apache-2.0 · {version ?? "latest release"}</code>
+              </p>
+              <div className="open-actions">
+                <a
+                  className="btn btn-primary"
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubMark />
+                  Fork on GitHub
+                </a>
+                <Link className="btn btn-ghost" href="/changelog">
+                  Changelog
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec home-cta" aria-labelledby="cta-title">
+        <div className="home-hero-grid" aria-hidden="true" />
+        <div className="container home-cta-inner" data-reveal>
+          <h2 id="cta-title" className="display home-cta-title">
+            Your agents deserve
+            <br />
+            better than a terminal tab.
+          </h2>
+          <p className="home-sub">
+            Free and open source. Install it, sign in to the harnesses you
+            already pay for, and let your agents get to work.
+          </p>
           <InstallBox
             anchor="install"
             version={version}
             note={
               <>
                 Installs the desktop app and the <code>rustcode</code> command.
-                Linux ARM64 gets the command only.
+                macOS Apple silicon · Linux x86_64 · Windows x64.
               </>
             }
           />
-        </section>
-        <aside className="terminal-secondary">
-          <div>
-            <h2>Prefer a terminal?</h2>
-            <p>
-              The optional terminal UI is installed alongside the desktop app.
-              Use the built-in harness inline or fullscreen.
-            </p>
-          </div>
-          <Link className="text-link" href="/tui">
-            Explore the terminal UI →
-          </Link>
-        </aside>
-        <CtaBlock
-          id="home-cta"
-          version={version}
-          title="Put your agents to work."
-          copy="Open a project, start a thread and choose your harness."
-          note={<>Desktop app + optional terminal UI. Free and open source.</>}
-        />
-      </div>
+        </div>
+      </section>
     </SiteFrame>
   );
 }
