@@ -86,10 +86,14 @@ styled in `src/app/globals.css`.
 
 ## Homepage
 
-Modelled on a centred product-launch layout: a faint grid, floating harness
-tiles (monograms plus the brand mark) around a three-line centred headline, a
-filled blue primary button (`.btn-primary`, the one place a saturated blue is
-used), a source link, then the real desktop screenshot in a 12px-radius frame.
+A split hero on a faint grid: on the left a pill with the six harness marks
+stacked (real logos from `harness-icons.tsx`, the same set the desktop app
+bundles) above a left-aligned headline whose last line is muted; on the right
+the subhead, a filled blue primary button (`.btn-primary`, the one place a
+saturated blue is used) and a ghost Source button. Under it, `AppShowcase`: a
+window frame with Threads / Dashboard / Jobs tabs over real app screenshots,
+auto-advancing (a hairline fills under the active tab) until someone picks a
+tab, and still under reduced motion.
 Below: a six-cell ruled harness row with a checklist footer, two split
 feature sections with small illustrative UI cards (threads + worktrees;
 diff review + approval), an open-source terminal card with real build

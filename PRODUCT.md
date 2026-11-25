@@ -68,13 +68,15 @@ ADE and the installed, optional `rustcode` terminal harness.
   blue and warm off-white on near-black, square crisp geometry.
 - Binding from the brief: dark-mode UI, restrained accent, imagery showing the
   desktop ADE (`/`) and the optional terminal harness (`/tui`).
-- Assets: `public/images/rustcode-logo.png` (icon), `readme-desktop.png`
-  (Tauri app screenshot from the main repo), and `tui.png` (terminal harness
+- Assets: `public/images/rustcode-logo.png` (icon), `app-thread.png`,
+  `app-dashboard.png`, `app-jobs.png` (desktop app screenshots), and `tui.png` (terminal harness
   screenshot).
 
 ## Evidence on Hand
 
-- Real screenshots: `public/images/readme-desktop.png` (1163×765),
+- Real screenshots: `public/images/app-{thread,dashboard,jobs}.png`
+  (3024×1716, captured from the desktop app's mock window:
+  `bun run mock-window open` in `apps/desktop` of the main repo),
   `public/images/tui.png` (1078×838, real terminal capture; the README's readme-tui.png is a desktop screenshot), `public/images/rustcode-logo.png`.
 - Live data: GitHub releases/changelog (header version chip), Vercel page views.
 - Absences that must not be fabricated: no testimonials, no customer logos, no

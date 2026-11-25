@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { BrandMark } from "./brand-mark";
+import { AppShowcase } from "./app-showcase";
+import { HarnessIcon, type HarnessId } from "./harness-icons";
 import { InstallBox } from "./install-box";
 import { getReleases } from "./releases";
 import {
@@ -46,24 +46,13 @@ const structuredData = {
   ],
 };
 
-const harnesses = [
-  { name: "Claude Code", tag: "anthropic", glyph: "Cc" },
-  { name: "Codex", tag: "openai", glyph: "Cx" },
-  { name: "Gemini CLI", tag: "google", glyph: "Gm" },
-  { name: "OpenCode", tag: "open source", glyph: "Oc" },
-  { name: "Pi", tag: "open source", glyph: "Pi" },
-  { name: "RustCode", tag: "built in", glyph: "rc", own: true },
-];
-
-// Floating harness tiles around the hero headline: x offset from centre,
-// top, size, rotation, parallax-free entrance delay.
-const floats = [
-  { glyph: "Cc", x: "-560px", y: "150px", s: "76px", r: "-8deg", d: "120ms" },
-  { glyph: "Cx", x: "560px", y: "160px", s: "76px", r: "8deg", d: "200ms" },
-  { glyph: "Gm", x: "-470px", y: "430px", s: "60px", r: "6deg", d: "280ms" },
-  { glyph: "Oc", x: "-280px", y: "40px", s: "50px", r: "-4deg", d: "360ms" },
-  { glyph: "Pi", x: "290px", y: "36px", s: "54px", r: "5deg", d: "440ms" },
-  { glyph: "rc", x: "480px", y: "420px", s: "64px", r: "-6deg", d: "520ms" },
+const harnesses: { id: HarnessId; name: string; tag: string }[] = [
+  { id: "claude", name: "Claude Code", tag: "anthropic" },
+  { id: "codex", name: "Codex", tag: "openai" },
+  { id: "gemini", name: "Gemini CLI", tag: "google" },
+  { id: "opencode", name: "OpenCode", tag: "open source" },
+  { id: "pi", name: "Pi", tag: "open source" },
+  { id: "rustcode", name: "RustCode", tag: "built in" },
 ];
 
 function Check() {
@@ -119,100 +108,91 @@ export default async function Home() {
 
       <section className="home-hero" aria-labelledby="hero-title">
         <div className="home-hero-grid" aria-hidden="true" />
-        <div className="home-float" aria-hidden="true">
-          {floats.map((f) => (
-            <span
-              key={f.glyph}
-              className="home-float-mark"
-              style={
-                {
-                  "--x": f.x,
-                  "--y": f.y,
-                  "--s": f.s,
-                  "--rot": f.r,
-                  "--d": f.d,
-                } as CSSProperties
-              }
-            >
-              <span
-                className={`home-float-card${f.glyph === "rc" ? " is-own" : ""}`}
-              >
-                {f.glyph === "rc" ? <BrandMark /> : f.glyph}
-              </span>
-            </span>
-          ))}
-        </div>
-
         <div className="container home-hero-inner">
-          <h1 id="hero-title" className="display home-title">
-            <span data-rise>The open-source</span>
-            <br />
-            <span data-rise style={{ "--d": "90ms" } as CSSProperties}>
-              development environment
-            </span>
-            <br />
-            <span data-rise style={{ "--d": "180ms" } as CSSProperties}>
-              for coding agents.
-            </span>
-          </h1>
-          <p
-            className="home-sub"
-            data-rise
-            style={{ "--d": "300ms" } as CSSProperties}
-          >
-            Run Claude Code, Codex, Gemini CLI, OpenCode, Pi and our own harness
-            side by side in one desktop app. Local-first. No account.
-          </p>
-          <div
-            className="home-actions"
-            data-rise
-            style={{ "--d": "400ms" } as CSSProperties}
-          >
-            <a className="btn btn-primary btn-lg" href="#install" data-hero-cta>
-              <svg
-                viewBox="0 0 16 16"
-                width="16"
-                height="16"
-                aria-hidden="true"
+          <div className="hero-copy">
+            <p className="hero-eyebrow" data-rise>
+              <span className="hero-stack" aria-hidden="true">
+                {harnesses.map((h, index) => (
+                  <span
+                    key={h.id}
+                    className="hero-stack-icon"
+                    style={{ "--i": index } as CSSProperties}
+                  >
+                    <HarnessIcon id={h.id} />
+                  </span>
+                ))}
+              </span>
+              Six harnesses, one window
+            </p>
+            <h1 id="hero-title" className="display home-title">
+              <span data-rise style={{ "--d": "60ms" } as CSSProperties}>
+                The open-source
+              </span>{" "}
+              <span data-rise style={{ "--d": "140ms" } as CSSProperties}>
+                development environment
+              </span>{" "}
+              <span
+                className="home-title-accent"
+                data-rise
+                style={{ "--d": "220ms" } as CSSProperties}
               >
-                <path
-                  d="M8 2v8.5M4.5 7.5L8 11l3.5-3.5M3 14h10"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Install RustCode
-            </a>
-            <a
-              className="home-source-link"
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <GithubMark />
-              Read the source
-              <span aria-hidden="true">↗</span>
-            </a>
+                for coding agents.
+              </span>
+            </h1>
+          </div>
+          <div
+            className="hero-aside"
+            data-rise
+            style={{ "--d": "320ms" } as CSSProperties}
+          >
+            <p className="home-sub">
+              Run Claude Code, Codex, Gemini CLI, OpenCode, Pi and our own
+              harness side by side in one desktop app. Local-first. No account.
+            </p>
+            <div className="home-actions">
+              <a
+                className="btn btn-primary btn-lg"
+                href="#install"
+                data-hero-cta
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  width="16"
+                  height="16"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M8 2v8.5M4.5 7.5L8 11l3.5-3.5M3 14h10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Install RustCode
+              </a>
+              <a
+                className="btn btn-ghost btn-lg"
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GithubMark />
+                Source
+              </a>
+            </div>
             <p className="home-also">
               Also in your terminal: <Link href="/tui">rustcode TUI</Link>
             </p>
           </div>
-
-          <div data-rise style={{ "--d": "520ms" } as CSSProperties}>
-            <figure className="home-shot" data-tilt>
-              <Image
-                src="/images/readme-desktop.png"
-                alt="RustCode desktop app showing project threads, an agent conversation and the prompt composer"
-                width={1163}
-                height={765}
-                sizes="(min-width: 1240px) 1180px, 100vw"
-                priority
-              />
-            </figure>
-          </div>
+        </div>
+        <div
+          className="container"
+          data-rise
+          style={{ "--d": "460ms" } as CSSProperties}
+        >
+          <AppShowcase />
         </div>
       </section>
 
@@ -231,11 +211,8 @@ export default async function Home() {
           <ul className="harness-row" data-reveal data-stagger>
             {harnesses.map((h) => (
               <li key={h.name} className="harness-cell">
-                <span
-                  className={`harness-glyph${h.own ? " is-own" : ""}`}
-                  aria-hidden="true"
-                >
-                  {h.own ? <BrandMark /> : h.glyph}
+                <span className="harness-glyph" aria-hidden="true">
+                  <HarnessIcon id={h.id} />
                 </span>
                 <span className="harness-meta">
                   <strong>{h.name}</strong>
