@@ -18,16 +18,16 @@ colors:
 typography:
   display:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.8rem, 6.4vw, 5.25rem)"
-    fontWeight: 640
-    lineHeight: 0.98
-    letterSpacing: "-0.04em"
+    fontSize: "clamp(30px, 3.2vw, 40px)"
+    fontWeight: 420
+    lineHeight: 1.18
+    letterSpacing: "-0.025em"
   section-heading:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2rem, 4vw, 3.1rem)"
-    fontWeight: 630
-    lineHeight: 1.02
-    letterSpacing: "-0.035em"
+    fontSize: "clamp(24px, 2.3vw, 28px)"
+    fontWeight: 420
+    lineHeight: 1.25
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "16px"
@@ -36,9 +36,9 @@ typography:
     fontFamily: "Geist Mono, ui-monospace, monospace"
     use: "commands, versions, branch names, platform strings only"
 rounded:
-  small: "2px"
-  control: "4px"
-  panel: "6px"
+  card: "4px"
+  window: "8px"
+  action: "999px"
 ---
 
 # RustCode site design
@@ -57,18 +57,26 @@ styled in `src/app/globals.css`.
   list markers, release bullets and text selection. `--accent` (a lighter
   slate that clears 4.5:1) is for links, the active tab bar, the `$` prompt
   and the copied state. No other hue.
-- **Square corners.** 2px on chips, 4px on controls, 6px on panels and
-  screenshots. No pills.
-- **Rules, not cards.** Sections are divided by 1px hairlines. Feature columns
-  sit in a ruled row; product links are a screenshot plus copy, not a card.
-- **Left-aligned.** Headlines and ledes read from the left edge; the hero
-  pairs the install box with a side column of facts (harnesses, licence,
-  data).
+- **Quiet type.** Headings are regular weight (around 420), small and
+  two-tone: the title in paper, the line under it in `--muted` at the same
+  size. No giant bold display type on the homepage. The layout follows
+  cursor.com/product.
+- **Pills for actions, square for panels.** Buttons and header actions are
+  pills (solid paper, or a 1px outline). Cards are 4px, app windows 8-10px.
+- **Cards with wells.** Feature rows are three cards: title, one muted line,
+  an optional accent link, then a slate-tinted well holding a crop of the app
+  (a mini window or a real screenshot) that runs off its right and bottom
+  edge. Cards share rows through subgrid so the wells line up.
+- **Tinted stage.** The hero screenshot and the install box sit on a full
+  container-width slate gradient panel.
+- **One big wordmark.** The only large type is the footer's "RustCode",
+  full-bleed and cut off at the baseline, filled with a light-to-shadow
+  gradient and a soft white highlight. It is decoration (`aria-hidden`).
+- **Left-aligned.** Every heading and lede reads from the left edge.
 - **Mono only for real code**: commands, versions, branch names, platform
   strings.
-- **One motion moment.** The hero screenshot reveals once on load
-  (clip-path + blur, exponential ease-out). Everything else is short colour
-  transitions. All of it switches off under `prefers-reduced-motion`.
+- **Little motion.** The hero rises in once on load and sections fade up
+  16px as they scroll in. Everything else is short colour transitions. All of it switches off under `prefers-reduced-motion`.
 - **Real product only.** Screenshots from the app and terminal; no mockups,
   testimonials, logos or invented numbers.
 

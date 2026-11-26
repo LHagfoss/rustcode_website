@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/tui.png",
-        width: 1078,
-        height: 838,
+        width: 2400,
+        height: 1800,
         alt: "RustCode running a thread",
       },
     ],
@@ -115,9 +115,9 @@ export default async function TuiPage() {
             <div className="shot-frame">
               <Image
                 src="/images/tui.png"
-                alt="RustCode with a thread open: the chat list on the left and the composer on the right"
-                width={1078}
-                height={838}
+                alt="The rustcode terminal UI finishing a thread: the pull request merged and the worktree cleaned up"
+                width={1200}
+                height={900}
                 sizes="(min-width: 1280px) 1240px, 100vw"
                 priority
               />
@@ -254,8 +254,8 @@ export default async function TuiPage() {
                 <Image
                   src="/images/tui.png"
                   alt=""
-                  width={1078}
-                  height={838}
+                  width={1200}
+                  height={900}
                   sizes="(min-width: 860px) 540px, 100vw"
                 />
               </div>

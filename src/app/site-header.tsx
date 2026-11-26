@@ -35,7 +35,6 @@ export function SiteHeader({
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [heroCtaVisible, setHeroCtaVisible] = useState(current === "/");
   const [open, setOpen] = useState(false);
   const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
 
@@ -64,18 +63,6 @@ export function SiteHeader({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
-
-  // The header's Install button only lights up once the hero's own CTA has
-  // scrolled away, so there is never two primary buttons on screen.
-  useEffect(() => {
-    const target = document.querySelector("[data-hero-cta]");
-    if (!target) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setHeroCtaVisible(entry.isIntersecting),
-    );
-    observer.observe(target);
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -172,11 +159,7 @@ export function SiteHeader({
           >
             <GithubIcon />
           </a>
-          <Link
-            className="nav-cta"
-            href={installHref}
-            data-lit={!heroCtaVisible || undefined}
-          >
+          <Link className="nav-cta" href={installHref}>
             <span>Install</span>
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path

@@ -95,13 +95,9 @@ export async function SiteFrame({
             © {new Date().getFullYear()} RustCode · Apache-2.0
             <PageViews />
           </span>
-          <span className="footer-links">
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-            <Link href="/tui">TUI</Link>
-            <Link href="/changelog">Changelog</Link>
-          </span>
+        </div>
+        <div className="footer-wordmark" aria-hidden="true">
+          RustCode
         </div>
       </footer>
     </div>
