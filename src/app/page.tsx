@@ -1,9 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { AppShowcase } from "./app-showcase";
 import { HarnessIcon, type HarnessId } from "./harness-icons";
 import { InstallBox } from "./install-box";
-import { getReleases } from "./releases";
+import { getReleases, type Release } from "./releases";
 import {
   githubUrl,
   siteDescription,
@@ -47,55 +48,102 @@ const structuredData = {
 };
 
 const harnesses: { id: HarnessId; name: string; tag: string }[] = [
-  { id: "claude", name: "Claude Code", tag: "anthropic" },
-  { id: "codex", name: "Codex", tag: "openai" },
-  { id: "gemini", name: "Gemini CLI", tag: "google" },
-  { id: "opencode", name: "OpenCode", tag: "open source" },
-  { id: "pi", name: "Pi", tag: "open source" },
-  { id: "rustcode", name: "RustCode", tag: "built in" },
+  { id: "claude", name: "Claude Code", tag: "Anthropic" },
+  { id: "codex", name: "Codex", tag: "OpenAI" },
+  { id: "gemini", name: "Gemini CLI", tag: "Google" },
+  { id: "opencode", name: "OpenCode", tag: "Open source" },
+  { id: "pi", name: "Pi", tag: "Open source" },
+  { id: "rustcode", name: "RustCode", tag: "Built in" },
 ];
 
-function Check() {
+type CardLink = { href: string; label: string; external?: boolean };
+
+// A Cursor-style feature card: a title, one muted line, a link and a tinted
+// well holding a small piece of the product. The well's content bleeds off
+// its right and bottom edges, so it reads as a crop of the real app.
+function Card({
+  title,
+  body,
+  link,
+  children,
+}: {
+  title: string;
+  body: string;
+  link?: CardLink;
+  children: ReactNode;
+}) {
   return (
-    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-      <path
-        d="M3 8.5l3.2 3L13 4.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <article className="cx-card">
+      <h3>{title}</h3>
+      <p>{body}</p>
+      {link &&
+        (link.external ? (
+          <a
+            className="cx-link"
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label} <span aria-hidden="true">↗</span>
+          </a>
+        ) : (
+          <Link className="cx-link" href={link.href}>
+            {link.label} <span aria-hidden="true">→</span>
+          </Link>
+        ))}
+      {!link && <span />}
+      <div className="cx-well" aria-hidden="true">
+        {children}
+      </div>
+    </article>
   );
 }
 
-function GithubMark() {
+function Window({
+  title,
+  children,
+  className,
+}: {
+  title?: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-      />
-    </svg>
+    <div className={className ? `cx-win ${className}` : "cx-win"}>
+      <div className="cx-win-bar">
+        <span />
+        <span />
+        <span />
+        {title && <em>{title}</em>}
+      </div>
+      <div className="cx-win-body">{children}</div>
+    </div>
   );
 }
 
-function Checklist({ items }: { items: readonly string[] }) {
+function SectionHead({
+  id,
+  title,
+  sub,
+}: {
+  id: string;
+  title: string;
+  sub: string;
+}) {
   return (
-    <ul className="checklist" data-stagger>
-      {items.map((item) => (
-        <li key={item}>
-          <Check />
-          {item}
-        </li>
-      ))}
-    </ul>
+    <header className="cx-head" data-reveal>
+      <h2 id={id}>{title}</h2>
+      <p>{sub}</p>
+    </header>
   );
 }
 
 export default async function Home() {
-  const { version } = await getReleases().catch(() => ({ version: null }));
+  const { version, releases } = await getReleases().catch(() => ({
+    version: null,
+    releases: [] as Release[],
+  }));
+  const recent = releases.slice(0, 4);
   return (
     <SiteFrame current="/">
       <script
@@ -106,373 +154,387 @@ export default async function Home() {
         }}
       />
 
-      <section className="home-hero" aria-labelledby="hero-title">
-        <div className="home-hero-grid" aria-hidden="true" />
-        <div className="container home-hero-inner">
-          <div className="hero-copy">
-            <p className="hero-eyebrow" data-rise>
-              <span className="hero-stack" aria-hidden="true">
-                {harnesses.map((h, index) => (
-                  <span
-                    key={h.id}
-                    className="hero-stack-icon"
-                    style={{ "--i": index } as CSSProperties}
-                  >
-                    <HarnessIcon id={h.id} />
-                  </span>
-                ))}
-              </span>
-              Six harnesses, one window
-            </p>
-            <h1 id="hero-title" className="display home-title">
-              <span data-rise style={{ "--d": "60ms" } as CSSProperties}>
-                The open-source
-              </span>{" "}
-              <span data-rise style={{ "--d": "140ms" } as CSSProperties}>
-                development environment
-              </span>{" "}
-              <span
-                className="home-title-accent"
-                data-rise
-                style={{ "--d": "220ms" } as CSSProperties}
-              >
-                for coding agents.
-              </span>
-            </h1>
-          </div>
-          <div
-            className="hero-aside"
+      <section className="cx-hero" aria-labelledby="hero-title">
+        <div className="container">
+          <p className="cx-eyebrow" data-rise>
+            Agentic development environment
+          </p>
+          <h1
+            id="hero-title"
+            className="cx-hero-title"
             data-rise
-            style={{ "--d": "320ms" } as CSSProperties}
+            style={{ "--d": "60ms" } as CSSProperties}
           >
-            <p className="home-sub">
-              Run Claude Code, Codex, Gemini CLI, OpenCode, Pi and our own
-              harness side by side in one desktop app. Local-first. No account.
-            </p>
-            <div className="home-actions">
-              <a
-                className="btn btn-primary btn-lg"
-                href="#install"
-                data-hero-cta
-              >
-                <svg
-                  viewBox="0 0 16 16"
-                  width="16"
-                  height="16"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M8 2v8.5M4.5 7.5L8 11l3.5-3.5M3 14h10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                Install RustCode
-              </a>
-              <a
-                className="btn btn-ghost btn-lg"
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubMark />
-                Source
-              </a>
-            </div>
-            <p className="home-also">
-              Also in your terminal: <Link href="/tui">rustcode TUI</Link>
-            </p>
+            Every coding agent, one window
+          </h1>
+          <p
+            className="cx-hero-sub"
+            data-rise
+            style={{ "--d": "120ms" } as CSSProperties}
+          >
+            Run Claude Code, Codex and more side by side, open source and
+            local-first.
+          </p>
+          <div
+            className="cx-actions"
+            data-rise
+            style={{ "--d": "180ms" } as CSSProperties}
+          >
+            <a className="pill pill-solid" href="#install">
+              Install RustCode <span aria-hidden="true">↓</span>
+            </a>
+            <a
+              className="pill pill-line"
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View source <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
         <div
           className="container"
           data-rise
-          style={{ "--d": "460ms" } as CSSProperties}
+          style={{ "--d": "300ms" } as CSSProperties}
         >
-          <AppShowcase />
+          <div className="cx-stage">
+            <AppShowcase />
+          </div>
         </div>
       </section>
 
-      <section className="sec" aria-labelledby="harness-title">
+      <section className="cx-sec" aria-labelledby="harness-title">
         <div className="container">
-          <div className="sec-head" data-reveal>
-            <h2 id="harness-title" className="display sec-title">
-              Bring your own harness
-            </h2>
-            <p className="sec-lede">
-              RustCode doesn&apos;t resell tokens. Sign in to the agents you
-              already use, then pick the harness, model and effort for each
-              thread.
-            </p>
-          </div>
-          <ul className="harness-row" data-reveal data-stagger>
-            {harnesses.map((h) => (
-              <li key={h.name} className="harness-cell">
-                <span className="harness-glyph" aria-hidden="true">
-                  <HarnessIcon id={h.id} />
-                </span>
-                <span className="harness-meta">
-                  <strong>{h.name}</strong>
-                  <code>{h.tag}</code>
-                </span>
-              </li>
-            ))}
-          </ul>
-          <ul className="harness-foot" data-reveal data-stagger>
-            <li>
-              <Check /> Your subscriptions, your keys.
-            </li>
-            <li>
-              <Check /> Switch harness per thread.
-            </li>
-            <li>
-              <Check /> Threads stay on your machine.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="sec" aria-labelledby="parallel-title">
-        <div className="container feature">
-          <div className="feature-visual" aria-hidden="true" data-reveal>
-            <div className="card ui-card">
-              <div className="ui-card-head">
-                <span>Threads</span>
-                <span className="ui-dim">rustcode</span>
-              </div>
-              <ul className="ui-threads" data-stagger>
-                <li>
-                  <span className="ui-dot is-run" />
-                  <span className="ui-thread-title">Add release feed</span>
-                  <code>Claude Code · high</code>
-                  <span className="ui-status">Running</span>
-                </li>
-                <li>
-                  <span className="ui-dot is-wait" />
-                  <span className="ui-thread-title">Fix Windows installer</span>
-                  <code>Codex · medium</code>
-                  <span className="ui-status is-wait">Approval</span>
-                </li>
-                <li>
-                  <span className="ui-dot is-ok" />
-                  <span className="ui-thread-title">Write changelog page</span>
-                  <code>RustCode · low</code>
-                  <span className="ui-status is-ok">Ready</span>
-                </li>
-              </ul>
-              <div className="ui-branch">
-                <code>⎇ wt/release-feed</code>
-                <code>⎇ wt/win-installer</code>
-                <code>⎇ wt/changelog</code>
-              </div>
-            </div>
-          </div>
-          <div className="feature-copy" data-reveal>
-            <h2 id="parallel-title" className="display sec-title">
-              Parallel threads.
-              <br />
-              Separate worktrees.
-            </h2>
-            <p className="sec-lede">
-              Give each thread its own git worktree, so parallel work never
-              lands in the same checkout. Agents can start and message other
-              threads to fan out a task.
-            </p>
-            <Checklist
-              items={[
-                "Harness, model and effort per thread",
-                "One git worktree per thread",
-                "Threads that start and message threads",
-                "Everything in view in one window",
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="sec" aria-labelledby="review-title">
-        <div className="container feature is-reverse">
-          <div className="feature-visual" aria-hidden="true" data-reveal>
-            <div className="card ui-card">
-              <div className="ui-card-head">
-                <span>Fix Windows installer</span>
-                <span className="ui-ok">Ready</span>
-              </div>
-              <p className="ui-sub">
-                <code>⎇ wt/win-installer → main · +42 −9 · 3 turns</code>
-              </p>
-              <ul className="ui-files" data-stagger>
-                <li>
-                  <code>install.ps1</code>
-                  <code>
-                    <em>+31</em> <i>−6</i>
-                  </code>
-                </li>
-                <li>
-                  <code>src/app/install-box.tsx</code>
-                  <code>
-                    <em>+9</em> <i>−3</i>
-                  </code>
-                </li>
-                <li>
-                  <code>README.md</code>
-                  <code>
-                    <em>+2</em> <i>−0</i>
-                  </code>
-                </li>
-              </ul>
-              <div className="ui-card-actions">
-                <span className="ui-btn">Checkpoints</span>
-                <span className="ui-btn">Review diff</span>
-                <span className="ui-btn is-solid">Merge PR</span>
-              </div>
-            </div>
-            <div className="ui-connector" />
-            <div className="ui-approval">
-              <span>
-                Run <code>pwsh ./install.ps1 -DryRun</code>?
-              </span>
-              <span className="ui-btn">Deny</span>
-              <span className="ui-btn is-solid">Approve</span>
-            </div>
-          </div>
-          <div className="feature-copy" data-reveal>
-            <h2 id="review-title" className="display sec-title">
-              Stay in the loop,
-              <br />
-              from prompt to PR.
-            </h2>
-            <p className="sec-lede">
-              Agents ask before they act. Step back to any turn, review the diff
-              and merge the pull request without leaving the app.
-            </p>
-            <Checklist
-              items={[
-                "Approval requests you answer inline",
-                "Per-turn checkpoints to roll back to",
-                "Diff review before anything ships",
-                "Pull requests through review and merge",
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="sec" aria-labelledby="open-title">
-        <div className="container">
-          <h2
-            id="open-title"
-            className="display sec-title is-center"
-            data-reveal
-          >
-            Don&apos;t like something?
-            <br />
-            Change it.
-          </h2>
-          <div className="open-grid">
-            <div className="card open-term" aria-hidden="true" data-reveal>
-              <div className="open-term-head">
-                <span />
-                <span />
-                <span />
-                <span className="open-term-title">~/code</span>
-              </div>
-              <div className="open-term-body" data-stagger>
-                <div>
-                  <span className="prompt">$</span>git clone
-                  https://github.com/LHagfoss/rustcode
-                </div>
-                <div className="dim">✓ Cloned into ./rustcode</div>
-                <div>
-                  <span className="prompt">$</span>cargo build -p rustcode-tui
-                  --bin rustcode
-                </div>
-                <div className="dim">✓ Finished dev profile</div>
-                <div>
-                  <span className="prompt">$</span>cd apps/desktop &amp;&amp;
-                  bun install
-                </div>
-                <div>
-                  <span className="prompt">$</span>bun tauri dev
-                </div>
-                <div className="dim">▲ RustCode desktop is running</div>
-                <div>
-                  <span className="prompt">$</span>
-                  <span className="cursor" />
-                </div>
-              </div>
-            </div>
-            <div className="card open-side" data-reveal>
-              <ul className="open-list">
-                <li>
-                  <Check />
-                  <span>
-                    <strong>Read every line.</strong> Desktop app, harness and
-                    terminal UI share one Rust core.
-                  </span>
-                </li>
-                <li>
-                  <Check />
-                  <span>
-                    <strong>Keep it local.</strong> Threads, settings and usage
-                    live on your machine.
-                  </span>
-                </li>
-                <li>
-                  <Check />
-                  <span>
-                    <strong>Fork it.</strong> Apache-2.0. No RustCode account
-                    required.
-                  </span>
-                </li>
-              </ul>
-              <p className="open-meta">
-                <code>Apache-2.0 · {version ?? "latest release"}</code>
-              </p>
-              <div className="open-actions">
-                <a
-                  className="btn btn-primary"
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GithubMark />
-                  Fork on GitHub
-                </a>
-                <Link className="btn btn-ghost" href="/changelog">
-                  Changelog
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec home-cta" aria-labelledby="cta-title">
-        <div className="home-hero-grid" aria-hidden="true" />
-        <div className="container home-cta-inner" data-reveal>
-          <h2 id="cta-title" className="display home-cta-title">
-            Your agents deserve
-            <br />
-            better than a terminal tab.
-          </h2>
-          <p className="home-sub">
-            Free and open source. Install it, sign in to the harnesses you
-            already pay for, and let your agents get to work.
-          </p>
-          <InstallBox
-            anchor="install"
-            version={version}
-            note={
-              <>
-                Installs the desktop app and the <code>rustcode</code> command.
-                macOS Apple silicon · Linux x86_64 · Windows x64.
-              </>
-            }
+          <SectionHead
+            id="harness-title"
+            title="Bring your own harness"
+            sub="Sign in to the agents you already pay for. RustCode doesn't resell tokens."
           />
+          <div className="cx-grid" data-reveal data-stagger>
+            <Card
+              title="Six harnesses"
+              body="Claude Code, Codex, Gemini CLI, OpenCode, Pi and our own, behind one composer."
+            >
+              <Window title="New thread">
+                <ul className="mx-pick">
+                  {harnesses.map((h, index) => (
+                    <li key={h.id} data-on={index === 0 || undefined}>
+                      <span className="mx-icon">
+                        <HarnessIcon id={h.id} />
+                      </span>
+                      {h.name}
+                      <small>{h.tag}</small>
+                    </li>
+                  ))}
+                </ul>
+              </Window>
+            </Card>
+            <Card
+              title="Model and effort per thread"
+              body="Pick the harness, model and reasoning effort for each thread, not once for the app."
+            >
+              <Window title="Threads">
+                <ul className="mx-rows">
+                  <li>
+                    <span className="mx-dot is-run" />
+                    Add release feed
+                    <small>Claude Code · high</small>
+                  </li>
+                  <li>
+                    <span className="mx-dot is-wait" />
+                    Fix Windows installer
+                    <small>Codex · medium</small>
+                  </li>
+                  <li>
+                    <span className="mx-dot is-ok" />
+                    Write changelog page
+                    <small>RustCode · low</small>
+                  </li>
+                  <li className="is-dim">
+                    <span className="mx-dot" />
+                    Audit dependencies
+                    <small>Gemini CLI · low</small>
+                  </li>
+                </ul>
+              </Window>
+            </Card>
+            <Card
+              title="Desktop or terminal"
+              body="The same threads in the desktop app or in the rustcode terminal UI."
+              link={{ href: "/tui", label: "rustcode TUI" }}
+            >
+              <div className="mx-shot is-fit">
+                <Image
+                  src="/images/tui-card.png"
+                  alt=""
+                  width={640}
+                  height={480}
+                  sizes="(min-width: 1240px) 380px, 90vw"
+                />
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="cx-sec" aria-labelledby="parallel-title">
+        <div className="container">
+          <SectionHead
+            id="parallel-title"
+            title="Run agents in parallel"
+            sub="Each thread gets its own git worktree, so parallel work never lands in the same checkout."
+          />
+          <div className="cx-grid" data-reveal data-stagger>
+            <Card
+              title="One worktree per thread"
+              body="Branches stay apart until you merge them. Nothing collides on disk."
+            >
+              <Window title="Worktrees">
+                <ul className="mx-rows is-mono">
+                  <li>
+                    ⎇ wt/release-feed<small>+128 −14</small>
+                  </li>
+                  <li>
+                    ⎇ wt/win-installer<small>+42 −9</small>
+                  </li>
+                  <li>
+                    ⎇ wt/changelog<small>+77 −0</small>
+                  </li>
+                  <li className="is-dim">
+                    ⎇ main<small>clean</small>
+                  </li>
+                </ul>
+              </Window>
+            </Card>
+            <Card
+              title="Threads that start threads"
+              body="An agent can fan a task out, start other threads and message them as they work."
+            >
+              <Window title="Plan the 1.0 release">
+                <p className="mx-label">Started 3 threads</p>
+                <ul className="mx-rows">
+                  <li>
+                    <span className="mx-dot is-run" />
+                    Draft release notes
+                    <small>Writing</small>
+                  </li>
+                  <li>
+                    <span className="mx-dot is-run" />
+                    Bump versions
+                    <small>Editing</small>
+                  </li>
+                  <li>
+                    <span className="mx-dot is-ok" />
+                    Smoke-test installers
+                    <small>Done</small>
+                  </li>
+                </ul>
+              </Window>
+            </Card>
+            <Card
+              title="Scheduled jobs"
+              body="Agents that run on a schedule, on any of your paired machines."
+            >
+              <div className="mx-shot is-left">
+                <Image
+                  src="/images/app-jobs.png"
+                  alt=""
+                  width={3024}
+                  height={1716}
+                  sizes="(min-width: 1240px) 760px, 180vw"
+                />
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="cx-sec" aria-labelledby="review-title">
+        <div className="container">
+          <SectionHead
+            id="review-title"
+            title="From prompt to pull request"
+            sub="Agents ask before they act. Review every change before it ships."
+          />
+          <div className="cx-grid" data-reveal data-stagger>
+            <Card
+              title="Approvals"
+              body="Commands, edits and reads wait for you. Answer inline and keep going."
+            >
+              <Window title="Fix Windows installer">
+                <p className="mx-text">
+                  The installer exits early on PowerShell 5. I&apos;ll run a dry
+                  run to confirm the fix.
+                </p>
+                <div className="mx-ask">
+                  <p>
+                    Run <code>pwsh ./install.ps1 -DryRun</code>?
+                  </p>
+                  <div>
+                    <span className="mx-btn">Deny</span>
+                    <span className="mx-btn is-solid">Approve</span>
+                  </div>
+                </div>
+              </Window>
+            </Card>
+            <Card
+              title="Checkpoints"
+              body="Every turn is a checkpoint. Step back to any of them if a change goes wrong."
+            >
+              <Window title="Checkpoints">
+                <ul className="mx-rows is-list">
+                  <li>
+                    Reproduce the crash<small>Turn 1</small>
+                  </li>
+                  <li>
+                    Patch the PATH lookup<small>Turn 2</small>
+                  </li>
+                  <li data-on>
+                    Add a dry-run flag<small>Turn 3</small>
+                  </li>
+                  <li className="is-dim">
+                    Update the README<small>Turn 4</small>
+                  </li>
+                </ul>
+              </Window>
+            </Card>
+            <Card
+              title="Review and merge"
+              body="Read the diff, open the pull request and merge it without leaving the app."
+            >
+              <Window title="wt/win-installer → main">
+                <ul className="mx-rows is-mono">
+                  <li>
+                    install.ps1
+                    <small>
+                      <b>+31</b> −6
+                    </small>
+                  </li>
+                  <li>
+                    src/app/install-box.tsx
+                    <small>
+                      <b>+9</b> −3
+                    </small>
+                  </li>
+                  <li>
+                    README.md
+                    <small>
+                      <b>+2</b> −0
+                    </small>
+                  </li>
+                </ul>
+                <div className="mx-actions">
+                  <span className="mx-btn">Review diff</span>
+                  <span className="mx-btn is-solid">Merge PR</span>
+                </div>
+              </Window>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="cx-sec" aria-labelledby="open-title">
+        <div className="container">
+          <SectionHead
+            id="open-title"
+            title="Open source, local-first"
+            sub="Don't like something? Read the code, change it and build your own."
+          />
+          <div className="cx-grid" data-reveal data-stagger>
+            <Card
+              title="Read every line"
+              body="The desktop app, harness and terminal UI share one Rust core."
+              link={{
+                href: githubUrl,
+                label: "Source on GitHub",
+                external: true,
+              }}
+            >
+              <Window title="~/code" className="is-term">
+                <p>
+                  <span>$</span> git clone github.com/LHagfoss/rustcode
+                </p>
+                <p className="is-dim">✓ Cloned into ./rustcode</p>
+                <p>
+                  <span>$</span> cd apps/desktop &amp;&amp; bun install
+                </p>
+                <p>
+                  <span>$</span> bun tauri dev
+                </p>
+                <p className="is-dim">▲ RustCode desktop is running</p>
+              </Window>
+            </Card>
+            <Card
+              title="Keep it local"
+              body="Threads, settings and usage live on your machine. No RustCode account."
+            >
+              <div className="mx-shot is-left">
+                <Image
+                  src="/images/app-dashboard.png"
+                  alt=""
+                  width={3024}
+                  height={1716}
+                  sizes="(min-width: 1240px) 760px, 180vw"
+                />
+              </div>
+            </Card>
+            <Card
+              title="Apache-2.0"
+              body="Fork it, ship it, change it. Every release is on GitHub."
+              link={{ href: "/changelog", label: "Changelog" }}
+            >
+              <Window title="Releases">
+                <ul className="mx-rows is-list">
+                  {recent.length > 0 ? (
+                    recent.map((release, index) => (
+                      <li
+                        key={release.tag}
+                        data-on={index === 0 || undefined}
+                        className={index > 0 ? "is-dim" : undefined}
+                      >
+                        {release.tag}
+                        <small>
+                          {release.publishedAt
+                            ? new Date(release.publishedAt).toLocaleDateString(
+                                "en-US",
+                                { month: "short", day: "numeric" },
+                              )
+                            : ""}
+                        </small>
+                      </li>
+                    ))
+                  ) : (
+                    <li data-on>
+                      Latest release<small>GitHub</small>
+                    </li>
+                  )}
+                </ul>
+              </Window>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="cx-sec cx-final" aria-labelledby="cta-title">
+        <div className="container">
+          <SectionHead
+            id="cta-title"
+            title="Try RustCode now"
+            sub="Free and open source. Sign in to the harnesses you already use."
+          />
+          <div className="cx-stage is-install" data-reveal>
+            <InstallBox
+              anchor="install"
+              version={version}
+              note={
+                <>
+                  Installs the desktop app and the <code>rustcode</code>{" "}
+                  command. macOS Apple silicon · Linux x86_64 · Windows x64.
+                </>
+              }
+            />
+          </div>
         </div>
       </section>
     </SiteFrame>
