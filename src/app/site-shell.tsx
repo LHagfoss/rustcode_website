@@ -19,6 +19,7 @@ const footerColumns: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: "/", label: "Desktop app" },
       { href: "/tui", label: "Terminal harness" },
+      { href: "/docs", label: "Docs" },
       { href: "/changelog", label: "Changelog" },
     ],
   },
@@ -48,7 +49,7 @@ export async function SiteFrame({
   current,
   children,
 }: {
-  current: "/" | "/tui" | "/changelog";
+  current: "/" | "/tui" | "/docs" | "/changelog";
   children: ReactNode;
 }) {
   const { version } = await getReleases().catch(() => ({ version: null }));
