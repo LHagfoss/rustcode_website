@@ -1,5 +1,6 @@
 export const siteUrl = "https://rustcode.lhagfoss.com";
 export const siteName = "RustCode";
+export const siteAlternateNames = ["RustCode ADE", "Rust Code"];
 export const githubUrl = "https://github.com/LHagfoss/rustcode";
 export const siteImage = "/images/app-thread.png";
 export const siteDescription =

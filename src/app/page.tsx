@@ -7,6 +7,7 @@ import { InstallBox } from "./install-box";
 import { getReleases, type Release } from "./releases";
 import {
   githubUrl,
+  siteAlternateNames,
   siteDescription,
   siteImage,
   siteName,
@@ -18,16 +19,30 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: siteName,
+      alternateName: siteAlternateNames,
+      url: siteUrl,
+      logo: `${siteUrl}/images/rustcode-logo.png`,
+      sameAs: [githubUrl],
+    },
+    {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: siteName,
+      alternateName: siteAlternateNames,
       description: siteDescription,
+      publisher: { "@id": `${siteUrl}/#organization` },
     },
     {
       "@type": "SoftwareApplication",
       "@id": `${siteUrl}/#software`,
       name: siteName,
+      alternateName: siteAlternateNames,
+      publisher: { "@id": `${siteUrl}/#organization` },
+      downloadUrl: `${githubUrl}/releases/latest`,
       description: siteDescription,
       url: siteUrl,
       image: `${siteUrl}${siteImage}`,

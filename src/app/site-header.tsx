@@ -8,10 +8,11 @@ import { githubUrl } from "./site";
 const navItems = [
   { href: "/", label: "App" },
   { href: "/tui", label: "TUI" },
+  { href: "/docs", label: "Docs" },
   { href: "/changelog", label: "Changelog" },
 ] as const;
 
-type Current = "/" | "/tui" | "/changelog";
+type Current = "/" | "/tui" | "/docs" | "/changelog";
 
 function GithubIcon() {
   return (
@@ -31,7 +32,8 @@ export function SiteHeader({
   current: Current;
   version: string | null;
 }) {
-  const installHref = current === "/changelog" ? "/#install" : "#install";
+  const installHref =
+    current === "/changelog" || current === "/docs" ? "/#install" : "#install";
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
